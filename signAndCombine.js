@@ -42,13 +42,13 @@ Promise.all(promises).then((responses) => {
     shareIndex: s.shareIndex,
   }));
   console.log("sigShares", sigShares);
-  const signature = LitJsSdk.wasmBlsSdkHelpers.combine_signatures(
-    pkSetAsBytes,
-    sigShares
-  );
-  // console.log("raw sig", signature);
-  console.log(
-    "final signature is ",
-    LitJsSdk.uint8arrayToString(signature, "base16")
-  );
+  // const signature = LitJsSdk.wasmBlsSdkHelpers.combine_signatures(
+  //   pkSetAsBytes,
+  //   sigShares
+  // );
+  // // console.log("raw sig", signature);
+  // console.log(
+  //   "final signature is ",
+  //   LitJsSdk.uint8arrayToString(signature, "base16")
+  // );
 });

@@ -5,7 +5,7 @@
   "license": "MIT",
   "dependencies": {
     "axios": "^0.27.2",
-    "lit-js-sdk": "file:.yalc/lit-js-sdk"
+    "lit-js-sdk": "^1.1.178"
   },
   "type": "module",
   "scripts": {

@@ -7,20 +7,21 @@ const encodedJs = bytes.toString("base64");
 
 console.log("encodedJs", encodedJs);
 
-const handshakeResp = await axios.post(
-  "http://localhost:7470/web/handshake",
-  { clientPublicKey: "test" },
-  { headers: { "Content-Type": "application/json" } }
-);
-// console.log("handshakeResp", handshakeResp.data);
-const { networkPublicKeySet } = handshakeResp.data;
+// need pubkeyset for BLS share combination
+// const handshakeResp = await axios.post(
+//   "http://localhost:7470/web/handshake",
+//   { clientPublicKey: "test" },
+//   { headers: { "Content-Type": "application/json" } }
+// );
+// // console.log("handshakeResp", handshakeResp.data);
+// const { networkPublicKeySet } = handshakeResp.data;
 
-// console.log("networkPublicKeySet", networkPublicKeySet);
+// // console.log("networkPublicKeySet", networkPublicKeySet);
 
-const pkSetAsBytes = LitJsSdk.uint8arrayFromString(
-  networkPublicKeySet,
-  "base16"
-);
+// const pkSetAsBytes = LitJsSdk.uint8arrayFromString(
+//   networkPublicKeySet,
+//   "base16"
+// );
 
 // console.log("pkSetAsBytes", pkSetAsBytes);
 
@@ -28,7 +29,7 @@ const basePort = 7470;
 const promises = [];
 
 for (let i = 0; i < 10; i++) {
-  const url = `http://localhost:${basePort + i}/web/execute`;
+  const url = `http://127.0.0.1:${basePort + i}/web/execute`;
   promises.push(axios.post(url, { js_base64: encodedJs }));
 }
 

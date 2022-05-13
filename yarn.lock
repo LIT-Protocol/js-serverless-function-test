@@ -1156,10 +1156,8 @@ lit-connect-modal@^0.1.8:
   dependencies:
     micromodal "^0.4.10"
 
-lit-js-sdk@^1.1.177:
+"lit-js-sdk@file:.yalc/lit-js-sdk":
   version "1.1.177"
-  resolved "https://registry.yarnpkg.com/lit-js-sdk/-/lit-js-sdk-1.1.177.tgz#7178f2d281834928a5795371bd08729a1c02c889"
-  integrity sha512-G+E2FfZgL670RJDB7lOa+tPpj+smz2g+LpcJmCXwaefD6X0lBSdxi18xf4HpRkItj59r42o0DmplXq1nccsQ4A==
   dependencies:
     "@cosmjs/amino" "^0.28.4"
     "@cosmjs/launchpad" "^0.27.1"

@@ -5,10 +5,11 @@
   "license": "MIT",
   "dependencies": {
     "axios": "^0.27.2",
-    "lit-js-sdk": "^1.1.177"
+    "lit-js-sdk": "file:.yalc/lit-js-sdk"
   },
   "type": "module",
   "scripts": {
-    "go": "node executeOnNode.js"
+    "go": "node executeOnNode.js",
+    "sign": "node signAndCombine.js"
   }
 }

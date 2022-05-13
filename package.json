@@ -1,0 +1,14 @@
+{
+  "name": "jsfunctest",
+  "version": "1.0.0",
+  "main": "index.js",
+  "license": "MIT",
+  "dependencies": {
+    "axios": "^0.27.2",
+    "lit-js-sdk": "^1.1.177"
+  },
+  "type": "module",
+  "scripts": {
+    "go": "node executeOnNode.js"
+  }
+}

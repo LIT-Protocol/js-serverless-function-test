@@ -4923,10 +4923,10 @@ var require_lib4 = __commonJS({
     exports.keccak256 = void 0;
     var js_sha3_1 = __importDefault(require_sha3());
     var bytes_1 = require_lib2();
-    function keccak256(data) {
+    function keccak2562(data) {
       return "0x" + js_sha3_1.default.keccak_256((0, bytes_1.arrayify)(data));
     }
-    exports.keccak256 = keccak256;
+    exports.keccak256 = keccak2562;
   }
 });
 
@@ -13971,6 +13971,7 @@ var require_lib10 = __commonJS({
 
 // signTxnTest.js
 var import_transactions = __toESM(require_lib10(), 1);
+var import_js_sha3 = __toESM(require_sha3(), 1);
 console.log("running!");
 function hexToBytes(hex) {
   for (var bytes = [], c = 0; c < hex.length; c += 2)
@@ -14009,9 +14010,11 @@ var go = async () => {
     chainId: 137
   };
   console.log("txParams", txParams);
-  const rlpEncodedTxn = (0, import_transactions.serialize)(txParams).substr(2);
+  const rlpEncodedTxn = hexToBytes((0, import_transactions.serialize)(txParams).substr(2));
   console.log("rlpEncodedTxn: ", rlpEncodedTxn);
-  const arr = hexToBytes(rlpEncodedTxn);
+  const unsignedTxn = import_js_sha3.keccak256.digest(rlpEncodedTxn);
+  console.log("unsignedTxn: ", unsignedTxn);
+  const arr = unsignedTxn;
   const sig = await Deno.core.opAsync("op_sign_ecdsa", arr);
   console.log("sig: ", sig);
 };

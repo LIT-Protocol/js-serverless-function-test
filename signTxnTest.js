@@ -1,4 +1,5 @@
 import { serialize } from "@ethersproject/transactions";
+import { keccak256 } from "js-sha3";
 
 console.log("running!");
 
@@ -47,11 +48,14 @@ const go = async () => {
   };
   console.log("txParams", txParams);
 
-  const rlpEncodedTxn = serialize(txParams).substr(2);
+  const rlpEncodedTxn = hexToBytes(serialize(txParams).substr(2));
   console.log("rlpEncodedTxn: ", rlpEncodedTxn);
-  // convert msgHash from hex to uint8array
 
-  const arr = hexToBytes(rlpEncodedTxn); //[65, 65, 65]; // this is the string "AAA" for testing
+  // now need to keccak256 the rlpEncodedTxn
+  const unsignedTxn = keccak256.digest(rlpEncodedTxn);
+  console.log("unsignedTxn: ", unsignedTxn);
+
+  const arr = unsignedTxn; //[65, 65, 65]; // this is the string "AAA" for testing
   const sig = await Deno.core.opAsync("op_sign_ecdsa", arr);
   console.log("sig: ", sig);
 };

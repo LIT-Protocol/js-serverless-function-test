@@ -136,8 +136,15 @@ const testTxnSigning = async () => {
   const shares = JSON.stringify(valid_shares);
   console.log("shares is", shares);
   await LitJsSdk.wasmECDSA.initWasmEcdsaSdk(); // init WASM
-  const signature = LitJsSdk.wasmECDSA.combine_signature(R_x, R_y, shares);
-  console.log("raw ecdsav sig", signature);
+  const signature = JSON.parse(
+    LitJsSdk.wasmECDSA.combine_signature(R_x, R_y, shares)
+  );
+  console.log("raw ecdsav sig ", signature);
+
+  const finalSig = `${signature.r}${signature.s}${signature.recid.toString(
+    16
+  )}`;
+  console.log("finalSig: ", finalSig);
 };
 
 // testBlsSigning();

@@ -1,6 +1,7 @@
 import fs from "fs";
 import axios from "axios";
 import LitJsSdk from "lit-js-sdk/build/index.node.js";
+import { serialize } from "@ethersproject/transactions";
 // import LitJsSdk from "lit-js-sdk";
 
 const testBlsSigning = async () => {
@@ -124,27 +125,39 @@ const testTxnSigning = async () => {
     localX: s.localX,
     localY: s.localY,
     publicKey: s.publicKey,
+    dataSigned: s.dataSigned,
   }));
   console.log("sigShares", sigShares);
 
   // R_x & R_y values can come from any node (they will be different per node), and will generate a valid signature
   const R_x = sigShares[0].localX;
   const R_y = sigShares[0].localY;
+  const dataSigned = sigShares[0].dataSigned;
   // the public key can come from any node - it obviously will be identical from each node
   const public_key = sigShares[0].publicKey;
   const valid_shares = sigShares.map((s) => s.shareHex);
   const shares = JSON.stringify(valid_shares);
   console.log("shares is", shares);
   await LitJsSdk.wasmECDSA.initWasmEcdsaSdk(); // init WASM
-  const signature = JSON.parse(
+  const sig = JSON.parse(
     LitJsSdk.wasmECDSA.combine_signature(R_x, R_y, shares)
   );
-  console.log("raw ecdsav sig ", signature);
 
-  const finalSig = `${signature.r}${signature.s}${signature.recid.toString(
-    16
-  )}`;
-  console.log("finalSig: ", finalSig);
+  const encodedSig = `0x${sig.r}${sig.s}${(sig.recid + 27).toString(16)}`;
+  console.log("encodedSig", encodedSig);
+
+  const txParams = {
+    nonce: "0x0",
+    gasPrice: "0x2e90edd000", // 200 gwei
+    gasLimit: "0x" + (30000).toString(16), // 30k gas limit should be enough.  only need 21k to send.
+    to: "0x50e2dac5e78B5905CB09495547452cEE64426db2",
+    value: "0x" + (10000).toString(16),
+    chainId: 137,
+  };
+
+  const txn = serialize(txParams, encodedSig);
+
+  console.log("txn", txn);
 };
 
 // testBlsSigning();

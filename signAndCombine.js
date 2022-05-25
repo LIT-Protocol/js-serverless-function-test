@@ -119,8 +119,8 @@ const testEcdsaSigning = async () => {
   const encodedSig = joinSignature({
     r: "0x" + sig.r,
     s: "0x" + sig.s,
-    // v: sig.recid,
-    v: modifiedRecId,
+    // v: sig.recid, // doesn't work
+    v: modifiedRecId, // works
   });
 
   console.log("encodedSig", encodedSig);

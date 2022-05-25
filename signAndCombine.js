@@ -2,7 +2,8 @@ import fs from "fs";
 import axios from "axios";
 import LitJsSdk from "lit-js-sdk/build/index.node.js";
 import { serialize, recoverAddress } from "@ethersproject/transactions";
-import { hexlify } from "@ethersproject/bytes";
+import { hexlify, splitSignature, hexZeroPad } from "@ethersproject/bytes";
+import { recoverPublicKey } from "@ethersproject/signing-key";
 
 // import LitJsSdk from "lit-js-sdk";
 
@@ -105,7 +106,7 @@ const testTxnSigning = async () => {
   const bytes = fs.readFileSync("./build/signTxnTest.js");
   const encodedJs = bytes.toString("base64");
 
-  console.log("encodedJs", encodedJs);
+  // console.log("encodedJs", encodedJs);
 
   const basePort = 7470;
   const promises = [];
@@ -135,7 +136,7 @@ const testTxnSigning = async () => {
   // R_x & R_y values can come from any node (they will be different per node), and will generate a valid signature
   const R_x = sigShares[0].localX;
   const R_y = sigShares[0].localY;
-  const dataSigned = sigShares[0].dataSigned;
+  const dataSigned = "0x" + sigShares[0].dataSigned;
   // the public key can come from any node - it obviously will be identical from each node
   const public_key = sigShares[0].publicKey;
   const valid_shares = sigShares.map((s) => s.shareHex);
@@ -146,23 +147,48 @@ const testTxnSigning = async () => {
     LitJsSdk.wasmECDSA.combine_signature(R_x, R_y, shares)
   );
 
+  console.log("signature", sig);
+
+  const paddedSig = {
+    r: hexZeroPad("0x" + sig.r, 32),
+    s: hexZeroPad("0x" + sig.s, 32),
+    recId: hexZeroPad(hexlify(sig.recid), 1),
+  };
+  console.log("paddedSig", paddedSig);
+
   // const v = chainId ? sig.recid + (chainId * 2 + 35) : sig.recid + 27;
-  const recIdInHex = hexlify(sig.recid).substring(2);
-  console.log("recIdInHex in hex", recIdInHex);
-  const encodedSig = `0x${sig.r}${sig.s}${recIdInHex}`;
+  // const recIdInHex = hexlify(sig.recid).substring(2);
+  // console.log("recIdInHex in hex", recIdInHex);
+  const encodedSig = `0x${paddedSig.r.substring(2)}${paddedSig.s.substring(
+    2
+  )}${paddedSig.recId.substring(2)}`;
   console.log("encodedSig", encodedSig);
   console.log("sig length in bytes: ", encodedSig.substring(2).length / 2);
+  console.log("dataSigned", dataSigned);
+  const splitSig = splitSignature(encodedSig);
+  console.log("splitSig", splitSig);
 
-  const recoveredAddress = recoverAddress(`0x${dataSigned}`, encodedSig);
+  const recoveredPubkey = recoverPublicKey(dataSigned, encodedSig);
+  console.log("recoveredPubkey", recoveredPubkey);
+  const recoveredAddress = recoverAddress(dataSigned, encodedSig);
   console.log("recoveredAddress", recoveredAddress);
+
+  // const txParams = {
+  //   nonce: "0x0",
+  //   gasPrice: "0x2e90edd000", // 200 gwei
+  //   gasLimit: "0x" + (30000).toString(16), // 30k gas limit should be enough.  only need 21k to send.
+  //   to: "0x50e2dac5e78B5905CB09495547452cEE64426db2",
+  //   value: "0x" + (10000).toString(16),
+  //   chainId,
+  // };
 
   const txParams = {
     nonce: "0x0",
-    gasPrice: "0x2e90edd000", // 200 gwei
-    gasLimit: "0x" + (30000).toString(16), // 30k gas limit should be enough.  only need 21k to send.
+    gasPrice: "0x2e90edd000",
+    gasLimit: "0x7530",
     to: "0x50e2dac5e78B5905CB09495547452cEE64426db2",
-    value: "0x" + (10000).toString(16),
-    chainId,
+    value: "0x2710",
+    chainId: 137,
   };
 
   const txn = serialize(txParams, encodedSig);

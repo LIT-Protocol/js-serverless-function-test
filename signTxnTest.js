@@ -1,4 +1,5 @@
 import { serialize } from "@ethersproject/transactions";
+import { arrayify } from "@ethersproject/bytes";
 import { keccak256 } from "js-sha3";
 
 console.log("running!");
@@ -39,7 +40,7 @@ const go = async () => {
   console.log("latest nonce: ", nonce);
 
   const txParams = {
-    nonce,
+    nonce: "0x0",
     gasPrice: "0x2e90edd000", // 200 gwei
     gasLimit: "0x" + (30000).toString(16), // 30k gas limit should be enough.  only need 21k to send.
     to: "0x50e2dac5e78B5905CB09495547452cEE64426db2",
@@ -48,14 +49,19 @@ const go = async () => {
   };
   console.log("txParams", txParams);
 
-  const rlpEncodedTxn = hexToBytes(serialize(txParams).substring(2));
+  const serializedTx = serialize(txParams);
+  console.log("serializedTx", serializedTx);
+
+  const rlpEncodedTxn = arrayify(serializedTx);
   console.log("rlpEncodedTxn: ", rlpEncodedTxn);
 
-  // now need to keccak256 the rlpEncodedTxn
+  // const unsignedTxn = arrayify("0x" + keccak256(rlpEncodedTxn));
+  // console.log("unsignedTxn: ", unsignedTxn);
+
   const unsignedTxn = keccak256.digest(rlpEncodedTxn);
   console.log("unsignedTxn: ", unsignedTxn);
 
-  const arr = unsignedTxn; //[65, 65, 65]; // this is the string "AAA" for testing
+  const arr = [65, 65, 65]; //unsignedTxn; //[65, 65, 65]; // this is the string "AAA" for testing
   const sig = await Deno.core.opAsync("op_sign_ecdsa", arr);
   console.log("sig: ", sig);
 };

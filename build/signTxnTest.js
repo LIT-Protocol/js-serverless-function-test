@@ -397,7 +397,7 @@ var require_lib2 = __commonJS({
       return true;
     }
     exports.isBytes = isBytes;
-    function arrayify(value, options) {
+    function arrayify2(value, options) {
       if (!options) {
         options = {};
       }
@@ -441,10 +441,10 @@ var require_lib2 = __commonJS({
       }
       return logger.throwArgumentError("invalid arrayify value", "value", value);
     }
-    exports.arrayify = arrayify;
+    exports.arrayify = arrayify2;
     function concat(items) {
       var objects = items.map(function(item) {
-        return arrayify(item);
+        return arrayify2(item);
       });
       var length = objects.reduce(function(accum, item) {
         return accum + item.length;
@@ -458,7 +458,7 @@ var require_lib2 = __commonJS({
     }
     exports.concat = concat;
     function stripZeros(value) {
-      var result = arrayify(value);
+      var result = arrayify2(value);
       if (result.length === 0) {
         return result;
       }
@@ -473,7 +473,7 @@ var require_lib2 = __commonJS({
     }
     exports.stripZeros = stripZeros;
     function zeroPad(value, length) {
-      value = arrayify(value);
+      value = arrayify2(value);
       if (value.length > length) {
         logger.throwArgumentError("value out of range", "value", arguments[0]);
       }
@@ -627,7 +627,7 @@ var require_lib2 = __commonJS({
         compact: "0x"
       };
       if (isBytesLike(signature)) {
-        var bytes = arrayify(signature);
+        var bytes = arrayify2(signature);
         if (bytes.length === 64) {
           result.v = 27 + (bytes[32] >> 7);
           bytes[32] &= 127;
@@ -659,7 +659,7 @@ var require_lib2 = __commonJS({
         result.recoveryParam = signature.recoveryParam;
         result._vs = signature._vs;
         if (result._vs != null) {
-          var vs_1 = zeroPad(arrayify(result._vs), 32);
+          var vs_1 = zeroPad(arrayify2(result._vs), 32);
           result._vs = hexlify(vs_1);
           var recoveryParam = vs_1[0] >= 128 ? 1 : 0;
           if (result.recoveryParam == null) {
@@ -703,7 +703,7 @@ var require_lib2 = __commonJS({
         } else {
           result.s = hexZeroPad(result.s, 32);
         }
-        var vs = arrayify(result.s);
+        var vs = arrayify2(result.s);
         if (vs[0] >= 128) {
           logger.throwArgumentError("signature s out of range", "signature", signature);
         }
@@ -13436,9 +13436,9 @@ var require_elliptic = __commonJS({
   }
 });
 
-// node_modules/@ethersproject/signing-key/lib/elliptic.js
+// node_modules/@ethersproject/transactions/node_modules/@ethersproject/signing-key/lib/elliptic.js
 var require_elliptic2 = __commonJS({
-  "node_modules/@ethersproject/signing-key/lib/elliptic.js"(exports) {
+  "node_modules/@ethersproject/transactions/node_modules/@ethersproject/signing-key/lib/elliptic.js"(exports) {
     "use strict";
     var __importDefault = exports && exports.__importDefault || function(mod) {
       return mod && mod.__esModule ? mod : { "default": mod };
@@ -13451,9 +13451,9 @@ var require_elliptic2 = __commonJS({
   }
 });
 
-// node_modules/@ethersproject/signing-key/lib/_version.js
+// node_modules/@ethersproject/transactions/node_modules/@ethersproject/signing-key/lib/_version.js
 var require_version7 = __commonJS({
-  "node_modules/@ethersproject/signing-key/lib/_version.js"(exports) {
+  "node_modules/@ethersproject/transactions/node_modules/@ethersproject/signing-key/lib/_version.js"(exports) {
     "use strict";
     Object.defineProperty(exports, "__esModule", { value: true });
     exports.version = void 0;
@@ -13461,9 +13461,9 @@ var require_version7 = __commonJS({
   }
 });
 
-// node_modules/@ethersproject/signing-key/lib/index.js
+// node_modules/@ethersproject/transactions/node_modules/@ethersproject/signing-key/lib/index.js
 var require_lib9 = __commonJS({
-  "node_modules/@ethersproject/signing-key/lib/index.js"(exports) {
+  "node_modules/@ethersproject/transactions/node_modules/@ethersproject/signing-key/lib/index.js"(exports) {
     "use strict";
     Object.defineProperty(exports, "__esModule", { value: true });
     exports.computePublicKey = exports.recoverPublicKey = exports.SigningKey = void 0;
@@ -13971,13 +13971,9 @@ var require_lib10 = __commonJS({
 
 // signTxnTest.js
 var import_transactions = __toESM(require_lib10(), 1);
+var import_bytes = __toESM(require_lib2(), 1);
 var import_js_sha3 = __toESM(require_sha3(), 1);
 console.log("running!");
-function hexToBytes(hex) {
-  for (var bytes = [], c = 0; c < hex.length; c += 2)
-    bytes.push(parseInt(hex.substr(c, 2), 16));
-  return bytes;
-}
 var getNonce = async (ethAddress) => {
   const url = "https://polygon-rpc.com";
   const data = {
@@ -14002,7 +13998,7 @@ var go = async () => {
   const nonce = await getNonce(fromAddress);
   console.log("latest nonce: ", nonce);
   const txParams = {
-    nonce,
+    nonce: "0x0",
     gasPrice: "0x2e90edd000",
     gasLimit: "0x" + 3e4 .toString(16),
     to: "0x50e2dac5e78B5905CB09495547452cEE64426db2",
@@ -14010,11 +14006,13 @@ var go = async () => {
     chainId: 137
   };
   console.log("txParams", txParams);
-  const rlpEncodedTxn = hexToBytes((0, import_transactions.serialize)(txParams).substring(2));
+  const serializedTx = (0, import_transactions.serialize)(txParams);
+  console.log("serializedTx", serializedTx);
+  const rlpEncodedTxn = (0, import_bytes.arrayify)(serializedTx);
   console.log("rlpEncodedTxn: ", rlpEncodedTxn);
   const unsignedTxn = import_js_sha3.keccak256.digest(rlpEncodedTxn);
   console.log("unsignedTxn: ", unsignedTxn);
-  const arr = unsignedTxn;
+  const arr = [65, 65, 65];
   const sig = await Deno.core.opAsync("op_sign_ecdsa", arr);
   console.log("sig: ", sig);
 };

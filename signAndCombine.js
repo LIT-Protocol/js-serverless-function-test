@@ -2,8 +2,13 @@ import fs from "fs";
 import axios from "axios";
 import LitJsSdk from "lit-js-sdk/build/index.node.js";
 import { serialize, recoverAddress } from "@ethersproject/transactions";
-import { hexlify, splitSignature, hexZeroPad } from "@ethersproject/bytes";
-import { recoverPublicKey } from "@ethersproject/signing-key";
+import {
+  hexlify,
+  splitSignature,
+  hexZeroPad,
+  joinSignature,
+} from "@ethersproject/bytes";
+import { recoverPublicKey, computePublicKey } from "@ethersproject/signing-key";
 
 // import LitJsSdk from "lit-js-sdk";
 
@@ -86,6 +91,7 @@ const testEcdsaSigning = async () => {
     localX: s.localX,
     localY: s.localY,
     publicKey: s.publicKey,
+    dataSigned: s.dataSigned,
   }));
   console.log("sigShares", sigShares);
 
@@ -93,13 +99,44 @@ const testEcdsaSigning = async () => {
   const R_x = sigShares[0].localX;
   const R_y = sigShares[0].localY;
   // the public key can come from any node - it obviously will be identical from each node
-  const public_key = sigShares[0].publicKey;
-  const valid_shares = sigShares.map((s) => s.shareHex);
-  const shares = JSON.stringify(valid_shares);
+  const publicKey = sigShares[0].publicKey;
+  const dataSigned = "0x" + sigShares[0].dataSigned;
+  const validShares = sigShares.map((s) => s.shareHex);
+  const shares = JSON.stringify(validShares);
   console.log("shares is", shares);
   await LitJsSdk.wasmECDSA.initWasmEcdsaSdk(); // init WASM
-  const signature = LitJsSdk.wasmECDSA.combine_signature(R_x, R_y, shares);
-  console.log("raw ecdsav sig", signature);
+  const sig = JSON.parse(
+    LitJsSdk.wasmECDSA.combine_signature(R_x, R_y, shares)
+  );
+
+  console.log("signature", sig);
+
+  console.log("sig.recid", sig.recid);
+
+  const encodedSig = joinSignature({
+    r: "0x" + sig.r,
+    s: "0x" + sig.s,
+    v: sig.recid,
+  });
+
+  console.log("encodedSig", encodedSig);
+  console.log("sig length in bytes: ", encodedSig.substring(2).length / 2);
+  console.log("dataSigned", dataSigned);
+
+  const recoveredPubkey = recoverPublicKey(dataSigned, encodedSig);
+  console.log("uncompressed recoveredPubkey", recoveredPubkey);
+  const compressedRecoveredPubkey = computePublicKey(recoveredPubkey, true);
+  console.log("compressed recoveredPubkey", compressedRecoveredPubkey);
+  const paddedPubkeyFromNode = hexZeroPad("0x" + publicKey, 33);
+  console.log("padded pubkey from node", paddedPubkeyFromNode);
+  const recoveredAddress = recoverAddress(dataSigned, encodedSig);
+  console.log("recoveredAddress", recoveredAddress);
+
+  if (paddedPubkeyFromNode === compressedRecoveredPubkey) {
+    console.log("pubkey recovered correctly");
+  } else {
+    console.log("bad recovery!!");
+  }
 };
 
 const testTxnSigning = async () => {
@@ -149,19 +186,12 @@ const testTxnSigning = async () => {
 
   console.log("signature", sig);
 
-  const paddedSig = {
-    r: hexZeroPad("0x" + sig.r, 32),
-    s: hexZeroPad("0x" + sig.s, 32),
-    recId: hexZeroPad(hexlify(sig.recid), 1),
-  };
-  console.log("paddedSig", paddedSig);
+  const encodedSig = joinSignature({
+    r: "0x" + sig.r,
+    s: "0x" + sig.s,
+    v: 1, //sig.recid,
+  });
 
-  // const v = chainId ? sig.recid + (chainId * 2 + 35) : sig.recid + 27;
-  // const recIdInHex = hexlify(sig.recid).substring(2);
-  // console.log("recIdInHex in hex", recIdInHex);
-  const encodedSig = `0x${paddedSig.r.substring(2)}${paddedSig.s.substring(
-    2
-  )}${paddedSig.recId.substring(2)}`;
   console.log("encodedSig", encodedSig);
   console.log("sig length in bytes: ", encodedSig.substring(2).length / 2);
   console.log("dataSigned", dataSigned);
@@ -169,7 +199,9 @@ const testTxnSigning = async () => {
   console.log("splitSig", splitSig);
 
   const recoveredPubkey = recoverPublicKey(dataSigned, encodedSig);
-  console.log("recoveredPubkey", recoveredPubkey);
+  console.log("uncompressed recoveredPubkey", recoveredPubkey);
+  const compressedRecoveredPubkey = computePublicKey(recoveredPubkey, true);
+  console.log("compressed recoveredPubkey", compressedRecoveredPubkey);
   const recoveredAddress = recoverAddress(dataSigned, encodedSig);
   console.log("recoveredAddress", recoveredAddress);
 
@@ -197,5 +229,5 @@ const testTxnSigning = async () => {
 };
 
 // testBlsSigning();
-// testEcdsaSigning();
-testTxnSigning();
+testEcdsaSigning();
+// testTxnSigning();

@@ -1,7 +1,9 @@
 import fs from "fs";
 import axios from "axios";
 import LitJsSdk from "lit-js-sdk/build/index.node.js";
-import { serialize } from "@ethersproject/transactions";
+import { serialize, recoverAddress } from "@ethersproject/transactions";
+import { hexlify } from "@ethersproject/bytes";
+
 // import LitJsSdk from "lit-js-sdk";
 
 const testBlsSigning = async () => {
@@ -107,6 +109,7 @@ const testTxnSigning = async () => {
 
   const basePort = 7470;
   const promises = [];
+  const chainId = 137;
 
   for (let i = 0; i < 10; i++) {
     const url = `http://127.0.0.1:${basePort + i}/web/execute`;
@@ -143,8 +146,15 @@ const testTxnSigning = async () => {
     LitJsSdk.wasmECDSA.combine_signature(R_x, R_y, shares)
   );
 
-  const encodedSig = `0x${sig.r}${sig.s}${(sig.recid + 27).toString(16)}`;
+  // const v = chainId ? sig.recid + (chainId * 2 + 35) : sig.recid + 27;
+  const recIdInHex = hexlify(sig.recid).substring(2);
+  console.log("recIdInHex in hex", recIdInHex);
+  const encodedSig = `0x${sig.r}${sig.s}${recIdInHex}`;
   console.log("encodedSig", encodedSig);
+  console.log("sig length in bytes: ", encodedSig.substring(2).length / 2);
+
+  const recoveredAddress = recoverAddress(`0x${dataSigned}`, encodedSig);
+  console.log("recoveredAddress", recoveredAddress);
 
   const txParams = {
     nonce: "0x0",
@@ -152,7 +162,7 @@ const testTxnSigning = async () => {
     gasLimit: "0x" + (30000).toString(16), // 30k gas limit should be enough.  only need 21k to send.
     to: "0x50e2dac5e78B5905CB09495547452cEE64426db2",
     value: "0x" + (10000).toString(16),
-    chainId: 137,
+    chainId,
   };
 
   const txn = serialize(txParams, encodedSig);

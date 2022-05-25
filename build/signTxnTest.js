@@ -13998,7 +13998,7 @@ var getNonce = async (ethAddress) => {
   return nonceResp.result;
 };
 var go = async () => {
-  const fromAddress = "0x97d355846d34ed510d468d57650a38dbd9e3259e";
+  const fromAddress = "0x0F0f3ebDd8752eE938B7d1B40a5877339Fee52d0";
   const nonce = await getNonce(fromAddress);
   console.log("latest nonce: ", nonce);
   const txParams = {
@@ -14010,7 +14010,7 @@ var go = async () => {
     chainId: 137
   };
   console.log("txParams", txParams);
-  const rlpEncodedTxn = hexToBytes((0, import_transactions.serialize)(txParams).substr(2));
+  const rlpEncodedTxn = hexToBytes((0, import_transactions.serialize)(txParams).substring(2));
   console.log("rlpEncodedTxn: ", rlpEncodedTxn);
   const unsignedTxn = import_js_sha3.keccak256.digest(rlpEncodedTxn);
   console.log("unsignedTxn: ", unsignedTxn);

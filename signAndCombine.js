@@ -111,12 +111,16 @@ const testEcdsaSigning = async () => {
 
   console.log("signature", sig);
 
-  console.log("sig.recid", sig.recid);
+  console.log("sig.recid that came from the signature itself", sig.recid);
+
+  let modifiedRecId = sig.recId == 0 ? 1 : 0;
+  console.log("modified recId", modifiedRecId);
 
   const encodedSig = joinSignature({
     r: "0x" + sig.r,
     s: "0x" + sig.s,
-    v: sig.recid,
+    // v: sig.recid,
+    v: modifiedRecId,
   });
 
   console.log("encodedSig", encodedSig);

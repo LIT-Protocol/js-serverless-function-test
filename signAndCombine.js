@@ -69,7 +69,7 @@ const testEcdsaSigning = async () => {
   const bytes = fs.readFileSync("./ecdsaFunctionTest.js");
   const encodedJs = bytes.toString("base64");
 
-  console.log("encodedJs", encodedJs);
+  // console.log("encodedJs", encodedJs);
 
   const basePort = 7470;
   const promises = [];
@@ -81,11 +81,13 @@ const testEcdsaSigning = async () => {
 
   const responses = await Promise.all(promises);
 
-  const signatureShares = responses.map((res) => res.data);
+  const responseData = responses.map((res) => res.data);
+  // console.log("responseData", JSON.stringify(responseData, null, 2));
+  const sig1Shares = responseData.map((r) => r.signedData.sig1);
   // sort the sig shares by share index.  this is important when combining the shares for BLS
-  signatureShares.sort((a, b) => a.shareIndex - b.shareIndex);
+  sig1Shares.sort((a, b) => a.shareIndex - b.shareIndex);
 
-  const sigShares = signatureShares.map((s) => ({
+  const sigShares = sig1Shares.map((s) => ({
     shareHex: s.signatureShare,
     shareIndex: s.shareIndex,
     localX: s.localX,
@@ -113,7 +115,7 @@ const testEcdsaSigning = async () => {
 
   console.log("sig.recid that came from the signature itself", sig.recid);
 
-  let modifiedRecId = sig.recId == 0 ? 1 : 0;
+  let modifiedRecId = sig.recid == 0 ? 1 : 0;
   console.log("modified recId", modifiedRecId);
 
   const encodedSig = joinSignature({

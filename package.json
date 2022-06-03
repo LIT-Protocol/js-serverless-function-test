@@ -18,7 +18,8 @@
   "scripts": {
     "go": "node executeOnNode.js",
     "sign": "yarn build; node signAndCombine.js",
-    "build": "node esbuild.js"
+    "build": "node esbuild.js",
+    "hello": "node helloworld.js"
   },
   "devDependencies": {
     "esbuild": "^0.14.39"

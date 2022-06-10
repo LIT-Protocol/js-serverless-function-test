@@ -159,7 +159,7 @@ const testTxnSigning = async () => {
 
   for (let i = 0; i < 10; i++) {
     const url = `http://127.0.0.1:${basePort + i}/web/execute`;
-    promises.push(axios.post(url, { js_base64: encodedJs }));
+    promises.push(axios.post(url, { code: encodedJs, authSig }));
   }
 
   const responses = await Promise.all(promises);
@@ -237,5 +237,5 @@ const testTxnSigning = async () => {
 };
 
 // testBlsSigning();
-testEcdsaSigning();
-// testTxnSigning();
+// testEcdsaSigning();
+testTxnSigning();

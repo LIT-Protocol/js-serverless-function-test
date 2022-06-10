@@ -17,7 +17,7 @@
   "type": "module",
   "scripts": {
     "go": "node executeOnNode.js",
-    "sign": "yarn build; node signAndCombine.js",
+    "sign": "yarn build; node js-sdkTests/signTxn.js",
     "build": "node esbuild.js",
     "hello": "node helloworld.js"
   },

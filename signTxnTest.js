@@ -61,8 +61,8 @@ const go = async () => {
   const unsignedTxn = keccak256.digest(rlpEncodedTxn);
   console.log("unsignedTxn: ", unsignedTxn);
 
-  const arr = [65, 65, 65]; //unsignedTxn; //[65, 65, 65]; // this is the string "AAA" for testing
-  const sig = await Deno.core.opAsync("op_sign_ecdsa", arr);
+  const toSign = unsignedTxn; //[65, 65, 65]; // this is the string "AAA" for testing
+  const sig = await LitActions.signEcdsa({ toSign, keyId: 1, sigName: "sig1" });
   console.log("sig: ", sig);
 };
 

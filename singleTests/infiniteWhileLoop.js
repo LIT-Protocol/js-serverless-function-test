@@ -6,7 +6,7 @@ const go = async () => {
   // const sigShare = await LitActions.signEcdsa({ toSign, keyId: 1, sigName: "sig1" });
 
   let time = Date.now();
-  while (Date.now() - time < 1000) {
+  while (true) {
     // do nothing
     let curTime = Date.now();
     console.log(

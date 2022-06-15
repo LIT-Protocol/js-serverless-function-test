@@ -1,7 +1,7 @@
 import fs from "fs";
 import axios from "axios";
 
-const bytes = fs.readFileSync("./build/signTxnTest.js");
+const bytes = fs.readFileSync("./singleTests/dos.js");
 const encodedJs = bytes.toString("base64");
 
 // console.log("encodedJs", encodedJs);

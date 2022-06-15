@@ -26,19 +26,8 @@ const go = async () => {
   const litNodeClient = new LitJsSdk.LitNodeClient({
     alertWhenUnauthorized: false,
     minNodeCount: 6,
-    bootstrapUrls: [
-      "http://localhost:7470",
-      "http://localhost:7471",
-      "http://localhost:7472",
-      "http://localhost:7473",
-      "http://localhost:7474",
-      "http://localhost:7475",
-      "http://localhost:7476",
-      "http://localhost:7477",
-      "http://localhost:7478",
-      "http://localhost:7479",
-    ],
     debug: true,
+    litNetwork: "serrano",
   });
   await litNodeClient.connect();
   const signatures = await litNodeClient.executeJs({

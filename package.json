@@ -12,13 +12,14 @@
     "@ethersproject/transactions": "^5.6.0",
     "axios": "^0.27.2",
     "js-sha3": "^0.8.0",
-    "lit-js-sdk": "file:.yalc/lit-js-sdk",
+    "lit-js-sdk": "^1.1.187",
     "serve-handler": "^6.1.3"
   },
   "type": "module",
   "scripts": {
     "go": "node executeOnNode.js",
     "sign": "yarn build; node js-sdkTests/signTxn.js",
+    "signIpfs": "node js-sdkTests/signTxnFromIPFS.js",
     "build": "node esbuild.js",
     "hello": "node helloworld.js"
   },

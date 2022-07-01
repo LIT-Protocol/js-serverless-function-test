@@ -35,22 +35,10 @@ const authSig = {
   address: "0x9D1a5EC58232A894eBFcB5e466E3075b23101B89",
 };
 
-const go = async () => {
+const runLitAction = async () => {
   const litNodeClient = new LitJsSdk.LitNodeClient({
     alertWhenUnauthorized: false,
     minNodeCount: 6,
-    bootstrapUrls: [
-      "http://localhost:7470",
-      "http://localhost:7471",
-      "http://localhost:7472",
-      "http://localhost:7473",
-      "http://localhost:7474",
-      "http://localhost:7475",
-      "http://localhost:7476",
-      "http://localhost:7477",
-      "http://localhost:7478",
-      "http://localhost:7479",
-    ],
     litNetwork: "serrano",
     debug: true,
   });
@@ -86,4 +74,4 @@ const go = async () => {
   console.log("signatures: ", signatures);
 };
 
-go();
+runLitAction();

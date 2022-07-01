@@ -21,7 +21,8 @@
     "sign": "yarn build; node js-sdkTests/signTxn.js",
     "signIpfs": "node js-sdkTests/signTxnFromIPFS.js",
     "build": "node esbuild.js",
-    "hello": "node js-sdkTests/helloworld.js"
+    "hello": "node js-sdkTests/helloworld.js",
+    "conditions": "node js-sdkTests/litConditions.js"
   },
   "devDependencies": {
     "esbuild": "^0.14.39"

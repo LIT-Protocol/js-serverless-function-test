@@ -8,6 +8,11 @@ const go = async () => {
 
   console.log('testResult', testResult)
 
+  // only sign if the access condition is true
+  if (!testResult){
+    return;
+  }
+
   // this is the string "Hello World" for testing
   const toSign = [72, 101, 108, 108, 111, 32, 87, 111, 114, 108, 100];
   // this requests a signature share from the Lit Node
@@ -46,7 +51,7 @@ const go = async () => {
       "http://localhost:7478",
       "http://localhost:7479",
     ],
-    litNetwork: "custom",
+    litNetwork: "serrano",
     debug: true,
   });
   await litNodeClient.connect();
@@ -64,7 +69,7 @@ const go = async () => {
           parameters: [":userAddress", "latest"],
           returnValueTest: {
             comparator: ">=",
-            value: "10000000000000",
+            value: "0",
           },
         },
       ],

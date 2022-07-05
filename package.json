@@ -22,6 +22,7 @@
     "signIpfs": "node js-sdkTests/signTxnFromIPFS.js",
     "build": "node esbuild.js",
     "hello": "node js-sdkTests/helloworld.js",
+    "encoding": "node js-sdkTests/encodingTest.js",
     "conditions": "node js-sdkTests/litConditions.js"
   },
   "devDependencies": {

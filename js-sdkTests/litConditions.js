@@ -37,10 +37,7 @@ const authSig = {
 
 const runLitAction = async () => {
   const litNodeClient = new LitJsSdk.LitNodeClient({
-    alertWhenUnauthorized: false,
-    minNodeCount: 6,
     litNetwork: "serrano",
-    debug: true,
   });
   await litNodeClient.connect();
   const signatures = await litNodeClient.executeJs({

@@ -1,18 +1,6 @@
 import LitJsSdk from "lit-js-sdk/build/index.node.js";
 
-// this code will be run on the node
-const litActionCode = `
-const go = async () => {  
-  // this requests a signature share from the Lit Node
-  // the signature share will be automatically returned in the HTTP response from the node
-  // all the params (toSign, keyId, sigName) are passed in from the LitJsSdk.executeJs() function
-  const decodedData = LitActions.uint8arrayFromString(toSign, 'base64');
-  console.log('decodedData', decodedData);
-  const sigShare = await LitActions.signEcdsa({ toSign: decodedData, keyId , sigName });
-};
-
-go();
-`;
+const ipfsId = "QmeYcfZ1NF8NjESE2q4TEgCpvDtf9UdVcAPjaqnVU5C4pV";
 
 // you need an AuthSig to auth with the nodes
 // normally you would obtain an AuthSig by calling LitJsSdk.checkAndSignAuthMessage({chain})
@@ -28,7 +16,6 @@ const runLitAction = async () => {
   const litNodeClient = new LitJsSdk.LitNodeClient({
     alertWhenUnauthorized: false,
     litNetwork: "custom",
-    debug: true,
     bootstrapUrls: [
       "http://localhost:7470",
       "http://localhost:7471",
@@ -44,15 +31,12 @@ const runLitAction = async () => {
   });
   await litNodeClient.connect();
   const signatures = await litNodeClient.executeJs({
-    code: litActionCode,
+    ipfsId,
     authSig,
     // all jsParams can be used anywhere in your litActionCode
     jsParams: {
       // this is the string "Hello World" for testing
-      toSign: LitJsSdk.uint8arrayToString(
-        Uint8Array.from([72, 101, 108, 108, 111, 32, 87, 111, 114, 108, 100]),
-        "base64"
-      ),
+      toSign: [72, 101, 108, 108, 111, 32, 87, 111, 114, 108, 100],
       keyId:
         "0x0215fac2ee502b4b9354c83f4e57dca7d58acf52dbd1201adb00f464fe613963a2",
       sigName: "sig1",

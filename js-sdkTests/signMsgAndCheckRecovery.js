@@ -1,4 +1,13 @@
 import LitJsSdk from "lit-js-sdk/build/index.node.js";
+import fs from "fs";
+import { serialize, recoverAddress } from "@ethersproject/transactions";
+import {
+  hexlify,
+  splitSignature,
+  hexZeroPad,
+  joinSignature,
+} from "@ethersproject/bytes";
+import { recoverPublicKey, computePublicKey } from "@ethersproject/signing-key";
 
 // this code will be run on the node
 const litActionCode = `
@@ -6,9 +15,7 @@ const go = async () => {
   // this requests a signature share from the Lit Node
   // the signature share will be automatically returned in the HTTP response from the node
   // all the params (toSign, keyId, sigName) are passed in from the LitJsSdk.executeJs() function
-  const decodedData = LitActions.uint8arrayFromString(toSign, 'base64');
-  console.log('decodedData', decodedData);
-  const sigShare = await LitActions.signEcdsa({ toSign: decodedData, keyId , sigName });
+  const sigShare = await LitActions.signEcdsa({ toSign, keyId , sigName });
 };
 
 go();
@@ -24,11 +31,9 @@ const authSig = {
   address: "0x9D1a5EC58232A894eBFcB5e466E3075b23101B89",
 };
 
-const runLitAction = async () => {
+const go = async () => {
   const litNodeClient = new LitJsSdk.LitNodeClient({
-    alertWhenUnauthorized: false,
     litNetwork: "custom",
-    debug: true,
     bootstrapUrls: [
       "http://localhost:7470",
       "http://localhost:7471",
@@ -45,20 +50,36 @@ const runLitAction = async () => {
   await litNodeClient.connect();
   const signatures = await litNodeClient.executeJs({
     code: litActionCode,
-    authSig,
-    // all jsParams can be used anywhere in your litActionCode
     jsParams: {
       // this is the string "Hello World" for testing
-      toSign: LitJsSdk.uint8arrayToString(
-        Uint8Array.from([72, 101, 108, 108, 111, 32, 87, 111, 114, 108, 100]),
-        "base64"
-      ),
+      toSign: [72, 101, 108, 108, 111, 32, 87, 111, 114, 108, 100],
       keyId:
-        "0x0215fac2ee502b4b9354c83f4e57dca7d58acf52dbd1201adb00f464fe613963a2",
+        "0215fac2ee502b4b9354c83f4e57dca7d58acf52dbd1201adb00f464fe613963a2",
       sigName: "sig1",
     },
+    authSig,
   });
   console.log("signatures: ", signatures);
+  const sig = signatures.sig1;
+  const dataSigned = "0x" + sig.dataSigned;
+  const encodedSig = joinSignature({
+    r: "0x" + sig.r,
+    s: "0x" + sig.s,
+    v: sig.recid,
+  });
+
+  console.log("encodedSig", encodedSig);
+  console.log("sig length in bytes: ", encodedSig.substring(2).length / 2);
+  console.log("dataSigned", dataSigned);
+  const splitSig = splitSignature(encodedSig);
+  console.log("splitSig", splitSig);
+
+  const recoveredPubkey = recoverPublicKey(dataSigned, encodedSig);
+  console.log("uncompressed recoveredPubkey", recoveredPubkey);
+  const compressedRecoveredPubkey = computePublicKey(recoveredPubkey, true);
+  console.log("compressed recoveredPubkey", compressedRecoveredPubkey);
+  const recoveredAddress = recoverAddress(dataSigned, encodedSig);
+  console.log("recoveredAddress", recoveredAddress);
 };
 
-runLitAction();
+go();

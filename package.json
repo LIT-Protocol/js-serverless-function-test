@@ -25,7 +25,8 @@
     "helloIpfs": "node js-sdkTests/helloworldFromIPFS.js",
     "encoding": "node js-sdkTests/encodingTest.js",
     "conditions": "node js-sdkTests/litConditions.js",
-    "signAndCheck": "node js-sdkTests/signMsgAndCheckRecovery.js"
+    "signAndCheck": "node js-sdkTests/signMsgAndCheckRecovery.js",
+    "fetch": "node js-sdkTests/fetch.js"
   },
   "devDependencies": {
     "esbuild": "^0.14.39"

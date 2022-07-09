@@ -62,7 +62,11 @@ const go = async () => {
   console.log("unsignedTxn: ", unsignedTxn);
 
   const toSign = unsignedTxn; //[65, 65, 65]; // this is the string "AAA" for testing
-  const sig = await LitActions.signEcdsa({ toSign, keyId: 1, sigName: "sig1" });
+  const sig = await LitActions.signEcdsa({
+    toSign,
+    keyId: "1",
+    sigName: "sig1",
+  });
   console.log("sig: ", sig);
 };
 

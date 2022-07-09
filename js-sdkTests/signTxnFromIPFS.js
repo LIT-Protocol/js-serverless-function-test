@@ -10,7 +10,7 @@ import {
 import { recoverPublicKey, computePublicKey } from "@ethersproject/signing-key";
 
 // this code will be run on the node
-const ipfsId = "QmPRjq7medLpjnFSZaiJ3xUudKteVFQDmaMZuhr644MQ4Z";
+const ipfsId = "QmT6eLju2pE83f2VoA2iW6rb1aySJpy3UwXho5rjPGDgg9";
 
 // you need an AuthSig to auth with the nodes
 // normally you would obtain an AuthSig by calling LitJsSdk.checkAndSignAuthMessage({chain})

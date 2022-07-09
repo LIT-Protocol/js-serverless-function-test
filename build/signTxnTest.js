@@ -11179,7 +11179,11 @@ var go = async () => {
   const unsignedTxn = import_js_sha3.keccak256.digest(rlpEncodedTxn);
   console.log("unsignedTxn: ", unsignedTxn);
   const toSign = unsignedTxn;
-  const sig = await LitActions.signEcdsa({ toSign, keyId: 1, sigName: "sig1" });
+  const sig = await LitActions.signEcdsa({
+    toSign,
+    keyId: "1",
+    sigName: "sig1"
+  });
   console.log("sig: ", sig);
 };
 go();

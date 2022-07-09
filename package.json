@@ -26,7 +26,8 @@
     "encoding": "node js-sdkTests/encodingTest.js",
     "conditions": "node js-sdkTests/litConditions.js",
     "signAndCheck": "node js-sdkTests/signMsgAndCheckRecovery.js",
-    "fetch": "node js-sdkTests/fetch.js"
+    "fetch": "node js-sdkTests/fetch.js",
+    "params": "node js-sdkTests/allTheParams.js"
   },
   "devDependencies": {
     "esbuild": "^0.14.39"

@@ -1,6 +1,6 @@
 import LitJsSdk from "lit-js-sdk/build/index.node.js";
 
-const ipfsId = "QmeYcfZ1NF8NjESE2q4TEgCpvDtf9UdVcAPjaqnVU5C4pV";
+const ipfsId = "Qmb2sJtVLXiNNXnerWB7zjSpAhoM8AxJF2uZsU2iednTtT";
 
 // you need an AuthSig to auth with the nodes
 // normally you would obtain an AuthSig by calling LitJsSdk.checkAndSignAuthMessage({chain})

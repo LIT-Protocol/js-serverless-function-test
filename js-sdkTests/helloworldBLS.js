@@ -6,7 +6,7 @@ const go = async () => {
   // this requests a signature share from the Lit Node
   // the signature share will be automatically returned in the HTTP response from the node
   // all the params (toSign, keyId, sigName) are passed in from the LitJsSdk.executeJs() function
-  const sigShare = await LitActions.signEcdsa({ toSign, keyId, sigName });
+  const sigShare = await LitActions.signBls({ toSign, keyId, sigName });
 };
 
 go();
@@ -25,7 +25,7 @@ const authSig = {
 const runLitAction = async () => {
   const litNodeClient = new LitJsSdk.LitNodeClient({
     alertWhenUnauthorized: false,
-    litNetwork: "serrano",
+    litNetwork: "localhost",
     debug: true,
   });
   await litNodeClient.connect();

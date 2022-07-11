@@ -8,7 +8,6 @@ import {
   joinSignature,
 } from "@ethersproject/bytes";
 import { recoverPublicKey, computePublicKey } from "@ethersproject/signing-key";
-import { verifyMessage } from "@ethersproject/wallet";
 
 // this code will be run on the node
 const litActionCode = `
@@ -16,7 +15,7 @@ const go = async () => {
   // this requests a signature share from the Lit Node
   // the signature share will be automatically returned in the HTTP response from the node
   // all the params (toSign, keyId, sigName) are passed in from the LitJsSdk.executeJs() function
-  const sigShare = await LitActions.ethPersonalSignMessageEcdsa({ message, keyId , sigName });
+  const sigShare = await LitActions.signEcdsa({ toSign, keyId , sigName });
 };
 
 go();
@@ -33,7 +32,6 @@ const authSig = {
 };
 
 const go = async () => {
-  const message = "Hello World";
   const litNodeClient = new LitJsSdk.LitNodeClient({
     litNetwork: "custom",
     bootstrapUrls: [
@@ -54,7 +52,7 @@ const go = async () => {
     code: litActionCode,
     jsParams: {
       // this is the string "Hello World" for testing
-      message,
+      toSign: [72, 101, 108, 108, 111, 32, 87, 111, 114, 108, 100],
       keyId:
         "0215fac2ee502b4b9354c83f4e57dca7d58acf52dbd1201adb00f464fe613963a2",
       sigName: "sig1",
@@ -82,9 +80,6 @@ const go = async () => {
   console.log("compressed recoveredPubkey", compressedRecoveredPubkey);
   const recoveredAddress = recoverAddress(dataSigned, encodedSig);
   console.log("recoveredAddress", recoveredAddress);
-
-  const recoveredAddressViaMessage = verifyMessage(message, encodedSig);
-  console.log("recoveredAddressViaMessage", recoveredAddressViaMessage);
 };
 
 go();

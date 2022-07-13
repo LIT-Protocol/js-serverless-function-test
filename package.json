@@ -30,7 +30,8 @@
     "signRawAndCheck": "node js-sdkTests/signRawAndCheckRecovery.js",
     "signMsgAndCheck": "node js-sdkTests/signMsgAndCheckRecovery.js",
     "fetch": "node js-sdkTests/fetch.js",
-    "params": "node js-sdkTests/allTheParams.js"
+    "params": "node js-sdkTests/allTheParams.js",
+    "multipleSigs": "node js-sdkTests/multipleSigs.js"
   },
   "devDependencies": {
     "esbuild": "^0.14.39"

@@ -50,7 +50,7 @@ const go = async () => {
     ],
   });
   await litNodeClient.connect();
-  const signatures = await litNodeClient.executeJs({
+  const result = await litNodeClient.executeJs({
     code: litActionCode,
     jsParams: {
       // this is the string "Hello World" for testing
@@ -61,6 +61,7 @@ const go = async () => {
     },
     authSig,
   });
+  const signatures = result.signatures;
   console.log("signatures: ", signatures);
   const sig = signatures.sig1;
   const dataSigned = "0x" + sig.dataSigned;

@@ -33,7 +33,8 @@
     "params": "node js-sdkTests/allTheParams.js",
     "multipleSigs": "node js-sdkTests/multipleSigs.js",
     "decrypt": "node js-sdkTests/decrypt.js",
-    "consoleAndResponse": "node js-sdkTests/consoleAndResponse.js"
+    "consoleAndResponse": "node js-sdkTests/consoleAndResponse.js",
+    "debug": "node js-sdkTests/debug.js"
   },
   "devDependencies": {
     "esbuild": "^0.14.39"

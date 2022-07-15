@@ -8,8 +8,15 @@ const go = async () => {
   // and combined into a full signature by the LitJsSdk for you to use on the client
   // all the params (toSign, keyId, sigName) are passed in from the LitJsSdk.executeJs() function
   const sigShare = await LitActions.signEcdsa({ toSign, keyId, sigName });
+
+  console.log('finished signing!  this is a log statement that will show up in the response under the logs key');
+
+  // you can return anything else extra you want in the response
+  const response = JSON.stringify({ signed: "true" });
+  LitActions.setResponse({ response });
 };
 
+console.log('Running go()');
 go();
 `;
 
@@ -26,7 +33,7 @@ const authSig = {
 const runLitAction = async () => {
   const litNodeClient = new LitJsSdk.LitNodeClient({
     alertWhenUnauthorized: false,
-    litNetwork: "serrano",
+    litNetwork: "localhost",
     debug: true,
   });
   await litNodeClient.connect();

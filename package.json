@@ -32,7 +32,8 @@
     "fetch": "node js-sdkTests/fetch.js",
     "params": "node js-sdkTests/allTheParams.js",
     "multipleSigs": "node js-sdkTests/multipleSigs.js",
-    "decrypt": "node js-sdkTests/decrypt.js"
+    "decrypt": "node js-sdkTests/decrypt.js",
+    "consoleAndResponse": "node js-sdkTests/consoleAndResponse.js"
   },
   "devDependencies": {
     "esbuild": "^0.14.39"

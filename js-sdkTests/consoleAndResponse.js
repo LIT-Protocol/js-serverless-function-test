@@ -32,9 +32,7 @@ const authSig = {
 
 const runLitAction = async () => {
   const litNodeClient = new LitJsSdk.LitNodeClient({
-    alertWhenUnauthorized: false,
     litNetwork: "serrano",
-    debug: true,
   });
   await litNodeClient.connect();
   const results = await litNodeClient.executeJs({

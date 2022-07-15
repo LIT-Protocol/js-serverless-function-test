@@ -34,7 +34,9 @@
     "multipleSigs": "node js-sdkTests/multipleSigs.js",
     "decrypt": "node js-sdkTests/decrypt.js",
     "consoleAndResponse": "node js-sdkTests/consoleAndResponse.js",
-    "debug": "node js-sdkTests/debug.js"
+    "debug": "node js-sdkTests/debug.js",
+    "simpleConsole": "node js-sdkTests/simpleConsole.js",
+    "simpleResponse": "node js-sdkTests/simpleResponse.js"
   },
   "devDependencies": {
     "esbuild": "^0.14.39"

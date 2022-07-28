@@ -10,7 +10,7 @@ const signEcdsa = async () => {
       // this is the string "Hello World" for testing
       toSign: [72, 101, 108, 108, 111, 32, 87, 111, 114, 108, 100],
       keyId:
-        "0230f7e5f69a5994c722c789e624bc053fac07e7869fcd5f986b06ac16e380fe48",
+        "037c9a4097a27573bcda94c2824e92b06204e9a94dbed32fd6506b75d55b4e3c7d",
       sigName: "childSig",
     },
   });
@@ -36,7 +36,7 @@ const authSig = {
 const runLitAction = async () => {
   const litNodeClient = new LitJsSdk.LitNodeClient({
     alertWhenUnauthorized: false,
-    litNetwork: "localhost",
+    litNetwork: "serrano",
     debug: true,
   });
   await litNodeClient.connect();

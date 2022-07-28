@@ -44,7 +44,7 @@ const go = async () => {
       // this is the string "Hello World" for testing
       message,
       keyId:
-        "0230f7e5f69a5994c722c789e624bc053fac07e7869fcd5f986b06ac16e380fe48",
+        "037c9a4097a27573bcda94c2824e92b06204e9a94dbed32fd6506b75d55b4e3c7d",
       sigName: "sig1",
     },
     authSig,

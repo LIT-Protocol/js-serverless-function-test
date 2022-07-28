@@ -38,7 +38,7 @@ const runLitAction = async () => {
       // this is the string "Hello World" for testing
       toSign: [72, 101, 108, 108, 111, 32, 87, 111, 114, 108, 100],
       keyId:
-        "0x0215fac2ee502b4b9354c83f4e57dca7d58acf52dbd1201adb00f464fe613963a2",
+        "0230f7e5f69a5994c722c789e624bc053fac07e7869fcd5f986b06ac16e380fe48",
       sigName: "sig1",
     },
   });

@@ -2,15 +2,25 @@ import LitJsSdk from "lit-js-sdk/build/index.node.js";
 
 // this code will be run on the node
 const litActionCode = `
-const go = async () => {
-  // this requests a signature share from the Lit Node
-  // the signature share will be automatically returned in the response from the node
-  // and combined into a full signature by the LitJsSdk for you to use on the client
-  // all the params (toSign, keyId, sigName) are passed in from the LitJsSdk.executeJs() function
-  const sigShare = await LitActions.signEcdsa({ toSign, keyId, sigName });
+const signEcdsa = async () => {
+  // this Lit Action simply requests an ECDSA signature share from the Lit Node
+  const resp = await LitActions.call({
+    ipfsId: "Qmb2sJtVLXiNNXnerWB7zjSpAhoM8AxJF2uZsU2iednTtT",
+    params: {
+      // this is the string "Hello World" for testing
+      toSign: [72, 101, 108, 108, 111, 32, 87, 111, 114, 108, 100],
+      keyId:
+        "0230f7e5f69a5994c722c789e624bc053fac07e7869fcd5f986b06ac16e380fe48",
+      sigName: "childSig",
+    },
+  });
+
+  console.log("results: ", resp);
 };
 
-go();
+if (functionToRun === "signEcdsa") {
+  signEcdsa();
+}
 `;
 
 // you need an AuthSig to auth with the nodes
@@ -35,11 +45,7 @@ const runLitAction = async () => {
     authSig,
     // all jsParams can be used anywhere in your litActionCode
     jsParams: {
-      // this is the string "Hello World" for testing
-      toSign: [72, 101, 108, 108, 111, 32, 87, 111, 114, 108, 100],
-      keyId:
-        "03798a539c18f8209bddb6d79d72a954aad6ce8e24faef231637ed1a8278b419fb",
-      sigName: "sig1",
+      functionToRun: "signEcdsa",
     },
   });
   console.log("results: ", results);

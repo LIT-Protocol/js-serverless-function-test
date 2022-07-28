@@ -35,19 +35,7 @@ const authSig = {
 const go = async () => {
   const message = "Hello World";
   const litNodeClient = new LitJsSdk.LitNodeClient({
-    litNetwork: "custom",
-    bootstrapUrls: [
-      "http://localhost:7470",
-      "http://localhost:7471",
-      "http://localhost:7472",
-      "http://localhost:7473",
-      "http://localhost:7474",
-      "http://localhost:7475",
-      "http://localhost:7476",
-      "http://localhost:7477",
-      "http://localhost:7478",
-      "http://localhost:7479",
-    ],
+    litNetwork: "serrano",
   });
   await litNodeClient.connect();
   const result = await litNodeClient.executeJs({
@@ -56,7 +44,7 @@ const go = async () => {
       // this is the string "Hello World" for testing
       message,
       keyId:
-        "0215fac2ee502b4b9354c83f4e57dca7d58acf52dbd1201adb00f464fe613963a2",
+        "0230f7e5f69a5994c722c789e624bc053fac07e7869fcd5f986b06ac16e380fe48",
       sigName: "sig1",
     },
     authSig,

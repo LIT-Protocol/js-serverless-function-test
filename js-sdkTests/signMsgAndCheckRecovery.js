@@ -15,8 +15,8 @@ const litActionCode = `
 const go = async () => {  
   // this requests a signature share from the Lit Node
   // the signature share will be automatically returned in the HTTP response from the node
-  // all the params (toSign, keyId, sigName) are passed in from the LitJsSdk.executeJs() function
-  const sigShare = await LitActions.ethPersonalSignMessageEcdsa({ message, keyId , sigName });
+  // all the params (toSign, publicKey, sigName) are passed in from the LitJsSdk.executeJs() function
+  const sigShare = await LitActions.ethPersonalSignMessageEcdsa({ message, publicKey , sigName });
 };
 
 go();
@@ -43,7 +43,7 @@ const go = async () => {
     jsParams: {
       // this is the string "Hello World" for testing
       message,
-      keyId:
+      publicKey:
         "037c9a4097a27573bcda94c2824e92b06204e9a94dbed32fd6506b75d55b4e3c7d",
       sigName: "sig1",
     },

@@ -5,7 +5,7 @@ const go = async () => {
   // the signature share will be automatically returned in the HTTP response from the node
   const sigShare = await LitActions.signEcdsa({
     toSign,
-    keyId: 1,
+    publicKey: 1,
     sigName: "sig1",
   });
 };

@@ -5,7 +5,7 @@ const litActionCode = `
 const go = async () => {  
   // this requests a decryption share from the Lit Node
   // the decryption share will be automatically returned in the HTTP response from the node
-  const decryptionShare = await LitActions.decryptBls({ toDecrypt, keyId, decryptionName });
+  const decryptionShare = await LitActions.decryptBls({ toDecrypt, publicKey, decryptionName });
 };
 
 go();
@@ -51,7 +51,7 @@ const runLitAction = async () => {
     authSig,
     jsParams: {
       toDecrypt: Array.from(encryptedSymmetricKey),
-      keyId: "1",
+      publicKey: "1",
       decryptionName: "decryption1",
     },
   });

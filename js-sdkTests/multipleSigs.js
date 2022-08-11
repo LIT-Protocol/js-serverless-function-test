@@ -5,9 +5,9 @@ const litActionCode = `
 const go = async () => {  
   // this requests a signature share from the Lit Node
   // the signature share will be automatically returned in the HTTP response from the node
-  // all the params (toSign, keyId, sigName) are passed in from the LitJsSdk.executeJs() function
-  const sigShare1 = await LitActions.signEcdsa({ toSign: [65, 65, 65], keyId: "1", sigName: "sig1" });
-  const sigShare2 = await LitActions.signEcdsa({ toSign: [66, 66, 66], keyId: "1", sigName: "sig2" });
+  // all the params (toSign, publicKey, sigName) are passed in from the LitJsSdk.executeJs() function
+  const sigShare1 = await LitActions.signEcdsa({ toSign: [65, 65, 65], publicKey: "1", sigName: "sig1" });
+  const sigShare2 = await LitActions.signEcdsa({ toSign: [66, 66, 66], publicKey: "1", sigName: "sig2" });
 };
 
 go();

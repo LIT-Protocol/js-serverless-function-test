@@ -9,7 +9,7 @@ const signEcdsa = async () => {
     params: {
       // this is the string "Hello World" for testing
       toSign: [72, 101, 108, 108, 111, 32, 87, 111, 114, 108, 100],
-      keyId:
+      publicKey:
         "037c9a4097a27573bcda94c2824e92b06204e9a94dbed32fd6506b75d55b4e3c7d",
       sigName: "childSig",
     },

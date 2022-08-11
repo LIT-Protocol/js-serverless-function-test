@@ -45,6 +45,7 @@ const go = async () => {
   const signatures = await litNodeClient.executeJs({
     code: litActionCode,
     authSig,
+    jsParams: {},
   });
   console.log("signatures: ", signatures);
   const sig = signatures.sig1;

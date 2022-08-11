@@ -10,7 +10,7 @@ import {
 import { recoverPublicKey, computePublicKey } from "@ethersproject/signing-key";
 
 // this code will be run on the node
-const ipfsId = "QmT6eLju2pE83f2VoA2iW6rb1aySJpy3UwXho5rjPGDgg9";
+const ipfsId = "QmYbcCwzLBraGmgoyTKoGHyYRGHYPJi9sAsmuT4XLtNWCA";
 
 // you need an AuthSig to auth with the nodes
 // normally you would obtain an AuthSig by calling LitJsSdk.checkAndSignAuthMessage({chain})
@@ -45,6 +45,7 @@ const go = async () => {
   const signatures = await litNodeClient.executeJs({
     ipfsId,
     authSig,
+    jsParams: {},
   });
   console.log("signatures: ", signatures);
   const sig = signatures.sig1;

@@ -64,7 +64,8 @@ const go = async () => {
   const toSign = unsignedTxn; //[65, 65, 65]; // this is the string "AAA" for testing
   const sig = await LitActions.signEcdsa({
     toSign,
-    publicKey: "1",
+    publicKey:
+      "0x02c55050b2f1a2f3207452f7a662728ed68f6dd17b8060b07d3af09a801b02f3c0",
     sigName: "sig1",
   });
   console.log("sig: ", sig);

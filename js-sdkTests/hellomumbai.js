@@ -26,8 +26,20 @@ const authSig = {
 const runLitAction = async () => {
   const litNodeClient = new LitJsSdk.LitNodeClient({
     alertWhenUnauthorized: false,
-    litNetwork: "serrano",
     debug: true,
+    litNetwork: "custom",
+    bootstrapUrls: [
+      "https://polygon-mumbai.litgateway.com:7470",
+      "https://polygon-mumbai.litgateway.com:7471",
+      "https://polygon-mumbai.litgateway.com:7472",
+      "https://polygon-mumbai.litgateway.com:7473",
+      "https://polygon-mumbai.litgateway.com:7474",
+      "https://polygon-mumbai.litgateway.com:7475",
+      "https://polygon-mumbai.litgateway.com:7476",
+      "https://polygon-mumbai.litgateway.com:7477",
+      "https://polygon-mumbai.litgateway.com:7478",
+      "https://polygon-mumbai.litgateway.com:7479",
+    ],
   });
   await litNodeClient.connect();
   const results = await litNodeClient.executeJs({
@@ -38,7 +50,7 @@ const runLitAction = async () => {
       // this is the string "Hello World" for testing
       toSign: [72, 101, 108, 108, 111, 32, 87, 111, 114, 108, 100],
       publicKey:
-        "0x025e34d804b9ee2457e0595e7e457ba84904a138fef1566ff882d030daba14e32e",
+        "0x03fcbe26124097579632d6dd645739fdf820ef7e528b4e116e47d93fafaf937f51",
       sigName: "sig1",
     },
   });

@@ -37,7 +37,8 @@
     "debug": "node js-sdkTests/debug.js",
     "simpleConsole": "node js-sdkTests/simpleConsole.js",
     "simpleResponse": "node js-sdkTests/simpleResponse.js",
-    "nesting": "node js-sdkTests/nesting.js"
+    "nesting": "node js-sdkTests/nesting.js",
+    "mumbai": "node js-sdkTests/helloworld.js"
   },
   "devDependencies": {
     "esbuild": "^0.14.39"

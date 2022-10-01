@@ -13,7 +13,7 @@
     "@ethersproject/wallet": "^5.6.2",
     "axios": "^0.27.2",
     "js-sha3": "^0.8.0",
-    "lit-js-sdk": "^1.2.7",
+    "lit-js-sdk": "^1.2.14",
     "serve-handler": "^6.1.3"
   },
   "type": "module",
@@ -38,7 +38,7 @@
     "simpleConsole": "node js-sdkTests/simpleConsole.js",
     "simpleResponse": "node js-sdkTests/simpleResponse.js",
     "nesting": "node js-sdkTests/nesting.js",
-    "mumbai": "node js-sdkTests/helloworld.js"
+    "mumbai": "node js-sdkTests/hellomumbai.js"
   },
   "devDependencies": {
     "esbuild": "^0.14.39"

@@ -18,6 +18,7 @@ const runLitAction = async () => {
   const results = await litNodeClient.executeJs({
     code: "LitActions.setResponse({response: JSON.stringify({hello: 'world'})})",
     authSig,
+    jsParams: {},
   });
   console.log("response: ", results.response);
 };

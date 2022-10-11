@@ -11160,7 +11160,7 @@ var getNonce = async (ethAddress) => {
   return nonceResp.result;
 };
 var go = async () => {
-  const fromAddress = "0x0F0f3ebDd8752eE938B7d1B40a5877339Fee52d0";
+  const fromAddress = "0x4cacaeae4678e83316d4b376e9158c548ab0e8dd";
   const nonce = await getNonce(fromAddress);
   console.log("latest nonce: ", nonce);
   const txParams = {
@@ -11181,7 +11181,7 @@ var go = async () => {
   const toSign = unsignedTxn;
   const sig = await LitActions.signEcdsa({
     toSign,
-    publicKey: "0x02c55050b2f1a2f3207452f7a662728ed68f6dd17b8060b07d3af09a801b02f3c0",
+    publicKey: "0x025e34d804b9ee2457e0595e7e457ba84904a138fef1566ff882d030daba14e32e",
     sigName: "sig1"
   });
   console.log("sig: ", sig);

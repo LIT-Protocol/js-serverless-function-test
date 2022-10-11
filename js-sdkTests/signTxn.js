@@ -27,19 +27,7 @@ const go = async () => {
     alertWhenUnauthorized: false,
     minNodeCount: 6,
     debug: true,
-    litNetwork: "custom",
-    bootstrapUrls: [
-      "http://localhost:7470",
-      "http://localhost:7471",
-      "http://localhost:7472",
-      "http://localhost:7473",
-      "http://localhost:7474",
-      "http://localhost:7475",
-      "http://localhost:7476",
-      "http://localhost:7477",
-      "http://localhost:7478",
-      "http://localhost:7479",
-    ],
+    litNetwork: "serrano",
   });
   await litNodeClient.connect();
   const signatures = await litNodeClient.executeJs({

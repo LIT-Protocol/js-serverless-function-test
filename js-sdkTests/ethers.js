@@ -1,13 +1,11 @@
 import LitJsSdk from "lit-js-sdk/build/index.node.js";
+import fs from "fs";
 
 // this code will be run on the node
 const litActionCode = `
 const go = async () => {
-  // this requests a signature share from the Lit Node
-  // the signature share will be automatically returned in the response from the node
-  // and combined into a full signature by the LitJsSdk for you to use on the client
-  // all the params (toSign, publicKey, sigName) are passed in from the LitJsSdk.executeJs() function
-  const sigShare = await LitActions.signEcdsa({ toSign, publicKey, sigName });
+  const val = ethers.utils.formatEther(10000)
+  LitActions.setResponse({response: JSON.stringify({val})})
 };
 
 go();
@@ -23,9 +21,11 @@ const authSig = {
   address: "0x9D1a5EC58232A894eBFcB5e466E3075b23101B89",
 };
 
-const runLitAction = async () => {
+const go = async () => {
   const litNodeClient = new LitJsSdk.LitNodeClient({
     alertWhenUnauthorized: false,
+    minNodeCount: 6,
+    debug: true,
     litNetwork: "custom",
     bootstrapUrls: [
       "http://localhost:7470",
@@ -39,28 +39,15 @@ const runLitAction = async () => {
       "http://localhost:7478",
       "http://localhost:7479",
     ],
-    debug: true,
   });
   await litNodeClient.connect();
   const results = await litNodeClient.executeJs({
     code: litActionCode,
     authSig,
-    // all jsParams can be used anywhere in your litActionCode
-    jsParams: {
-      // this is the string "Hello World" for testing
-      toSign: [72, 101, 108, 108, 111, 32, 87, 111, 114, 108, 100],
-      publicKey:
-        "0x04d4809bd812ac27c5dbeec995cd7959d4e9a8a1feedbc443dc240bfab82d4ec6f6ecc26e70a419f2dcf548f59d300164642470074013229bd413de8187a2840a5",
-      sigName: "sig1",
-      authParams: [
-        {
-          accessToken: "M1Y1WnYnavzmSaZ6p1LBLsNFn2iiu0",
-          authMethodType: 2,
-        },
-      ],
-    },
+    jsParams: {},
   });
+
   console.log("results: ", results);
 };
 
-runLitAction();
+go();

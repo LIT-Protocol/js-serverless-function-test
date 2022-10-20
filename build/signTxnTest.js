@@ -16,6 +16,26 @@ var __copyProps = (to, from, except, desc) => {
   return to;
 };
 var __toESM = (mod, isNodeMode, target) => (target = mod != null ? __create(__getProtoOf(mod)) : {}, __copyProps(isNodeMode || !mod || !mod.__esModule ? __defProp(target, "default", { value: mod, enumerable: true }) : target, mod));
+var __async = (__this, __arguments, generator) => {
+  return new Promise((resolve, reject) => {
+    var fulfilled = (value) => {
+      try {
+        step(generator.next(value));
+      } catch (e) {
+        reject(e);
+      }
+    };
+    var rejected = (value) => {
+      try {
+        step(generator.throw(value));
+      } catch (e) {
+        reject(e);
+      }
+    };
+    var step = (x) => x.done ? resolve(x.value) : Promise.resolve(x.value).then(fulfilled, rejected);
+    step((generator = generator.apply(__this, __arguments)).next());
+  });
+};
 
 // node_modules/@ethersproject/logger/lib/_version.js
 var require_version = __commonJS({
@@ -11140,7 +11160,7 @@ var import_transactions = __toESM(require_lib10(), 1);
 var import_bytes = __toESM(require_lib2(), 1);
 var import_js_sha3 = __toESM(require_sha3(), 1);
 console.log("running!");
-var getNonce = async (ethAddress) => {
+var getNonce = (ethAddress) => __async(void 0, null, function* () {
   const url = "https://polygon-rpc.com";
   const data = {
     jsonrpc: "2.0",
@@ -11148,7 +11168,7 @@ var getNonce = async (ethAddress) => {
     params: [ethAddress, "latest"],
     id: 1
   };
-  const nonceResp = await fetch(url, {
+  const nonceResp = yield fetch(url, {
     method: "POST",
     headers: {
       "Content-Type": "application/json"
@@ -11158,10 +11178,10 @@ var getNonce = async (ethAddress) => {
     console.error("Error:", error);
   });
   return nonceResp.result;
-};
-var go = async () => {
+});
+var go = () => __async(void 0, null, function* () {
   const fromAddress = "0x4cacaeae4678e83316d4b376e9158c548ab0e8dd";
-  const nonce = await getNonce(fromAddress);
+  const nonce = yield getNonce(fromAddress);
   console.log("latest nonce: ", nonce);
   const txParams = {
     nonce: "0x0",
@@ -11179,13 +11199,13 @@ var go = async () => {
   const unsignedTxn = import_js_sha3.keccak256.digest(rlpEncodedTxn);
   console.log("unsignedTxn: ", unsignedTxn);
   const toSign = unsignedTxn;
-  const sig = await LitActions.signEcdsa({
+  const sig = yield LitActions.signEcdsa({
     toSign,
     publicKey: "0x025e34d804b9ee2457e0595e7e457ba84904a138fef1566ff882d030daba14e32e",
     sigName: "sig1"
   });
   console.log("sig: ", sig);
-};
+});
 go();
 /**
  * [js-sha3]{@link https://github.com/emn178/js-sha3}

@@ -10,6 +10,7 @@ const go = async () => {
     sourceRoot: "./",
     platform: "node",
     metafile: true,
+    target: "es6",
     // inject: ["./esbuild-shims.js"],
   });
   // let text = await analyzeMetafile(result.metafile);

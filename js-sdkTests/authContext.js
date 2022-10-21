@@ -3,11 +3,7 @@ import LitJsSdk from "lit-js-sdk/build/index.node.js";
 // this code will be run on the node
 const litActionCode = `
 const go = async () => {
-  // this requests a signature share from the Lit Node
-  // the signature share will be automatically returned in the response from the node
-  // and combined into a full signature by the LitJsSdk for you to use on the client
-  // all the params (toSign, publicKey, sigName) are passed in from the LitJsSdk.executeJs() function
-  const sigShare = await LitActions.signEcdsa({ toSign, publicKey, sigName });
+  Lit.Actions.setResponse({response: JSON.stringify({"Lit.Auth": Lit.Auth})})
 };
 
 go();
@@ -45,6 +41,12 @@ const runLitAction = async () => {
   const results = await litNodeClient.executeJs({
     code: litActionCode,
     authSig,
+    authMethods: [
+      {
+        accessToken: "M1Y1WnYnavzmSaZ6p1LBLsNFn2iiu0",
+        authMethodType: 2,
+      },
+    ],
     // all jsParams can be used anywhere in your litActionCode
     jsParams: {
       // this is the string "Hello World" for testing
@@ -54,7 +56,7 @@ const runLitAction = async () => {
       sigName: "sig1",
     },
   });
-  console.log("results: ", results);
+  console.log("results: ", JSON.stringify(results.response, null, 2));
 };
 
 runLitAction();

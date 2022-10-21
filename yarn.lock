@@ -1549,10 +1549,8 @@ lit-connect-modal@^0.1.8:
   dependencies:
     micromodal "^0.4.10"
 
-lit-js-sdk@^1.2.18:
+"lit-js-sdk@file:.yalc/lit-js-sdk":
   version "1.2.18"
-  resolved "https://registry.yarnpkg.com/lit-js-sdk/-/lit-js-sdk-1.2.18.tgz#03fe466b91c91406496a2456b7d27234f0ddecc5"
-  integrity sha512-ACcW3JCrsUATwHgNqW87tZDk6qCSYcz8vC0MmjQDXZO0dJw437oyPe/7oe9ZVSJlvB/iYw1Lv0Wdyt9mMBwc6Q==
   dependencies:
     "@ethersproject/bytes" "^5.5.0"
     "@ethersproject/contracts" "^5.2.0"

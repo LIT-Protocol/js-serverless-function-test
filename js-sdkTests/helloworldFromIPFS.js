@@ -15,22 +15,10 @@ const authSig = {
 const runLitAction = async () => {
   const litNodeClient = new LitJsSdk.LitNodeClient({
     alertWhenUnauthorized: false,
-    litNetwork: "custom",
-    bootstrapUrls: [
-      "https://polygon-mumbai.litgateway.com:7370",
-      "https://polygon-mumbai.litgateway.com:7371",
-      "https://polygon-mumbai.litgateway.com:7372",
-      "https://polygon-mumbai.litgateway.com:7373",
-      "https://polygon-mumbai.litgateway.com:7374",
-      "https://polygon-mumbai.litgateway.com:7375",
-      "https://polygon-mumbai.litgateway.com:7376",
-      "https://polygon-mumbai.litgateway.com:7377",
-      "https://polygon-mumbai.litgateway.com:7378",
-      "https://polygon-mumbai.litgateway.com:7379",
-    ],
+    litNetwork: "localhost",
   });
   await litNodeClient.connect();
-  const signatures = await litNodeClient.executeJs({
+  const resp = await litNodeClient.executeJs({
     ipfsId,
     authSig,
     // all jsParams can be used anywhere in your litActionCode
@@ -38,11 +26,11 @@ const runLitAction = async () => {
       // this is the string "Hello World" for testing
       toSign: [72, 101, 108, 108, 111, 32, 87, 111, 114, 108, 100],
       publicKey:
-        "0x03fcbe26124097579632d6dd645739fdf820ef7e528b4e116e47d93fafaf937f51",
+        "0x04478d4d175f0f3e310f431224e169329be740db68f8bc224d2b57c3c6fc0e69671b233f570cd452b03431e40e5deac2780b7b68c00536bd7948c2c5de982542a3",
       sigName: "sig1",
     },
   });
-  console.log("signatures: ", signatures);
+  console.log("response: ", resp);
 };
 
 runLitAction();

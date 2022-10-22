@@ -2,15 +2,16 @@ import { build, analyzeMetafile } from "esbuild";
 
 const go = async () => {
   let result = await build({
-    entryPoints: ["./signTxnTest.js"],
+    entryPoints: ["./toBundle.js"],
     bundle: true,
     minify: false,
     sourcemap: false,
-    outfile: "build/signTxnTest.js",
+    outfile: "./bundled.js",
     sourceRoot: "./",
     platform: "node",
     metafile: true,
-    // inject: ["./esbuild-shims.js"],
+    external: ["ethers"],
+    inject: ["./esbuild-shims.js"],
   });
   // let text = await analyzeMetafile(result.metafile);
   // console.log(text);

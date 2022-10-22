@@ -2,7 +2,7 @@
   "version": "v1",
   "packages": {
     "lit-js-sdk": {
-      "signature": "9a81e4570a96872e014224174d6894af",
+      "signature": "e845a67bdd912a9ee1bc60a48abd4f7c",
       "file": true,
       "replaced": "^1.2.18"
     }

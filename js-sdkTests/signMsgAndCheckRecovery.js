@@ -35,7 +35,7 @@ const authSig = {
 const go = async () => {
   const message = "Hello World";
   const litNodeClient = new LitJsSdk.LitNodeClient({
-    litNetwork: "serrano",
+    litNetwork: "localhost",
   });
   await litNodeClient.connect();
   const result = await litNodeClient.executeJs({
@@ -44,7 +44,7 @@ const go = async () => {
       // this is the string "Hello World" for testing
       message,
       publicKey:
-        "037c9a4097a27573bcda94c2824e92b06204e9a94dbed32fd6506b75d55b4e3c7d",
+        "0x04478d4d175f0f3e310f431224e169329be740db68f8bc224d2b57c3c6fc0e69671b233f570cd452b03431e40e5deac2780b7b68c00536bd7948c2c5de982542a3",
       sigName: "sig1",
     },
     authSig,
@@ -52,7 +52,7 @@ const go = async () => {
   const signatures = result.signatures;
   console.log("signatures: ", signatures);
   const sig = signatures.sig1;
-  const dataSigned = "0x" + sig.dataSigned;
+  const dataSigned = sig.dataSigned;
   const encodedSig = joinSignature({
     r: "0x" + sig.r,
     s: "0x" + sig.s,

@@ -14,7 +14,8 @@
     "axios": "^0.27.2",
     "js-sha3": "^0.8.0",
     "lit-js-sdk": "file:.yalc/lit-js-sdk",
-    "serve-handler": "^6.1.3"
+    "serve-handler": "^6.1.3",
+    "siwe": "^1.1.6"
   },
   "type": "module",
   "scripts": {
@@ -41,7 +42,8 @@
     "nesting": "node js-sdkTests/nesting.js",
     "mumbai": "node js-sdkTests/hellomumbai.js",
     "ethers": "node js-sdkTests/ethers.js",
-    "authContext": "node js-sdkTests/authContext.js"
+    "authContext": "node js-sdkTests/authContext.js",
+    "siwe": "cd bundleTests/siwe; node esbuild.js; node siwe.js"
   },
   "devDependencies": {
     "esbuild": "^0.14.39"

@@ -22,19 +22,7 @@ const authSig = {
 const runLitAction = async () => {
   const litNodeClient = new LitJsSdk.LitNodeClient({
     alertWhenUnauthorized: false,
-    litNetwork: "custom",
-    bootstrapUrls: [
-      "http://localhost:7470",
-      "http://localhost:7471",
-      "http://localhost:7472",
-      "http://localhost:7473",
-      "http://localhost:7474",
-      "http://localhost:7475",
-      "http://localhost:7476",
-      "http://localhost:7477",
-      "http://localhost:7478",
-      "http://localhost:7479",
-    ],
+    litNetwork: "mumbai",
     debug: true,
   });
   await litNodeClient.connect();
@@ -42,10 +30,11 @@ const runLitAction = async () => {
     code: litActionCode,
     authSig,
     authMethods: [
-      // { // discord oauth
-      //   accessToken: "M1Y1WnYnavzmSaZ6p1LBLsNFn2iiu0",
-      //   authMethodType: 2,
-      // },
+      {
+        // discord oauth
+        accessToken: "M1Y1WnYnavzmSaZ6p1LBLsNFn2iiu0",
+        authMethodType: 2,
+      },
       {
         // google oauth
         accessToken:
@@ -58,7 +47,7 @@ const runLitAction = async () => {
       // this is the string "Hello World" for testing
       toSign: [72, 101, 108, 108, 111, 32, 87, 111, 114, 108, 100],
       publicKey:
-        "0x04d4809bd812ac27c5dbeec995cd7959d4e9a8a1feedbc443dc240bfab82d4ec6f6ecc26e70a419f2dcf548f59d300164642470074013229bd413de8187a2840a5",
+        "0x0481977a2ca0e52eaa5f0ecd3da4858817bc8bce4d165ae76fbaabf1952348829657d11382a1f37c606329857048033befbde83094ea55d7d7208230485253f304",
       sigName: "sig1",
     },
   });

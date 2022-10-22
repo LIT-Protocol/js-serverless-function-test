@@ -15,7 +15,7 @@ const authSig = {
 const runLitAction = async () => {
   const litNodeClient = new LitJsSdk.LitNodeClient({
     alertWhenUnauthorized: false,
-    litNetwork: "localhost",
+    litNetwork: "mumbai",
   });
   await litNodeClient.connect();
   const resp = await litNodeClient.executeJs({
@@ -26,7 +26,7 @@ const runLitAction = async () => {
       // this is the string "Hello World" for testing
       toSign: [72, 101, 108, 108, 111, 32, 87, 111, 114, 108, 100],
       publicKey:
-        "0x04478d4d175f0f3e310f431224e169329be740db68f8bc224d2b57c3c6fc0e69671b233f570cd452b03431e40e5deac2780b7b68c00536bd7948c2c5de982542a3",
+        "0x0481977a2ca0e52eaa5f0ecd3da4858817bc8bce4d165ae76fbaabf1952348829657d11382a1f37c606329857048033befbde83094ea55d7d7208230485253f304",
       sigName: "sig1",
     },
   });

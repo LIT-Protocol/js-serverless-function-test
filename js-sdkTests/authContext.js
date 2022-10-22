@@ -42,9 +42,15 @@ const runLitAction = async () => {
     code: litActionCode,
     authSig,
     authMethods: [
+      // { // discord oauth
+      //   accessToken: "M1Y1WnYnavzmSaZ6p1LBLsNFn2iiu0",
+      //   authMethodType: 2,
+      // },
       {
-        accessToken: "M1Y1WnYnavzmSaZ6p1LBLsNFn2iiu0",
-        authMethodType: 2,
+        // google oauth
+        accessToken:
+          "ya29.a0Aa4xrXMwf3Eu3lKyQenWBbxy0nR0r-iEYT-LmIAY3GCEGd7Qu-V8Ni-nriVAand6pQiYSena52PlMheV3s2qzvrbFa5hJIktvq74YytPiKIrBiWj8e1Q_Nao-jqBGKFI_rn0Q7hKnDf2ff_Rmyd2YrZSnLAsaCgYKATASARESFQEjDvL9CPGxMjEQZBnvLEsMcZyLKw0163",
+        authMethodType: 3,
       },
     ],
     // all jsParams can be used anywhere in your litActionCode

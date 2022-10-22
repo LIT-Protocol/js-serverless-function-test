@@ -79,12 +79,13 @@ const go = async () => {
     s: "0x" + sig.s,
     v: sig.recid,
   });
+  const encodedSigFromNodes = sig.signature;
 
   console.log("encodedSig", encodedSig);
-  console.log("sig length in bytes: ", encodedSig.substring(2).length / 2);
-  console.log("dataSigned", dataSigned);
-  const splitSig = splitSignature(encodedSig);
-  console.log("splitSig", splitSig);
+  console.log(
+    "encodedSig == encodedSigFromNodes",
+    encodedSig == encodedSigFromNodes
+  );
 
   const recoveredPubkey = recoverPublicKey(dataSigned, encodedSig);
   console.log("uncompressed recoveredPubkey", recoveredPubkey);

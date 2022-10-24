@@ -45,7 +45,8 @@
     "ethers": "node js-sdkTests/ethers.js",
     "authContext": "node js-sdkTests/authContext.js",
     "siweNodeSide": "cd bundleTests/siwe; node esbuild.js; node siwe.js",
-    "siweClientSide": "node js-sdkTests/siwe.js"
+    "siweClientSide": "node js-sdkTests/siwe.js",
+    "pkpPermissions": "node js-sdkTests/pkpPermissions.js"
   },
   "devDependencies": {
     "esbuild": "^0.14.39"

@@ -3,7 +3,19 @@ import LitJsSdk from "lit-js-sdk/build/index.node.js";
 // this code will be run on the node
 const litActionCode = `
 const go = async () => {
-  Lit.Actions.setResponse({response: JSON.stringify({"Lit.Auth": Lit.Auth})})
+  const results = {}
+  const tokenId = Lit.Actions.pubkeyToTokenId({publicKey})
+  // let's lookup some permissions
+  const isPermittedAction = await Lit.Actions.isPermittedAction({tokenId, ipfsId: "QmRwN9GKHvCn4Vk7biqtr6adjXMs7PzzYPCzNCRjPFiDjm"})
+  results.isPermittedAction = isPermittedAction
+
+  const isPermittedAddress = await Lit.Actions.isPermittedAddress({tokenId, address: Lit.Auth.authSigAddress})
+  results.isPermittedAddress = isPermittedAddress
+
+  const isPermittedAuthMethod = await Lit.Actions.isPermittedAuthMethod({tokenId, authMethodType: "2", userId: "123456", userPubkey: "7890"})
+  results.isPermittedAuthMethod = isPermittedAuthMethod
+
+  Lit.Actions.setResponse({response: JSON.stringify(results)})
 };
 
 go();
@@ -22,36 +34,35 @@ const authSig = {
 const runLitAction = async () => {
   const litNodeClient = new LitJsSdk.LitNodeClient({
     alertWhenUnauthorized: false,
-    litNetwork: "mumbai",
+    litNetwork: "custom",
+    bootstrapUrls: [
+      "http://localhost:7470",
+      "http://localhost:7471",
+      "http://localhost:7472",
+      "http://localhost:7473",
+      "http://localhost:7474",
+      "http://localhost:7475",
+      "http://localhost:7476",
+      "http://localhost:7477",
+      "http://localhost:7478",
+      "http://localhost:7479",
+    ],
     debug: true,
   });
   await litNodeClient.connect();
   const results = await litNodeClient.executeJs({
     code: litActionCode,
     authSig,
-    authMethods: [
-      // {
-      //   // discord oauth
-      //   accessToken: "M1Y1WnYnavzmSaZ6p1LBLsNFn2iiu0",
-      //   authMethodType: 2,
-      // },
-      // {
-      //   // google oauth
-      //   accessToken:
-      //     "ya29.a0Aa4xrXMwf3Eu3lKyQenWBbxy0nR0r-iEYT-LmIAY3GCEGd7Qu-V8Ni-nriVAand6pQiYSena52PlMheV3s2qzvrbFa5hJIktvq74YytPiKIrBiWj8e1Q_Nao-jqBGKFI_rn0Q7hKnDf2ff_Rmyd2YrZSnLAsaCgYKATASARESFQEjDvL9CPGxMjEQZBnvLEsMcZyLKw0163",
-      //   authMethodType: 3,
-      // },
-    ],
     // all jsParams can be used anywhere in your litActionCode
     jsParams: {
       // this is the string "Hello World" for testing
       toSign: [72, 101, 108, 108, 111, 32, 87, 111, 114, 108, 100],
       publicKey:
-        "0x0481977a2ca0e52eaa5f0ecd3da4858817bc8bce4d165ae76fbaabf1952348829657d11382a1f37c606329857048033befbde83094ea55d7d7208230485253f304",
+        "0x04478d4d175f0f3e310f431224e169329be740db68f8bc224d2b57c3c6fc0e69671b233f570cd452b03431e40e5deac2780b7b68c00536bd7948c2c5de982542a3",
       sigName: "sig1",
     },
   });
-  console.log("results: ", JSON.stringify(results.response, null, 2));
+  console.log("results: ", results);
 };
 
 runLitAction();

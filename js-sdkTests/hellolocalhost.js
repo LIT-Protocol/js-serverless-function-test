@@ -50,11 +50,31 @@ const runLitAction = async () => {
       // this is the string "Hello World" for testing
       toSign: [72, 101, 108, 108, 111, 32, 87, 111, 114, 108, 100],
       publicKey:
-        "0x04478d4d175f0f3e310f431224e169329be740db68f8bc224d2b57c3c6fc0e69671b233f570cd452b03431e40e5deac2780b7b68c00536bd7948c2c5de982542a3",
+        "0x04314628ff2b39e6c9e1aa9c5c813bb9b586fe9a83b106afb9bef9dbc05f38e8c8060d1b40536a6a071a1d8a655f68dec4e82612f36b986d54b76eb4d37b7f9406",
       sigName: "sig1",
     },
   });
   console.log("results: ", results);
+
+  /* This will print:
+  results:  {
+    signatures: {},
+    decryptions: {},
+    response: {
+      tokenId: '0x989a329e54e4a96fc1cbcc84589ac6ef02c86c44bbe6a14f3d8b817a7ceedc98',
+      isPermittedAction: false,
+      isPermittedAddress: true,
+      isPermittedAuthMethod: false,
+      permittedActions: [ 'QmW6uH8p17DcfvZroULkdEDAKThWzEDeNtwi9oezURDeXN' ],
+      permittedAddresses: [
+        '0x50e2dac5e78b5905cb09495547452cee64426db2',
+        '0x9d1a5ec58232a894ebfcb5e466e3075b23101b89'
+      ],
+      permittedAuthMethods: '[{"auth_method_type":"0x2","user_id":"0xba5eba11","user_pubkey":"0xb01dface"}]'
+    },
+    logs: ''
+  }
+  */
 };
 
 runLitAction();

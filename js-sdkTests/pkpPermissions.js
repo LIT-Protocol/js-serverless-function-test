@@ -5,6 +5,8 @@ const litActionCode = `
 const go = async () => {
   const results = {}
   const tokenId = Lit.Actions.pubkeyToTokenId({publicKey})
+  results.tokenId = tokenId
+
   // let's lookup some permissions
   const isPermittedAction = await Lit.Actions.isPermittedAction({tokenId, ipfsId: "QmRwN9GKHvCn4Vk7biqtr6adjXMs7PzzYPCzNCRjPFiDjm"})
   results.isPermittedAction = isPermittedAction
@@ -14,6 +16,15 @@ const go = async () => {
 
   const isPermittedAuthMethod = await Lit.Actions.isPermittedAuthMethod({tokenId, authMethodType: "2", userId: "123456", userPubkey: "7890"})
   results.isPermittedAuthMethod = isPermittedAuthMethod
+
+  const permittedActions = await Lit.Actions.getPermittedActions({tokenId})
+  results.permittedActions = permittedActions
+
+  const permittedAddresses = await Lit.Actions.getPermittedAddresses({tokenId})
+  results.permittedAddresses = permittedAddresses
+
+  const permittedAuthMethods = await Lit.Actions.getPermittedAuthMethods({tokenId})
+  results.permittedAuthMethods = JSON.stringify(permittedAuthMethods)
 
   Lit.Actions.setResponse({response: JSON.stringify(results)})
 };
@@ -34,19 +45,7 @@ const authSig = {
 const runLitAction = async () => {
   const litNodeClient = new LitJsSdk.LitNodeClient({
     alertWhenUnauthorized: false,
-    litNetwork: "custom",
-    bootstrapUrls: [
-      "http://localhost:7470",
-      "http://localhost:7471",
-      "http://localhost:7472",
-      "http://localhost:7473",
-      "http://localhost:7474",
-      "http://localhost:7475",
-      "http://localhost:7476",
-      "http://localhost:7477",
-      "http://localhost:7478",
-      "http://localhost:7479",
-    ],
+    litNetwork: "mumbai",
     debug: true,
   });
   await litNodeClient.connect();
@@ -55,11 +54,8 @@ const runLitAction = async () => {
     authSig,
     // all jsParams can be used anywhere in your litActionCode
     jsParams: {
-      // this is the string "Hello World" for testing
-      toSign: [72, 101, 108, 108, 111, 32, 87, 111, 114, 108, 100],
       publicKey:
-        "0x04478d4d175f0f3e310f431224e169329be740db68f8bc224d2b57c3c6fc0e69671b233f570cd452b03431e40e5deac2780b7b68c00536bd7948c2c5de982542a3",
-      sigName: "sig1",
+        "0x04c7640c804e30520507d3c04367821d3ec1f9848019e0a7d4066e29f9e160484391f499092fd1b81f7ffd5841581172950b24d345dd2ecf77ca1626aee297db02",
     },
   });
   console.log("results: ", results);

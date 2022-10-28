@@ -55,7 +55,7 @@ const runLitAction = async () => {
     // all jsParams can be used anywhere in your litActionCode
     jsParams: {
       publicKey:
-        "0x04c7640c804e30520507d3c04367821d3ec1f9848019e0a7d4066e29f9e160484391f499092fd1b81f7ffd5841581172950b24d345dd2ecf77ca1626aee297db02",
+        "0x04958612ff870126266fc6575b34db0a7054dd729aa9b796c2728f27fd827c5b6d18871c5691834fac2a685d46f42e2cb2128f1ee9fa76e204d0fe2f972d361f88",
     },
   });
   console.log("results: ", results);

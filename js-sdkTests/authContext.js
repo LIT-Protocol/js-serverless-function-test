@@ -35,20 +35,16 @@ const runLitAction = async () => {
       //   accessToken: "M1Y1WnYnavzmSaZ6p1LBLsNFn2iiu0",
       //   authMethodType: 2,
       // },
-      // {
-      //   // google oauth
-      //   accessToken:
-      //     "ya29.a0Aa4xrXMwf3Eu3lKyQenWBbxy0nR0r-iEYT-LmIAY3GCEGd7Qu-V8Ni-nriVAand6pQiYSena52PlMheV3s2qzvrbFa5hJIktvq74YytPiKIrBiWj8e1Q_Nao-jqBGKFI_rn0Q7hKnDf2ff_Rmyd2YrZSnLAsaCgYKATASARESFQEjDvL9CPGxMjEQZBnvLEsMcZyLKw0163",
-      //   authMethodType: 3,
-      // },
+      {
+        // google oauth
+        accessToken:
+          "ya29.a0Aa4xrXMwf3Eu3lKyQenWBbxy0nR0r-iEYT-LmIAY3GCEGd7Qu-V8Ni-nriVAand6pQiYSena52PlMheV3s2qzvrbFa5hJIktvq74YytPiKIrBiWj8e1Q_Nao-jqBGKFI_rn0Q7hKnDf2ff_Rmyd2YrZSnLAsaCgYKATASARESFQEjDvL9CPGxMjEQZBnvLEsMcZyLKw0163",
+        authMethodType: 3,
+      },
     ],
     // all jsParams can be used anywhere in your litActionCode
     jsParams: {
       // this is the string "Hello World" for testing
-      toSign: [72, 101, 108, 108, 111, 32, 87, 111, 114, 108, 100],
-      publicKey:
-        "0x0481977a2ca0e52eaa5f0ecd3da4858817bc8bce4d165ae76fbaabf1952348829657d11382a1f37c606329857048033befbde83094ea55d7d7208230485253f304",
-      sigName: "sig1",
     },
   });
   console.log("results: ", JSON.stringify(results.response, null, 2));

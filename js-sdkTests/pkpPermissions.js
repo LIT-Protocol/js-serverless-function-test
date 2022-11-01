@@ -14,7 +14,7 @@ const go = async () => {
   const isPermittedAddress = await Lit.Actions.isPermittedAddress({tokenId, address: Lit.Auth.authSigAddress})
   results.isPermittedAddress = isPermittedAddress
 
-  const isPermittedAuthMethod = await Lit.Actions.isPermittedAuthMethod({tokenId, authMethodType: "2", userId: "123456", userPubkey: "7890"})
+  const isPermittedAuthMethod = await Lit.Actions.isPermittedAuthMethod({tokenId, authMethodType: "2", userId: "123456"})
   results.isPermittedAuthMethod = isPermittedAuthMethod
 
   const permittedActions = await Lit.Actions.getPermittedActions({tokenId})

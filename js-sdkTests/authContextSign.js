@@ -4,6 +4,9 @@ import LitJsSdk from "lit-js-sdk/build/index.node.js";
 const litActionCode = `
 const go = async () => {
   Lit.Actions.setResponse({response: JSON.stringify({"Lit.Auth": Lit.Auth})})
+
+  // try and sign something
+  const sig = await Lit.Actions.signEcdsa({toSign, publicKey, sigName })
 };
 
 go();
@@ -44,13 +47,17 @@ const runLitAction = async () => {
       {
         // google oauth JWT
         accessToken:
-          "eyJhbGciOiJSUzI1NiIsImtpZCI6Ijc3Y2MwZWY0YzcxODFjZjRjMGRjZWY3YjYwYWUyOGNjOTAyMmM3NmIiLCJ0eXAiOiJKV1QifQ.eyJpc3MiOiJodHRwczovL2FjY291bnRzLmdvb2dsZS5jb20iLCJhenAiOiI0MDc0MDg3MTgxOTIuYXBwcy5nb29nbGV1c2VyY29udGVudC5jb20iLCJhdWQiOiI0MDc0MDg3MTgxOTIuYXBwcy5nb29nbGV1c2VyY29udGVudC5jb20iLCJzdWIiOiIxMDg5OTYwNTQyNzMzNjA1NjgxMzIiLCJlbWFpbCI6ImdldmVuc3RlZUBnbWFpbC5jb20iLCJlbWFpbF92ZXJpZmllZCI6dHJ1ZSwiYXRfaGFzaCI6IlVYV1Z1eEJsdGswcEhKclllOEFXTUEiLCJpYXQiOjE2NjcxNjgyMTUsImV4cCI6MTY2NzE3MTgxNX0.ejZu5bADJ6cUsovV7otHAafy0mqWZBAtN860jvBdVe38XUi0v-eB5WWBPMD5zXcJxbXFvaPWCX8nTaE6S24cNNHJw0hq15irjRZeg9D2i7ToitR1LZSQ3rPCDQZPX4xYn7G-FH7C1DQ-7NEDMmr9ge4B6Qs4pT5Mj8ESVlA29yZjKCfk-zL7F5b6W0EOIA6G9rj6-3HgtazkHfIGHAtfBz4dqHjC4HJncHJzqIm9Y8eSBBnN-ZhYUr3cWxGCuFIw3yrGccv5_khfhbbk6TqdSeMO9YNWN3otiVB8Nwu2sb9VsllFoHIE0uGSzVZVbJgSK1GsGbJZe76ubLuObI5YFw",
+          "eyJhbGciOiJSUzI1NiIsImtpZCI6Ijc3Y2MwZWY0YzcxODFjZjRjMGRjZWY3YjYwYWUyOGNjOTAyMmM3NmIiLCJ0eXAiOiJKV1QifQ.eyJpc3MiOiJodHRwczovL2FjY291bnRzLmdvb2dsZS5jb20iLCJhenAiOiI0MDc0MDg3MTgxOTIuYXBwcy5nb29nbGV1c2VyY29udGVudC5jb20iLCJhdWQiOiI0MDc0MDg3MTgxOTIuYXBwcy5nb29nbGV1c2VyY29udGVudC5jb20iLCJzdWIiOiIxMDg5OTYwNTQyNzMzNjA1NjgxMzIiLCJlbWFpbCI6ImdldmVuc3RlZUBnbWFpbC5jb20iLCJlbWFpbF92ZXJpZmllZCI6dHJ1ZSwiYXRfaGFzaCI6IlhweWVtRF8xeHJYUEk3MzZWaUwxMGciLCJpYXQiOjE2NjcxNzIxNjEsImV4cCI6MTY2NzE3NTc2MX0.DtWgm-DvBzJihOCa3NWXhe-y_mj-B3_XX89YXQw5yHhddqfRsGiBZVkCLymsPDE7XflCS1WnE5W5nB7WhJ9fTbTzHauoZlBACpK8rh8F5zJZXdlRYla0PiQ6NAJmm8k8RjzjzGeR18Imym32Py0x4Ru3y6jted5PNqQ_ZmfmmdO1PEkzCT6JN7kcEA4LdRRrMzIaphNpVCNw5JeW3mjHXGenatnJNi-Kmsa_SvcHtXD0i3kzrRJNpDaNFyz9DoDX4fr1Bwv42z6IXB2wUmX6M3RxXLS2lh5EHU0cP8GG-dUQd8ec5YzKnPpwMFXkDi5-wWio2Ztyf1GaxDPgwKHugQ",
         authMethodType: 6,
       },
     ],
     // all jsParams can be used anywhere in your litActionCode
     jsParams: {
       // this is the string "Hello World" for testing
+      toSign: [72, 101, 108, 108, 111, 32, 87, 111, 114, 108, 100],
+      publicKey:
+        "0x04aba0b30fdd5b405e653ad5defbd8d0feff110ad64fca6d40cd9b077f301724b403450f077f3fc6ceb79e149e027b35af2e58e6d061f40e6cdf778a2efd6a2f00",
+      sigName: "sig1",
     },
   });
   console.log("results: ", JSON.stringify(results.response, null, 2));

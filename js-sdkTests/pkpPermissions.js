@@ -14,7 +14,7 @@ const go = async () => {
   const isPermittedAddress = await Lit.Actions.isPermittedAddress({tokenId, address: Lit.Auth.authSigAddress})
   results.isPermittedAddress = isPermittedAddress
 
-  const isPermittedAuthMethod = await Lit.Actions.isPermittedAuthMethod({tokenId, authMethodType: "2", userId: "123456"})
+  const isPermittedAuthMethod = await Lit.Actions.isPermittedAuthMethod({tokenId, authMethodType: "2", userId: [1,2,3,4]})
   results.isPermittedAuthMethod = isPermittedAuthMethod
 
   const permittedActions = await Lit.Actions.getPermittedActions({tokenId})
@@ -45,7 +45,7 @@ const authSig = {
 const runLitAction = async () => {
   const litNodeClient = new LitJsSdk.LitNodeClient({
     alertWhenUnauthorized: false,
-    litNetwork: "mumbai",
+    litNetwork: "localhost",
     debug: true,
   });
   await litNodeClient.connect();
@@ -55,7 +55,7 @@ const runLitAction = async () => {
     // all jsParams can be used anywhere in your litActionCode
     jsParams: {
       publicKey:
-        "0x040899db7f6a80c12bafd97abf7f5794206775f1ec0b1b9917bcbae8d0594e17961458c7d99ab73015128a9adb65393a5941b30051c80fadc9f28ae19b5d7c7aa5",
+        "0x04df35fdfef56854f6b3c4bc281eb3b90b29019d47244f6facd700027cf2b154be960e952f9c9b40fbf9ff97cfc3fcbdc1bf2f1a0ebe4fbc632db66ea481c13d64",
     },
   });
   console.log("results: ", results);

@@ -48,7 +48,8 @@
     "siweClientSide": "node js-sdkTests/siwe.js",
     "pkpPermissions": "node js-sdkTests/pkpPermissions.js",
     "authContextSign": "node js-sdkTests/authContextSign.js",
-    "walletlessSign": "node js-sdkTests/walletlessSign.js"
+    "walletlessSign": "node js-sdkTests/walletlessSign.js",
+    "derivedIpfs": "node js-sdkTests/derivedIpfsId.js"
   },
   "devDependencies": {
     "esbuild": "^0.14.39"

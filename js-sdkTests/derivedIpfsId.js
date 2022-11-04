@@ -1,6 +1,5 @@
 import LitJsSdk from "lit-js-sdk/build/index.node.js";
-
-const ipfsId = "QmRwN9GKHvCn4Vk7biqtr6adjXMs7PzzYPCzNCRjPFiDjm";
+import axios from "axios";
 
 // you need an AuthSig to auth with the nodes
 // normally you would obtain an AuthSig by calling LitJsSdk.checkAndSignAuthMessage({chain})
@@ -13,20 +12,27 @@ const authSig = {
 };
 
 const runLitAction = async () => {
+  let code = await axios.get(
+    "https://ipfs.io/ipfs/QmdB8DJSmDFAAqJmijgLA6eJdDKt5EWiWzZuHq63nvkURC"
+  );
+  code = code.data;
+
+  console.log(code);
+
   const litNodeClient = new LitJsSdk.LitNodeClient({
     alertWhenUnauthorized: false,
-    litNetwork: "localhost",
+    litNetwork: "mumbai",
   });
   await litNodeClient.connect();
   const resp = await litNodeClient.executeJs({
-    ipfsId,
+    code,
     authSig,
     // all jsParams can be used anywhere in your litActionCode
     jsParams: {
       // this is the string "Hello World" for testing
       toSign: [72, 101, 108, 108, 111, 32, 87, 111, 114, 108, 100],
       publicKey:
-        "0x04df35fdfef56854f6b3c4bc281eb3b90b29019d47244f6facd700027cf2b154be960e952f9c9b40fbf9ff97cfc3fcbdc1bf2f1a0ebe4fbc632db66ea481c13d64",
+        "0x044c490035904b174e88b15fbb70fa325652b81603a3c209f9f226d434be712deb90e633b3d7ee03c7dc63ad086906e4dfc9bc1e973845933c1be99719b00c8c75",
       sigName: "sig1",
     },
   });

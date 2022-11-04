@@ -31,7 +31,6 @@ const runLitAction = async () => {
   await litNodeClient.connect();
   const results = await litNodeClient.executeJs({
     code: litActionCode,
-    authSig,
     authMethods: [
       // {
       //   // discord oauth

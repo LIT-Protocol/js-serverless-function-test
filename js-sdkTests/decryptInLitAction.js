@@ -62,7 +62,7 @@ const unifiedAccessControlConditions = [
 const runLitAction = async () => {
   const litNodeClient = new LitJsSdk.LitNodeClient({
     alertWhenUnauthorized: false,
-    litNetwork: "localhost",
+    litNetwork: "serrano",
     debug: true,
   });
   await litNodeClient.connect();

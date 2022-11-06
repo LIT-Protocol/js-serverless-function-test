@@ -49,7 +49,8 @@
     "pkpPermissions": "node js-sdkTests/pkpPermissions.js",
     "authContextSign": "node js-sdkTests/authContextSign.js",
     "walletlessSign": "node js-sdkTests/walletlessSign.js",
-    "derivedIpfs": "node js-sdkTests/derivedIpfsId.js"
+    "derivedIpfs": "node js-sdkTests/derivedIpfsId.js",
+    "decryptInLitAction": "node js-sdkTests/decryptInLitAction.js"
   },
   "devDependencies": {
     "esbuild": "^0.14.39"

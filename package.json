@@ -14,6 +14,7 @@
     "axios": "^0.27.2",
     "ethers": "^5.7.2",
     "js-sha3": "^0.8.0",
+    "jwk-to-pem": "^2.0.5",
     "lit-js-sdk": "file:.yalc/lit-js-sdk",
     "serve-handler": "^6.1.3",
     "siwe": "^1.1.6"
@@ -50,7 +51,8 @@
     "authContextSign": "node js-sdkTests/authContextSign.js",
     "walletlessSign": "node js-sdkTests/walletlessSign.js",
     "derivedIpfs": "node js-sdkTests/derivedIpfsId.js",
-    "decryptInLitAction": "node js-sdkTests/decryptInLitAction.js"
+    "decryptInLitAction": "node js-sdkTests/decryptInLitAction.js",
+    "jwt": "node js-sdkTests/jsonwebtoken.js"
   },
   "devDependencies": {
     "esbuild": "^0.14.39"

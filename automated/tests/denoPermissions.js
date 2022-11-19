@@ -24,6 +24,15 @@ const go = async () => {
 go();
 `;
 
+const litActionCodeFileWriteTest = `
+const go = async () => {
+  await Deno.writeTextFile("./test.txt", "test");
+  Lit.Actions.setResponse({response: JSON.stringify({ "writeSuccess": true })})
+};
+
+go();
+`;
+
 async function test({ litNodeClient, publicKey, authSig }) {
   // ok so we actually want this to FAIL.  if this doesn't throw an exception and we
   // get results back, then it means deno is not locked down and we are in big trouble
@@ -115,6 +124,38 @@ async function test({ litNodeClient, publicKey, authSig }) {
     if (
       !message.includes(
         'Error executing JS: PermissionDenied: Requires read access to "./config/lit_config0.env", run again with the --allow-read flag'
+      )
+    ) {
+      console.log("Error trying to read from the filesystem: ", e);
+      return {
+        success: false,
+        message:
+          "We did not get the error message we expected when trying to access the ENV",
+      };
+    }
+  }
+
+  try {
+    const results = await litNodeClient.executeJs({
+      code: litActionCodeFileWriteTest,
+      authSig,
+      // all jsParams can be used anywhere in your litActionCode
+      jsParams: {},
+    });
+    // console.log("results: ", results);
+    let { response } = results;
+    if (response.writeSuccess) {
+      return {
+        success: false,
+        message: `Deno permissions test failed.  It should have generated an exception and it didn't.  Specifically, it looks like we have access to write files.  This is bad.`,
+      };
+    }
+  } catch (e) {
+    // console.log("error: ", e);
+    const { message } = e;
+    if (
+      !message.includes(
+        'Error executing JS: PermissionDenied: Requires write access to "./test.txt", run again with the --allow-write flag'
       )
     ) {
       console.log("Error trying to read from the filesystem: ", e);

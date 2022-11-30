@@ -56,7 +56,8 @@
     "sessionKeys": "node js-sdkTests/sessionKeys.js",
     "fetchContracts": "node ./tools/getDeployedContracts.mjs",
     "mintPKP": "node ./contracts/mintPKP.js",
-    "test": "node ./automated/index.js"
+    "test": "node ./automated/index.js",
+    "getLatestNonce": "node js-sdkTests/getLatestNonce.js"
   },
   "devDependencies": {
     "esbuild": "^0.14.39"

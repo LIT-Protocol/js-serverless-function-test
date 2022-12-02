@@ -27,6 +27,15 @@ const go = async () => {
   const permittedAuthMethods = await Lit.Actions.getPermittedAuthMethods({tokenId})
   results.permittedAuthMethods = JSON.stringify(permittedAuthMethods)
 
+  const permittedAuthMethodScopes = await Lit.Actions.getPermittedAuthMethodScopes({
+    tokenId,
+    authMethodType: "2",
+    userId,
+    maxScopeId: 100
+  })
+
+  results.permittedAuthMethodScopes = JSON.stringify(permittedAuthMethodScopes)
+
   Lit.Actions.setResponse({response: JSON.stringify(results)})
 };
 
@@ -46,7 +55,7 @@ const authSig = {
 const runLitAction = async () => {
   const litNodeClient = new LitJsSdk.LitNodeClient({
     alertWhenUnauthorized: false,
-    litNetwork: "mumbai",
+    litNetwork: "localhost",
     debug: true,
   });
   await litNodeClient.connect();
@@ -56,7 +65,7 @@ const runLitAction = async () => {
     // all jsParams can be used anywhere in your litActionCode
     jsParams: {
       publicKey:
-        "0x040899db7f6a80c12bafd97abf7f5794206775f1ec0b1b9917bcbae8d0594e17961458c7d99ab73015128a9adb65393a5941b30051c80fadc9f28ae19b5d7c7aa5",
+        "0x043155d26fd46758475173aac198f024544387010d68655d010ad3b18dbc27bce674083b192aabb1e48cdf2bb03b2abb2766302cfd94cc3268f765795b2e1620c8",
     },
   });
   console.log("results: ", results);

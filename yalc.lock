@@ -2,9 +2,9 @@
   "version": "v1",
   "packages": {
     "lit-js-sdk": {
-      "signature": "4ee49157094d8759f27bc62d32349862",
+      "signature": "7a5320a488e8c23c4e88961c02e38e29",
       "file": true,
-      "replaced": "^1.2.25"
+      "replaced": "^1.2.50"
     }
   }
 }

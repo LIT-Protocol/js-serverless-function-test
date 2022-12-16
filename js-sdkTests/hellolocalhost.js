@@ -31,15 +31,16 @@ const runLitAction = async () => {
       "http://localhost:7470",
       "http://localhost:7471",
       "http://localhost:7472",
-      "http://localhost:7473",
-      "http://localhost:7474",
-      "http://localhost:7475",
-      "http://localhost:7476",
-      "http://localhost:7477",
-      "http://localhost:7478",
-      "http://localhost:7479",
+      // "http://localhost:7473",
+      // "http://localhost:7474",
+      // "http://localhost:7475",
+      // "http://localhost:7476",
+      // "http://localhost:7477",
+      // "http://localhost:7478",
+      // "http://localhost:7479",
     ],
     debug: true,
+    minNodeCount: 2,
   });
   await litNodeClient.connect();
   const results = await litNodeClient.executeJs({
@@ -50,7 +51,7 @@ const runLitAction = async () => {
       // this is the string "Hello World" for testing
       toSign: [72, 101, 108, 108, 111, 32, 87, 111, 114, 108, 100],
       publicKey:
-        "0x040f6ab2fff4d845e1e4bd4af84cb5fe61266593500058dbd3df3075624e97823ab44e552f82075c583634f1b9d40c91d4eb666cdfca74b1bd7a63b6b26b27be16",
+        "0x04a6163cd2b27ca85e6a286d3bcdc65bfa4aab5a9a04b4d93055d32601e77b227021c1c189a1c32caa9478de3cf86862fc10bd9c445ea2e965a34fceefae04d692",
       sigName: "sig1",
     },
   });

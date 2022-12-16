@@ -28,6 +28,7 @@ const runLitAction = async () => {
     alertWhenUnauthorized: false,
     debug: true,
     litNetwork: "mumbai",
+    minNodeCount: 2,
   });
   await litNodeClient.connect();
   const results = await litNodeClient.executeJs({

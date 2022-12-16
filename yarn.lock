@@ -1951,10 +1951,10 @@ lit-connect-modal@^0.1.10:
   dependencies:
     micromodal "^0.4.10"
 
-lit-js-sdk@^1.2.50:
-  version "1.2.50"
-  resolved "https://registry.yarnpkg.com/lit-js-sdk/-/lit-js-sdk-1.2.50.tgz#1a0bee92289b1869aee17a223ca928d08fee54df"
-  integrity sha512-j6HkPFZQDSjtzaVTYDNUX/DXoxl3CqWri2ZFtPuHEf72clPxxOmg+kBS0N+EO+icikWpEsSTPsvSwtlphlrUow==
+lit-js-sdk@^1.2.54:
+  version "1.2.54"
+  resolved "https://registry.yarnpkg.com/lit-js-sdk/-/lit-js-sdk-1.2.54.tgz#78414ea91e3d9dc8ac6e3b81b4e692cb7450a914"
+  integrity sha512-0ybGrvuGx4+ByOI/gLelMVIzFQ0eftoNyvJJbCBNQF/jMoKJePDm+dosjYXwK29QIPVlyZzfO/WBThSj3E+IoQ==
   dependencies:
     "@ethersproject/bytes" "^5.5.0"
     "@ethersproject/contracts" "^5.2.0"

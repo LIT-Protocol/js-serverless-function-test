@@ -15,7 +15,7 @@
     "ethers": "^5.7.2",
     "js-sha3": "^0.8.0",
     "jwk-to-pem": "^2.0.5",
-    "lit-js-sdk": "file:.yalc/lit-js-sdk",
+    "lit-js-sdk": "^1.2.54",
     "serve-handler": "^6.1.3",
     "siwe": "^1.1.6"
   },

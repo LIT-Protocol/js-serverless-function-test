@@ -13,6 +13,13 @@ import LitJsSdk from "lit-js-sdk/build/index.node.js";
   const litNodeClient = new LitJsSdk.LitNodeClient({
     litNetwork: "localhost",
     debug: false,
+    litNetwork: "custom",
+    bootstrapUrls: [
+      "http://localhost:7470",
+      "http://localhost:7471",
+      "http://localhost:7472",
+    ],
+    minNodeCount: 2,
   });
   await litNodeClient.connect();
 

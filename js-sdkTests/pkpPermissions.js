@@ -31,7 +31,7 @@ const go = async () => {
     tokenId,
     authMethodType: "2",
     userId,
-    maxScopeId: 100
+    maxScopeId: 10
   })
 
   results.permittedAuthMethodScopes = JSON.stringify(permittedAuthMethodScopes)
@@ -55,8 +55,14 @@ const authSig = {
 const runLitAction = async () => {
   const litNodeClient = new LitJsSdk.LitNodeClient({
     alertWhenUnauthorized: false,
-    litNetwork: "localhost",
+    litNetwork: "custom",
     debug: true,
+    minNodeCount: 2,
+    bootstrapUrls: [
+      "http://localhost:7470",
+      "http://localhost:7471",
+      "http://localhost:7472",
+    ],
   });
   await litNodeClient.connect();
   const results = await litNodeClient.executeJs({
@@ -65,7 +71,7 @@ const runLitAction = async () => {
     // all jsParams can be used anywhere in your litActionCode
     jsParams: {
       publicKey:
-        "0x043155d26fd46758475173aac198f024544387010d68655d010ad3b18dbc27bce674083b192aabb1e48cdf2bb03b2abb2766302cfd94cc3268f765795b2e1620c8",
+        "0x042f48db7024106148948a64a142656d0c0513ff60ebb614fc61c7451001dabd10f7cc52879b9a8feb0b00dad12cbd51df545ca2c30135f77b0c79775e426e562c",
     },
   });
   console.log("results: ", results);

@@ -2,15 +2,15 @@ import LitJsSdk from "lit-js-sdk/build/index.node.js";
 
 // this code will be run on the node
 const litActionCode = `
-const signEcdsa = async () => {
+const nestedSigning = async () => {
   // this Lit Action simply requests an ECDSA signature share from the Lit Node
   const resp = await LitActions.call({
-    ipfsId: "Qmb2sJtVLXiNNXnerWB7zjSpAhoM8AxJF2uZsU2iednTtT",
+    ipfsId: "QmRwN9GKHvCn4Vk7biqtr6adjXMs7PzzYPCzNCRjPFiDjm",
     params: {
       // this is the string "Hello World" for testing
       toSign: [72, 101, 108, 108, 111, 32, 87, 111, 114, 108, 100],
       publicKey:
-        "037c9a4097a27573bcda94c2824e92b06204e9a94dbed32fd6506b75d55b4e3c7d",
+        "0x0404e12210c57f81617918a5b783e51b6133790eb28a79f141df22519fb97977d2a681cc047f9f1a9b533df480eb2d816fb36606bd7c716e71a179efd53d2a55d1",
       sigName: "childSig",
     },
   });
@@ -18,8 +18,8 @@ const signEcdsa = async () => {
   console.log("results: ", resp);
 };
 
-if (functionToRun === "signEcdsa") {
-  signEcdsa();
+if (functionToRun === "nestedSigning") {
+  nestedSigning();
 }
 `;
 
@@ -45,7 +45,7 @@ const runLitAction = async () => {
     authSig,
     // all jsParams can be used anywhere in your litActionCode
     jsParams: {
-      functionToRun: "signEcdsa",
+      functionToRun: "nestedSigning",
     },
   });
   console.log("results: ", results);

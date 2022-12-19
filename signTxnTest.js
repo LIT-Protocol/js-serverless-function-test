@@ -36,8 +36,8 @@ const getNonce = async (ethAddress) => {
 const go = async () => {
   const fromAddress = "0x4cacaeae4678e83316d4b376e9158c548ab0e8dd";
   // get latest nonce
-  const nonce = await getNonce(fromAddress);
-  console.log("latest nonce: ", nonce);
+  // const nonce = await getNonce(fromAddress);
+  // console.log("latest nonce: ", nonce);
 
   const txParams = {
     nonce: "0x0",
@@ -65,7 +65,7 @@ const go = async () => {
   const sig = await LitActions.signEcdsa({
     toSign,
     publicKey:
-      "0x025e34d804b9ee2457e0595e7e457ba84904a138fef1566ff882d030daba14e32e",
+      "0x0404e12210c57f81617918a5b783e51b6133790eb28a79f141df22519fb97977d2a681cc047f9f1a9b533df480eb2d816fb36606bd7c716e71a179efd53d2a55d1",
     sigName: "sig1",
   });
   console.log("sig: ", sig);

@@ -30,14 +30,15 @@ const go = async () => {
     litNetwork: "serrano",
   });
   await litNodeClient.connect();
-  const signatures = await litNodeClient.executeJs({
+  const results = await litNodeClient.executeJs({
     code: litActionCode,
     authSig,
     jsParams: {},
   });
+  const { signatures } = results;
   console.log("signatures: ", signatures);
   const sig = signatures.sig1;
-  const dataSigned = "0x" + sig.dataSigned;
+  const { dataSigned } = sig;
   const encodedSig = joinSignature({
     r: "0x" + sig.r,
     s: "0x" + sig.s,

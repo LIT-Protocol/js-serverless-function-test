@@ -16,26 +16,6 @@ var __copyProps = (to, from, except, desc) => {
   return to;
 };
 var __toESM = (mod, isNodeMode, target) => (target = mod != null ? __create(__getProtoOf(mod)) : {}, __copyProps(isNodeMode || !mod || !mod.__esModule ? __defProp(target, "default", { value: mod, enumerable: true }) : target, mod));
-var __async = (__this, __arguments, generator) => {
-  return new Promise((resolve, reject) => {
-    var fulfilled = (value) => {
-      try {
-        step(generator.next(value));
-      } catch (e) {
-        reject(e);
-      }
-    };
-    var rejected = (value) => {
-      try {
-        step(generator.throw(value));
-      } catch (e) {
-        reject(e);
-      }
-    };
-    var step = (x) => x.done ? resolve(x.value) : Promise.resolve(x.value).then(fulfilled, rejected);
-    step((generator = generator.apply(__this, __arguments)).next());
-  });
-};
 
 // node_modules/@ethersproject/logger/lib/_version.js
 var require_version = __commonJS({
@@ -3594,9 +3574,9 @@ var require_bn = __commonJS({
   }
 });
 
-// node_modules/@ethersproject/bignumber/lib/_version.js
+// node_modules/@ethersproject/transactions/node_modules/@ethersproject/bignumber/lib/_version.js
 var require_version3 = __commonJS({
-  "node_modules/@ethersproject/bignumber/lib/_version.js"(exports) {
+  "node_modules/@ethersproject/transactions/node_modules/@ethersproject/bignumber/lib/_version.js"(exports) {
     "use strict";
     Object.defineProperty(exports, "__esModule", { value: true });
     exports.version = void 0;
@@ -3604,9 +3584,9 @@ var require_version3 = __commonJS({
   }
 });
 
-// node_modules/@ethersproject/bignumber/lib/bignumber.js
+// node_modules/@ethersproject/transactions/node_modules/@ethersproject/bignumber/lib/bignumber.js
 var require_bignumber = __commonJS({
-  "node_modules/@ethersproject/bignumber/lib/bignumber.js"(exports) {
+  "node_modules/@ethersproject/transactions/node_modules/@ethersproject/bignumber/lib/bignumber.js"(exports) {
     "use strict";
     var __importDefault = exports && exports.__importDefault || function(mod) {
       return mod && mod.__esModule ? mod : { "default": mod };
@@ -3891,9 +3871,9 @@ var require_bignumber = __commonJS({
   }
 });
 
-// node_modules/@ethersproject/bignumber/lib/fixednumber.js
+// node_modules/@ethersproject/transactions/node_modules/@ethersproject/bignumber/lib/fixednumber.js
 var require_fixednumber = __commonJS({
-  "node_modules/@ethersproject/bignumber/lib/fixednumber.js"(exports) {
+  "node_modules/@ethersproject/transactions/node_modules/@ethersproject/bignumber/lib/fixednumber.js"(exports) {
     "use strict";
     Object.defineProperty(exports, "__esModule", { value: true });
     exports.FixedNumber = exports.FixedFormat = exports.parseFixed = exports.formatFixed = void 0;
@@ -4250,9 +4230,9 @@ var require_fixednumber = __commonJS({
   }
 });
 
-// node_modules/@ethersproject/bignumber/lib/index.js
+// node_modules/@ethersproject/transactions/node_modules/@ethersproject/bignumber/lib/index.js
 var require_lib3 = __commonJS({
-  "node_modules/@ethersproject/bignumber/lib/index.js"(exports) {
+  "node_modules/@ethersproject/transactions/node_modules/@ethersproject/bignumber/lib/index.js"(exports) {
     "use strict";
     Object.defineProperty(exports, "__esModule", { value: true });
     exports._base36To16 = exports._base16To36 = exports.parseFixed = exports.FixedNumber = exports.FixedFormat = exports.formatFixed = exports.BigNumber = void 0;
@@ -4932,9 +4912,9 @@ var require_sha3 = __commonJS({
   }
 });
 
-// node_modules/@ethersproject/keccak256/lib/index.js
+// node_modules/@ethersproject/transactions/node_modules/@ethersproject/keccak256/lib/index.js
 var require_lib4 = __commonJS({
-  "node_modules/@ethersproject/keccak256/lib/index.js"(exports) {
+  "node_modules/@ethersproject/transactions/node_modules/@ethersproject/keccak256/lib/index.js"(exports) {
     "use strict";
     var __importDefault = exports && exports.__importDefault || function(mod) {
       return mod && mod.__esModule ? mod : { "default": mod };
@@ -5082,9 +5062,9 @@ var require_lib5 = __commonJS({
   }
 });
 
-// node_modules/@ethersproject/address/lib/_version.js
+// node_modules/@ethersproject/transactions/node_modules/@ethersproject/address/lib/_version.js
 var require_version5 = __commonJS({
-  "node_modules/@ethersproject/address/lib/_version.js"(exports) {
+  "node_modules/@ethersproject/transactions/node_modules/@ethersproject/address/lib/_version.js"(exports) {
     "use strict";
     Object.defineProperty(exports, "__esModule", { value: true });
     exports.version = void 0;
@@ -5092,9 +5072,9 @@ var require_version5 = __commonJS({
   }
 });
 
-// node_modules/@ethersproject/address/lib/index.js
+// node_modules/@ethersproject/transactions/node_modules/@ethersproject/address/lib/index.js
 var require_lib6 = __commonJS({
-  "node_modules/@ethersproject/address/lib/index.js"(exports) {
+  "node_modules/@ethersproject/transactions/node_modules/@ethersproject/address/lib/index.js"(exports) {
     "use strict";
     Object.defineProperty(exports, "__esModule", { value: true });
     exports.getCreate2Address = exports.getContractAddress = exports.getIcapAddress = exports.isAddress = exports.getAddress = void 0;
@@ -5228,9 +5208,9 @@ var require_lib6 = __commonJS({
   }
 });
 
-// node_modules/@ethersproject/constants/lib/addresses.js
+// node_modules/@ethersproject/transactions/node_modules/@ethersproject/constants/lib/addresses.js
 var require_addresses = __commonJS({
-  "node_modules/@ethersproject/constants/lib/addresses.js"(exports) {
+  "node_modules/@ethersproject/transactions/node_modules/@ethersproject/constants/lib/addresses.js"(exports) {
     "use strict";
     Object.defineProperty(exports, "__esModule", { value: true });
     exports.AddressZero = void 0;
@@ -5238,9 +5218,9 @@ var require_addresses = __commonJS({
   }
 });
 
-// node_modules/@ethersproject/constants/lib/bignumbers.js
+// node_modules/@ethersproject/transactions/node_modules/@ethersproject/constants/lib/bignumbers.js
 var require_bignumbers = __commonJS({
-  "node_modules/@ethersproject/constants/lib/bignumbers.js"(exports) {
+  "node_modules/@ethersproject/transactions/node_modules/@ethersproject/constants/lib/bignumbers.js"(exports) {
     "use strict";
     Object.defineProperty(exports, "__esModule", { value: true });
     exports.MaxInt256 = exports.MinInt256 = exports.MaxUint256 = exports.WeiPerEther = exports.Two = exports.One = exports.Zero = exports.NegativeOne = void 0;
@@ -5264,9 +5244,9 @@ var require_bignumbers = __commonJS({
   }
 });
 
-// node_modules/@ethersproject/constants/lib/hashes.js
+// node_modules/@ethersproject/transactions/node_modules/@ethersproject/constants/lib/hashes.js
 var require_hashes = __commonJS({
-  "node_modules/@ethersproject/constants/lib/hashes.js"(exports) {
+  "node_modules/@ethersproject/transactions/node_modules/@ethersproject/constants/lib/hashes.js"(exports) {
     "use strict";
     Object.defineProperty(exports, "__esModule", { value: true });
     exports.HashZero = void 0;
@@ -5274,9 +5254,9 @@ var require_hashes = __commonJS({
   }
 });
 
-// node_modules/@ethersproject/constants/lib/strings.js
+// node_modules/@ethersproject/transactions/node_modules/@ethersproject/constants/lib/strings.js
 var require_strings = __commonJS({
-  "node_modules/@ethersproject/constants/lib/strings.js"(exports) {
+  "node_modules/@ethersproject/transactions/node_modules/@ethersproject/constants/lib/strings.js"(exports) {
     "use strict";
     Object.defineProperty(exports, "__esModule", { value: true });
     exports.EtherSymbol = void 0;
@@ -5284,9 +5264,9 @@ var require_strings = __commonJS({
   }
 });
 
-// node_modules/@ethersproject/constants/lib/index.js
+// node_modules/@ethersproject/transactions/node_modules/@ethersproject/constants/lib/index.js
 var require_lib7 = __commonJS({
-  "node_modules/@ethersproject/constants/lib/index.js"(exports) {
+  "node_modules/@ethersproject/transactions/node_modules/@ethersproject/constants/lib/index.js"(exports) {
     "use strict";
     Object.defineProperty(exports, "__esModule", { value: true });
     exports.EtherSymbol = exports.HashZero = exports.MaxInt256 = exports.MinInt256 = exports.MaxUint256 = exports.WeiPerEther = exports.Two = exports.One = exports.Zero = exports.NegativeOne = exports.AddressZero = void 0;
@@ -11160,29 +11140,8 @@ var import_transactions = __toESM(require_lib10(), 1);
 var import_bytes = __toESM(require_lib2(), 1);
 var import_js_sha3 = __toESM(require_sha3(), 1);
 console.log("running!");
-var getNonce = (ethAddress) => __async(void 0, null, function* () {
-  const url = "https://polygon-rpc.com";
-  const data = {
-    jsonrpc: "2.0",
-    method: "eth_getTransactionCount",
-    params: [ethAddress, "latest"],
-    id: 1
-  };
-  const nonceResp = yield fetch(url, {
-    method: "POST",
-    headers: {
-      "Content-Type": "application/json"
-    },
-    body: JSON.stringify(data)
-  }).then((response) => response.json()).catch((error) => {
-    console.error("Error:", error);
-  });
-  return nonceResp.result;
-});
-var go = () => __async(void 0, null, function* () {
+var go = async () => {
   const fromAddress = "0x4cacaeae4678e83316d4b376e9158c548ab0e8dd";
-  const nonce = yield getNonce(fromAddress);
-  console.log("latest nonce: ", nonce);
   const txParams = {
     nonce: "0x0",
     gasPrice: "0x2e90edd000",
@@ -11199,13 +11158,13 @@ var go = () => __async(void 0, null, function* () {
   const unsignedTxn = import_js_sha3.keccak256.digest(rlpEncodedTxn);
   console.log("unsignedTxn: ", unsignedTxn);
   const toSign = unsignedTxn;
-  const sig = yield LitActions.signEcdsa({
+  const sig = await LitActions.signEcdsa({
     toSign,
-    publicKey: "0x025e34d804b9ee2457e0595e7e457ba84904a138fef1566ff882d030daba14e32e",
+    publicKey: "0x0404e12210c57f81617918a5b783e51b6133790eb28a79f141df22519fb97977d2a681cc047f9f1a9b533df480eb2d816fb36606bd7c716e71a179efd53d2a55d1",
     sigName: "sig1"
   });
   console.log("sig: ", sig);
-});
+};
 go();
 /**
  * [js-sha3]{@link https://github.com/emn178/js-sha3}

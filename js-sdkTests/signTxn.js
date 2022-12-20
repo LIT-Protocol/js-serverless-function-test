@@ -70,8 +70,6 @@ const go = async () => {
   //   chainId,
   // };
 
-  txParams.type = null;
-
   const txn = serialize(txParams, encodedSig);
 
   console.log("txn", txn);

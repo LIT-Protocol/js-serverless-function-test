@@ -1,4 +1,4 @@
-import { serialize } from "@ethersproject/transactions";
+import { serialize, computeAddress } from "@ethersproject/transactions";
 import { arrayify } from "@ethersproject/bytes";
 import { keccak256 } from "js-sha3";
 
@@ -11,43 +11,26 @@ function hexToBytes(hex) {
   return bytes;
 }
 
-const getNonce = async (ethAddress) => {
-  const url = "https://polygon-rpc.com";
-  const data = {
-    jsonrpc: "2.0",
-    method: "eth_getTransactionCount",
-    params: [ethAddress, "latest"],
-    id: 1,
-  };
-  const nonceResp = await fetch(url, {
-    method: "POST", // or 'PUT'
-    headers: {
-      "Content-Type": "application/json",
-    },
-    body: JSON.stringify(data),
-  })
-    .then((response) => response.json())
-    .catch((error) => {
-      console.error("Error:", error);
-    });
-  return nonceResp.result;
-};
+const publicKey =
+  "0x0404e12210c57f81617918a5b783e51b6133790eb28a79f141df22519fb97977d2a681cc047f9f1a9b533df480eb2d816fb36606bd7c716e71a179efd53d2a55d1";
 
 const go = async () => {
-  const fromAddress = "0x4cacaeae4678e83316d4b376e9158c548ab0e8dd";
+  const fromAddress = computeAddress(publicKey);
   // get latest nonce
-  // const nonce = await getNonce(fromAddress);
-  // console.log("latest nonce: ", nonce);
+  const latestNonce = await Lit.Actions.getLatestNonce({
+    address: fromAddress,
+    chain: "polygon",
+  });
 
   const txParams = {
-    nonce: "0x0",
+    nonce: latestNonce,
     gasPrice: "0x2e90edd000", // 200 gwei
     gasLimit: "0x" + (30000).toString(16), // 30k gas limit should be enough.  only need 21k to send.
     to: "0x50e2dac5e78B5905CB09495547452cEE64426db2",
     value: "0x" + (10000).toString(16),
     chainId: 137,
   };
-  console.log("txParams", txParams);
+  Lit.Actions.setResponse({ response: JSON.stringify({ txParams }) });
 
   const serializedTx = serialize(txParams);
   console.log("serializedTx", serializedTx);
@@ -64,8 +47,7 @@ const go = async () => {
   const toSign = unsignedTxn; //[65, 65, 65]; // this is the string "AAA" for testing
   const sig = await LitActions.signEcdsa({
     toSign,
-    publicKey:
-      "0x0404e12210c57f81617918a5b783e51b6133790eb28a79f141df22519fb97977d2a681cc047f9f1a9b533df480eb2d816fb36606bd7c716e71a179efd53d2a55d1",
+    publicKey,
     sigName: "sig1",
   });
   console.log("sig: ", sig);

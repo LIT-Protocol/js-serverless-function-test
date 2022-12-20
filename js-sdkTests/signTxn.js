@@ -35,8 +35,9 @@ const go = async () => {
     authSig,
     jsParams: {},
   });
-  const { signatures } = results;
-  console.log("signatures: ", signatures);
+  console.log("results", results);
+  const { signatures, response } = results;
+  console.log("response", response);
   const sig = signatures.sig1;
   const { dataSigned } = sig;
   const encodedSig = joinSignature({
@@ -44,6 +45,8 @@ const go = async () => {
     s: "0x" + sig.s,
     v: sig.recid,
   });
+
+  const { txParams } = response;
 
   console.log("encodedSig", encodedSig);
   console.log("sig length in bytes: ", encodedSig.substring(2).length / 2);
@@ -67,14 +70,7 @@ const go = async () => {
   //   chainId,
   // };
 
-  const txParams = {
-    nonce: "0x0",
-    gasPrice: "0x2e90edd000",
-    gasLimit: "0x7530",
-    to: "0x50e2dac5e78B5905CB09495547452cEE64426db2",
-    value: "0x2710",
-    chainId: 137,
-  };
+  txParams.type = null;
 
   const txn = serialize(txParams, encodedSig);
 

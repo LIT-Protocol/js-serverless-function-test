@@ -10809,13 +10809,13 @@ var require_lib10 = __commonJS({
       type: true,
       value: true
     };
-    function computeAddress(key) {
-      var publicKey = (0, signing_key_1.computePublicKey)(key);
-      return (0, address_1.getAddress)((0, bytes_1.hexDataSlice)((0, keccak256_1.keccak256)((0, bytes_1.hexDataSlice)(publicKey, 1)), 12));
+    function computeAddress2(key) {
+      var publicKey2 = (0, signing_key_1.computePublicKey)(key);
+      return (0, address_1.getAddress)((0, bytes_1.hexDataSlice)((0, keccak256_1.keccak256)((0, bytes_1.hexDataSlice)(publicKey2, 1)), 12));
     }
-    exports.computeAddress = computeAddress;
+    exports.computeAddress = computeAddress2;
     function recoverAddress(digest, signature) {
-      return computeAddress((0, signing_key_1.recoverPublicKey)((0, bytes_1.arrayify)(digest), signature));
+      return computeAddress2((0, signing_key_1.recoverPublicKey)((0, bytes_1.arrayify)(digest), signature));
     }
     exports.recoverAddress = recoverAddress;
     function formatNumber(value, name) {
@@ -11140,17 +11140,22 @@ var import_transactions = __toESM(require_lib10(), 1);
 var import_bytes = __toESM(require_lib2(), 1);
 var import_js_sha3 = __toESM(require_sha3(), 1);
 console.log("running!");
+var publicKey = "0x0404e12210c57f81617918a5b783e51b6133790eb28a79f141df22519fb97977d2a681cc047f9f1a9b533df480eb2d816fb36606bd7c716e71a179efd53d2a55d1";
 var go = async () => {
-  const fromAddress = "0x4cacaeae4678e83316d4b376e9158c548ab0e8dd";
+  const fromAddress = (0, import_transactions.computeAddress)(publicKey);
+  const latestNonce = await Lit.Actions.getLatestNonce({
+    address: fromAddress,
+    chain: "polygon"
+  });
   const txParams = {
-    nonce: "0x0",
+    nonce: latestNonce,
     gasPrice: "0x2e90edd000",
     gasLimit: "0x" + 3e4 .toString(16),
     to: "0x50e2dac5e78B5905CB09495547452cEE64426db2",
     value: "0x" + 1e4 .toString(16),
     chainId: 137
   };
-  console.log("txParams", txParams);
+  Lit.Actions.setResponse({ response: JSON.stringify({ txParams }) });
   const serializedTx = (0, import_transactions.serialize)(txParams);
   console.log("serializedTx", serializedTx);
   const rlpEncodedTxn = (0, import_bytes.arrayify)(serializedTx);
@@ -11160,7 +11165,7 @@ var go = async () => {
   const toSign = unsignedTxn;
   const sig = await LitActions.signEcdsa({
     toSign,
-    publicKey: "0x0404e12210c57f81617918a5b783e51b6133790eb28a79f141df22519fb97977d2a681cc047f9f1a9b533df480eb2d816fb36606bd7c716e71a179efd53d2a55d1",
+    publicKey,
     sigName: "sig1"
   });
   console.log("sig: ", sig);

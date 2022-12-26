@@ -4,8 +4,16 @@ import { keccak256 } from "js-sha3";
 
 console.log("running!");
 
-const publicKey =
-  "0x0404e12210c57f81617918a5b783e51b6133790eb28a79f141df22519fb97977d2a681cc047f9f1a9b533df480eb2d816fb36606bd7c716e71a179efd53d2a55d1";
+// NOTE: to replace with a new one that you get from oauth-pkp-signup-example
+const pkp = {
+  "status": "Succeeded",
+  "pkpEthAddress": "0x2a5A2A9558118388e8f4bd1e1c32ac520CA7D0F4",
+  "pkpPublicKey": "0x04437f854b66f369fd70b5ec50fed7e1cf03d7d393c5f491b18dc74996ea646931b9d581c8dba213cfc28e806d83eedad313e364e2c9c760ee1eb9263b00e7b36a"
+};
+
+const toAddress = "0x535b0dABaF59c90EeeBEf272b5F778C5369a1445"; // J Labs test account
+const chainId = 80001; // Polygon Mumbai Testnet
+const publicKey = pkp.pkpPublicKey;
 
 const go = async () => {
   const fromAddress = computeAddress(publicKey);
@@ -19,9 +27,9 @@ const go = async () => {
     nonce: latestNonce,
     gasPrice: "0x2e90edd000", // 200 gwei
     gasLimit: "0x" + (30000).toString(16), // 30k gas limit should be enough.  only need 21k to send.
-    to: "0x50e2dac5e78B5905CB09495547452cEE64426db2",
+    to: toAddress,
     value: "0x" + (10000).toString(16),
-    chainId: 137,
+    chainId,
   };
   Lit.Actions.setResponse({ response: JSON.stringify({ txParams }) });
 

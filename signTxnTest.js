@@ -20,7 +20,7 @@ const go = async () => {
   // get latest nonce
   const latestNonce = await Lit.Actions.getLatestNonce({
     address: fromAddress,
-    chain: "polygon",
+    chain: "mumbai",
   });
 
   const txParams = {
@@ -28,7 +28,7 @@ const go = async () => {
     gasPrice: "0x2e90edd000", // 200 gwei
     gasLimit: "0x" + (30000).toString(16), // 30k gas limit should be enough.  only need 21k to send.
     to: toAddress,
-    value: "0x" + (10000).toString(16),
+    value: "0x" + (10000000).toString(16),
     chainId,
   };
   Lit.Actions.setResponse({ response: JSON.stringify({ txParams }) });

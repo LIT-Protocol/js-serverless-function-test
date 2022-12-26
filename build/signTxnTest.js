@@ -11152,14 +11152,14 @@ var go = async () => {
   const fromAddress = (0, import_transactions.computeAddress)(publicKey);
   const latestNonce = await Lit.Actions.getLatestNonce({
     address: fromAddress,
-    chain: "polygon"
+    chain: "mumbai"
   });
   const txParams = {
     nonce: latestNonce,
     gasPrice: "0x2e90edd000",
     gasLimit: "0x" + 3e4 .toString(16),
     to: toAddress,
-    value: "0x" + 1e4 .toString(16),
+    value: "0x" + 1e7 .toString(16),
     chainId
   };
   Lit.Actions.setResponse({ response: JSON.stringify({ txParams }) });

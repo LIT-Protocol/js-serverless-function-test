@@ -8,6 +8,7 @@ import {
   joinSignature,
 } from "@ethersproject/bytes";
 import { recoverPublicKey, computePublicKey } from "@ethersproject/signing-key";
+import { ethers } from "ethers";
 
 // this code will be run on the node
 const litActionCode = fs.readFileSync("./build/signTxnTest.js");
@@ -64,6 +65,14 @@ const go = async () => {
   const txn = serialize(txParams, encodedSig);
 
   console.log("txn", txn);
+
+  // broadcast txn
+  const provider = new ethers.providers.JsonRpcProvider(
+    // process.env.LIT_MUMBAI_RPC_URL
+    "https://rpc.ankr.com/polygon_mumbai"
+  );
+  const result = await provider.sendTransaction(txn);
+  console.log("broadcast txn result:", JSON.stringify(result, null, 4));
 };
 
 go();

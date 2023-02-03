@@ -38,6 +38,9 @@ const runLitAction = async () => {
       // "http://localhost:7477",
       // "http://localhost:7478",
       // "http://localhost:7479",
+      // "https://polygon-mumbai.litgateway.com:7370",
+      // "https://polygon-mumbai.litgateway.com:7371",
+      // "https://polygon-mumbai.litgateway.com:7372",
     ],
     debug: true,
     minNodeCount: 2,
@@ -51,7 +54,7 @@ const runLitAction = async () => {
       // this is the string "Hello World" for testing
       toSign: [72, 101, 108, 108, 111, 32, 87, 111, 114, 108, 100],
       publicKey:
-        "0x042f48db7024106148948a64a142656d0c0513ff60ebb614fc61c7451001dabd10f7cc52879b9a8feb0b00dad12cbd51df545ca2c30135f77b0c79775e426e562c",
+        "04f75ac8af9b956c4c890bdf3d1d2e55f990c64700f21e619d18d3f4ef4e65954a2bb016e7699ce9f74a51560a04bf2cb54cbb8cda33758932698f56aa4d89d698",
       sigName: "sig1",
     },
   });

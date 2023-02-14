@@ -1,15 +1,7 @@
 import LitJsSdk from "lit-js-sdk/build/index.node.js";
 
 // this code will be run on the node
-const litActionCode = `
-const go = async () => {  
-  // this requests a decryption share from the Lit Node
-  // the decryption share will be automatically returned in the HTTP response from the node
-  const decryptionShare = await LitActions.decryptBls({ toDecrypt, publicKey, decryptionName });
-};
-
-go();
-`;
+// The Lit Action Code lives at /ipfsCode/checkWeather.js
 
 // you need an AuthSig to auth with the nodes
 // normally you would obtain an AuthSig by calling LitJsSdk.checkAndSignAuthMessage({chain})
@@ -29,6 +21,21 @@ const runLitAction = async () => {
   });
   await litNodeClient.connect();
 
+  // create your access control conditions.  Note that the contractAddress is an IPFS hash of the file at /ipfsCode/checkWeather.js.  We pass the param of "40" to the go() function in the Lit Action Code.
+  var accessControlConditions = [
+    {
+      contractAddress: "ipfs://QmcgbVu2sJSPpTeFhBd174FnmYmoVYvUFJeDkS7eYtwoFY",
+      standardContractType: "litActions",
+      chain: "ethereum", // nothing actually lives on ethereum here, but we need to pass a chain
+      method: "go",
+      parameters: ["40"],
+      returnValueTest: {
+        comparator: "=",
+        value: "true",
+      },
+    },
+  ];
+
   // let's encrypt something
   const { encryptedString, symmetricKey } = await LitJsSdk.encryptString(
     "this is a secret message"
@@ -37,33 +44,27 @@ const runLitAction = async () => {
     "symmetric key: ",
     LitJsSdk.uint8arrayToString(symmetricKey, "base16")
   );
-  const encryptedSymmetricKey = LitJsSdk.encryptWithBlsPubkey({
-    pubkey: litNodeClient.subnetPubKey,
-    data: symmetricKey,
-  });
-  console.log(
-    "encryptedSymmetricKey: ",
-    LitJsSdk.uint8arrayToString(encryptedSymmetricKey, "base16")
-  );
 
-  const result = await litNodeClient.executeJs({
-    code: litActionCode,
+  // store the access control conditions
+  const encryptedSymmetricKey = await litNodeClient.saveEncryptionKey({
+    accessControlConditions,
+    symmetricKey,
     authSig,
-    jsParams: {
-      toDecrypt: Array.from(encryptedSymmetricKey),
-      publicKey: "1",
-      decryptionName: "decryption1",
-    },
+    chain: "ethereum", // nothing actually lives on ethereum here, but we need to pass a chain
   });
-  console.log("result: ", result);
 
-  const decryptedSymmetricKey = LitJsSdk.uint8arrayFromString(
-    result.decryptions.decryption1.decrypted,
-    "base16"
-  );
+  console.log("Condition stored.  Now to retrieve the key and decrypt it.");
+
+  const symmetricKeyFromNodes = await window.litNodeClient.getEncryptionKey({
+    accessControlConditions,
+    toDecrypt: encryptedSymmetricKey,
+    chain: "ethereum", // nothing actually lives on ethereum here, but we need to pass a chain
+    authSig,
+  });
+
   const decryptedString = await LitJsSdk.decryptString(
     encryptedString,
-    decryptedSymmetricKey
+    symmetricKeyFromNodes
   );
   console.log("decryptedString: ", decryptedString);
 };

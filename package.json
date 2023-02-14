@@ -15,7 +15,7 @@
     "ethers": "^5.7.2",
     "js-sha3": "^0.8.0",
     "jwk-to-pem": "^2.0.5",
-    "lit-js-sdk": "^1.2.59",
+    "lit-js-sdk": "file:.yalc/lit-js-sdk",
     "serve-handler": "^6.1.3",
     "siwe": "^1.1.6"
   },
@@ -57,7 +57,8 @@
     "fetchContracts": "node ./tools/getDeployedContracts.mjs",
     "mintPKP": "node ./contracts/mintPKP.js",
     "test": "node ./automated/index.js",
-    "getLatestNonce": "node js-sdkTests/getLatestNonce.js"
+    "getLatestNonce": "node js-sdkTests/getLatestNonce.js",
+    "helloDevnet": "node js-sdkTests/helloDevnet.js"
   },
   "devDependencies": {
     "esbuild": "^0.14.39"

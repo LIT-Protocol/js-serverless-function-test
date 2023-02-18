@@ -9,10 +9,10 @@ const go = async () => {
   while (true) {
     // do nothing
     let curTime = Date.now();
-    console.log(
-      "The JS has been running in an infinite loop for this many ms: " +
-        (curTime - time)
-    );
+    // console.log(
+    //   "The JS has been running in an infinite loop for this many ms: " +
+    //     (curTime - time)
+    // );
   }
 };
 

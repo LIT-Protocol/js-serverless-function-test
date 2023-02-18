@@ -1,15 +1,7 @@
 import LitJsSdk from "lit-js-sdk/build/index.node.js";
 
 // this code will be run on the node
-const litActionCode = `
-const go = async () => {  
-  // this requests a decryption share from the Lit Node
-  // the decryption share will be automatically returned in the HTTP response from the node
-  const decryptionShare = await LitActions.decryptBls({ toDecrypt, publicKey, decryptionName });
-};
-
-go();
-`;
+// The Lit Action Code lives at /ipfsCode/checkWeather.js
 
 // you need an AuthSig to auth with the nodes
 // normally you would obtain an AuthSig by calling LitJsSdk.checkAndSignAuthMessage({chain})
@@ -21,13 +13,45 @@ const authSig = {
   address: "0x9D1a5EC58232A894eBFcB5e466E3075b23101B89",
 };
 
-const runLitAction = async () => {
+const runTest = async () => {
   const litNodeClient = new LitJsSdk.LitNodeClient({
     alertWhenUnauthorized: false,
-    litNetwork: "localhost",
+    litNetwork: "serrano",
     debug: true,
   });
   await litNodeClient.connect();
+
+  // This JS lives at IPFS ID QmcgbVu2sJSPpTeFhBd174FnmYmoVYvUFJeDkS7eYtwoFY
+  // It's shown here for reference
+  /*
+  const go = async (maxTemp) => {
+    const url = "https://api.weather.gov/gridpoints/LWX/97,71/forecast";
+    try {
+      const response = await fetch(url).then((res) => res.json());
+      const nearestForecast = response.properties.periods[0];
+      const temp = nearestForecast.temperature;
+      return temp < parseInt(maxTemp);
+    } catch (e) {
+      console.log(e);
+    }
+    return false;
+  };
+  */
+
+  // create your access control conditions.  Note that the contractAddress is an IPFS hash of the file at /ipfsCode/checkWeather.js.  We pass the param of "40" to the go() function in the Lit Action Code.
+  var accessControlConditions = [
+    {
+      contractAddress: "ipfs://QmcgbVu2sJSPpTeFhBd174FnmYmoVYvUFJeDkS7eYtwoFY",
+      standardContractType: "LitAction",
+      chain: "ethereum", // nothing actually lives on ethereum here, but we need to pass a chain
+      method: "go",
+      parameters: ["100"],
+      returnValueTest: {
+        comparator: "=",
+        value: "true",
+      },
+    },
+  ];
 
   // let's encrypt something
   const { encryptedString, symmetricKey } = await LitJsSdk.encryptString(
@@ -37,35 +61,34 @@ const runLitAction = async () => {
     "symmetric key: ",
     LitJsSdk.uint8arrayToString(symmetricKey, "base16")
   );
-  const encryptedSymmetricKey = LitJsSdk.encryptWithBlsPubkey({
-    pubkey: litNodeClient.subnetPubKey,
-    data: symmetricKey,
-  });
-  console.log(
-    "encryptedSymmetricKey: ",
-    LitJsSdk.uint8arrayToString(encryptedSymmetricKey, "base16")
-  );
 
-  const result = await litNodeClient.executeJs({
-    code: litActionCode,
+  // store the access control conditions
+  const encryptedSymmetricKey = await litNodeClient.saveEncryptionKey({
+    accessControlConditions,
+    symmetricKey,
     authSig,
-    jsParams: {
-      toDecrypt: Array.from(encryptedSymmetricKey),
-      publicKey: "1",
-      decryptionName: "decryption1",
-    },
+    chain: "ethereum", // nothing actually lives on ethereum here, but we need to pass a chain
   });
-  console.log("result: ", result);
 
-  const decryptedSymmetricKey = LitJsSdk.uint8arrayFromString(
-    result.decryptions.decryption1.decrypted,
-    "base16"
-  );
+  console.log("Condition stored.  Now to retrieve the key and decrypt it.");
+
+  const symmetricKeyFromNodes = await litNodeClient.getEncryptionKey({
+    accessControlConditions,
+    toDecrypt: LitJsSdk.uint8arrayToString(encryptedSymmetricKey, "base16"),
+    chain: "ethereum", // nothing actually lives on ethereum here, but we need to pass a chain
+    authSig,
+  });
+
   const decryptedString = await LitJsSdk.decryptString(
     encryptedString,
-    decryptedSymmetricKey
+    symmetricKeyFromNodes
   );
   console.log("decryptedString: ", decryptedString);
 };
 
-runLitAction();
+runTest()
+  .then(() => process.exit(0))
+  .catch((e) => {
+    console.error(e);
+    process.exit(1);
+  });

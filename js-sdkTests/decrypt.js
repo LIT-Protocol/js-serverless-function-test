@@ -16,14 +16,8 @@ const authSig = {
 const runTest = async () => {
   const litNodeClient = new LitJsSdk.LitNodeClient({
     alertWhenUnauthorized: false,
-    litNetwork: "custom",
+    litNetwork: "serrano",
     debug: true,
-    minNodeCount: 2,
-    bootstrapUrls: [
-      "http://localhost:7470",
-      "http://localhost:7471",
-      "http://localhost:7472",
-    ],
   });
   await litNodeClient.connect();
 
@@ -44,7 +38,7 @@ const runTest = async () => {
   };
   */
 
-  // create your access control conditions.  Note that the contractAddress is an IPFS hash of the file at /ipfsCode/checkWeather.js.  We pass the param of "40" to the go() function in the Lit Action Code.
+  // create your access control conditions.  Note that the contractAddress is an IPFS hash of the file at /ipfsCode/checkWeather.js.  We pass the param of "100" to the go() function in the Lit Action Code.
   var accessControlConditions = [
     {
       contractAddress: "ipfs://QmcgbVu2sJSPpTeFhBd174FnmYmoVYvUFJeDkS7eYtwoFY",

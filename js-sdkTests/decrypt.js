@@ -16,8 +16,14 @@ const authSig = {
 const runTest = async () => {
   const litNodeClient = new LitJsSdk.LitNodeClient({
     alertWhenUnauthorized: false,
-    litNetwork: "serrano",
+    litNetwork: "custom",
     debug: true,
+    minNodeCount: 2,
+    bootstrapUrls: [
+      "http://localhost:7470",
+      "http://localhost:7471",
+      "http://localhost:7472",
+    ],
   });
   await litNodeClient.connect();
 

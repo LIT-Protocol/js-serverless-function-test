@@ -7,7 +7,9 @@ const go = async () => {
   // the signature share will be automatically returned in the response from the node
   // and combined into a full signature by the LitJsSdk for you to use on the client
   // all the params (toSign, publicKey, sigName) are passed in from the LitJsSdk.executeJs() function
-  const sigShare = await LitActions.signEcdsa({ toSign, publicKey, sigName });
+  const sigShare = await LitActions.ethPersonalSignMessageEcdsa({ message, publicKey, sigName });
+  // const toSign = Array.from(ethers.utils.arrayify(ethers.utils.hashMessage(message)))
+  // const sigShare = await LitActions.signEcdsa({ toSign, publicKey, sigName });
 };
 
 go();
@@ -26,27 +28,7 @@ const authSig = {
 const runLitAction = async () => {
   const litNodeClient = new LitJsSdk.LitNodeClient({
     alertWhenUnauthorized: false,
-    litNetwork: "custom",
-    bootstrapUrls: [
-      "http://localhost:7470",
-      "http://localhost:7471",
-      "http://localhost:7472",
-      // "http://localhost:7473",
-      // "http://localhost:7474",
-      // "http://localhost:7475",
-      // "http://localhost:7476",
-      // "http://localhost:7477",
-      // "http://localhost:7478",
-      // "http://localhost:7479",
-      // "https://polygon-mumbai.litgateway.com:7370",
-      // "https://polygon-mumbai.litgateway.com:7371",
-      // "https://polygon-mumbai.litgateway.com:7372",
-      // `https://158.69.34.226`,
-      // `https://173.231.56.243`,
-      // `https://23.82.129.77`,
-    ],
-    debug: true,
-    minNodeCount: 2,
+    litNetwork: "serrano",
   });
   await litNodeClient.connect();
   const results = await litNodeClient.executeJs({
@@ -55,9 +37,9 @@ const runLitAction = async () => {
     // all jsParams can be used anywhere in your litActionCode
     jsParams: {
       // this is the string "Hello World" for testing
-      toSign: [72, 101, 108, 108, 111, 32, 87, 111, 114, 108, 100],
+      message: "hello",
       publicKey:
-        "0478ff7dd45b318956eb366e29024582b3465f65b052abcab65c1ad18e1da8a25ee711bd5613ea448d9281efa83ef0a152c83ebb7c286991525296f5e4f15bdbe7",
+        "0498e4db753aa871f70fa8c29429a4ece3f8f48c3df320bf26bfa3fa135c7f13ecb9036ad1bb873cea0d0cdd082935feb1e547f46323debb1371833bf270f33f28",
       sigName: "sig1",
     },
   });

@@ -62,7 +62,8 @@
     "test": "node ./automated/index.js",
     "getLatestNonce": "node js-sdkTests/getLatestNonce.js",
     "helloDevnet": "node js-sdkTests/helloDevnet.js",
-    "cosmosDerive": "node js-sdkTests/cosmosDerive.js"
+    "cosmosDerive": "node js-sdkTests/cosmosDerive.js",
+    "personalSign": "node js-sdkTests/personalSign.js"
   },
   "devDependencies": {
     "esbuild": "^0.14.39"

@@ -10936,17 +10936,17 @@ var require_lib10 = __commonJS({
         }
         raw.push((0, bytes_1.hexlify)(value));
       });
-      var chainId = 0;
+      var chainId2 = 0;
       if (transaction.chainId != null) {
-        chainId = transaction.chainId;
-        if (typeof chainId !== "number") {
+        chainId2 = transaction.chainId;
+        if (typeof chainId2 !== "number") {
           logger.throwArgumentError("invalid transaction.chainId", "transaction", transaction);
         }
       } else if (signature && !(0, bytes_1.isBytesLike)(signature) && signature.v > 28) {
-        chainId = Math.floor((signature.v - 35) / 2);
+        chainId2 = Math.floor((signature.v - 35) / 2);
       }
-      if (chainId !== 0) {
-        raw.push((0, bytes_1.hexlify)(chainId));
+      if (chainId2 !== 0) {
+        raw.push((0, bytes_1.hexlify)(chainId2));
         raw.push("0x");
         raw.push("0x");
       }
@@ -10955,11 +10955,11 @@ var require_lib10 = __commonJS({
       }
       var sig = (0, bytes_1.splitSignature)(signature);
       var v = 27 + sig.recoveryParam;
-      if (chainId !== 0) {
+      if (chainId2 !== 0) {
         raw.pop();
         raw.pop();
         raw.pop();
-        v += chainId * 2 + 8;
+        v += chainId2 * 2 + 8;
         if (sig.v > 28 && sig.v !== v) {
           logger.throwArgumentError("transaction.chainId/signature.v mismatch", "signature", signature);
         }
@@ -11140,20 +11140,27 @@ var import_transactions = __toESM(require_lib10(), 1);
 var import_bytes = __toESM(require_lib2(), 1);
 var import_js_sha3 = __toESM(require_sha3(), 1);
 console.log("running!");
-var publicKey = "0x0404e12210c57f81617918a5b783e51b6133790eb28a79f141df22519fb97977d2a681cc047f9f1a9b533df480eb2d816fb36606bd7c716e71a179efd53d2a55d1";
+var pkp = {
+  "status": "Succeeded",
+  "pkpEthAddress": "0x2a5A2A9558118388e8f4bd1e1c32ac520CA7D0F4",
+  "pkpPublicKey": "0x04437f854b66f369fd70b5ec50fed7e1cf03d7d393c5f491b18dc74996ea646931b9d581c8dba213cfc28e806d83eedad313e364e2c9c760ee1eb9263b00e7b36a"
+};
+var toAddress = "0x535b0dABaF59c90EeeBEf272b5F778C5369a1445";
+var chainId = 80001;
+var publicKey = pkp.pkpPublicKey;
 var go = async () => {
   const fromAddress = (0, import_transactions.computeAddress)(publicKey);
   const latestNonce = await Lit.Actions.getLatestNonce({
     address: fromAddress,
-    chain: "polygon"
+    chain: "mumbai"
   });
   const txParams = {
     nonce: latestNonce,
     gasPrice: "0x2e90edd000",
     gasLimit: "0x" + 3e4 .toString(16),
-    to: "0x50e2dac5e78B5905CB09495547452cEE64426db2",
-    value: "0x" + 1e4 .toString(16),
-    chainId: 137
+    to: toAddress,
+    value: "0x" + 1e7 .toString(16),
+    chainId
   };
   Lit.Actions.setResponse({ response: JSON.stringify({ txParams }) });
   const serializedTx = (0, import_transactions.serialize)(txParams);

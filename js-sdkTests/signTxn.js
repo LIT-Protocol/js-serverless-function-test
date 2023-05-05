@@ -8,18 +8,19 @@ import {
   joinSignature,
 } from "@ethersproject/bytes";
 import { recoverPublicKey, computePublicKey } from "@ethersproject/signing-key";
+import { ethers } from "ethers";
 
 // this code will be run on the node
 const litActionCode = fs.readFileSync("./build/signTxnTest.js");
 
 // you need an AuthSig to auth with the nodes
 // normally you would obtain an AuthSig by calling LitJsSdk.checkAndSignAuthMessage({chain})
+// NOTE: to replace with a new one that you get from oauth-pkp-signup-example
 const authSig = {
-  sig: "0x2bdede6164f56a601fc17a8a78327d28b54e87cf3fa20373fca1d73b804566736d76efe2dd79a4627870a50e66e1a9050ca333b6f98d9415d8bca424980611ca1c",
-  derivedVia: "web3.eth.personal.sign",
-  signedMessage:
-    "localhost wants you to sign in with your Ethereum account:\n0x9D1a5EC58232A894eBFcB5e466E3075b23101B89\n\nThis is a key for Partiful\n\nURI: https://localhost/login\nVersion: 1\nChain ID: 1\nNonce: 1LF00rraLO4f7ZSIt\nIssued At: 2022-06-03T05:59:09.959Z",
-  address: "0x9D1a5EC58232A894eBFcB5e466E3075b23101B89",
+  "sig": "0xe5e1d290ed645fd45d558dc8de176fc808dffb4bdc1c1c24e1cdc15f38f30a72251ef9c1e48bfd95568818d97894aff5ae1e2cc9da30c317e54262074f21823b1b",
+  "derivedVia": "web3.eth.personal.sign via Lit PKP",
+  "signedMessage": "localhost:3000 wants you to sign in with your Ethereum account:\n0x2a5A2A9558118388e8f4bd1e1c32ac520CA7D0F4\n\nLit Protocol PKP session signature\n\nURI: lit:session:9e0525c8caa0e70f85b829677f5abab27ae70344679ab67d9eda90c10b3160e2\nVersion: 1\nChain ID: 1\nNonce: 9OtojzBuln2qoTiH2\nIssued At: 2022-12-26T00:46:24.514Z\nExpiration Time: 2024-12-25T00:46:23.433Z\nResources:\n- urn:recap:lit:session:eyJkZWYiOlsibGl0RW5jcnlwdGlvbkNvbmRpdGlvbiJdfQ==",
+  "address": "0x2a5A2A9558118388e8f4bd1e1c32ac520CA7D0F4"
 };
 
 const go = async () => {
@@ -61,18 +62,17 @@ const go = async () => {
   const recoveredAddress = recoverAddress(dataSigned, encodedSig);
   console.log("recoveredAddress", recoveredAddress);
 
-  // const txParams = {
-  //   nonce: "0x0",
-  //   gasPrice: "0x2e90edd000", // 200 gwei
-  //   gasLimit: "0x" + (30000).toString(16), // 30k gas limit should be enough.  only need 21k to send.
-  //   to: "0x50e2dac5e78B5905CB09495547452cEE64426db2",
-  //   value: "0x" + (10000).toString(16),
-  //   chainId,
-  // };
-
   const txn = serialize(txParams, encodedSig);
 
   console.log("txn", txn);
+
+  // broadcast txn
+  const provider = new ethers.providers.JsonRpcProvider(
+    // process.env.LIT_MUMBAI_RPC_URL
+    "https://rpc.ankr.com/polygon_mumbai"
+  );
+  const result = await provider.sendTransaction(txn);
+  console.log("broadcast txn result:", JSON.stringify(result, null, 4));
 };
 
 go();

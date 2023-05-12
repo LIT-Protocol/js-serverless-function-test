@@ -53,11 +53,11 @@ function createSiweMessage(address, statement) {
 
 const go = async () => {
   const publicKey =
-    "0x04478d4d175f0f3e310f431224e169329be740db68f8bc224d2b57c3c6fc0e69671b233f570cd452b03431e40e5deac2780b7b68c00536bd7948c2c5de982542a3";
+    "0x046b843beba8b6b6b2f9e3673d33e1b1dbd6f9a846e0b4e3c9f0a3f9e315c34b6f6f23650755227bb99aca0468e6bbd1d2e5cd3921f15690f96f5580a38b0847ff";
   const ethAddress = computeAddress(publicKey);
   const message = createSiweMessage(ethAddress, "Sign in with a PKP");
   const litNodeClient = new LitJsSdk.LitNodeClient({
-    litNetwork: "localhost",
+    litNetwork: "serrano",
   });
   await litNodeClient.connect();
   const result = await litNodeClient.executeJs({
@@ -104,6 +104,15 @@ const go = async () => {
     "recoverAddressViaMessage == ethAddress",
     recoveredAddressViaMessage === ethAddress
   );
+
+  const finalAuthSig = {
+    sig: sig.signature,
+    derivedVia: "web3.eth.personal.sign",
+    signedMessage: message,
+    address: ethAddress,
+  };
+
+  console.log("Final Auth Sig signed by PKP: ", finalAuthSig);
 };
 
 go();

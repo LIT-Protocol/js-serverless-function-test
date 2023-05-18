@@ -12,10 +12,7 @@ const go = async () => {
     return;
   }
   
-  // this requests a signature share from the Lit Node
-  // the signature share will be automatically returned in the HTTP response from the node
-  // all the params (toSign, publicKey, sigName) are passed in from the LitJsSdk.executeJs() function
-  const sigShare = await LitActions.signEcdsa({ toSign, publicKey , sigName });
+  console.log("temp: ", temp);
 };
 
 go();
@@ -34,23 +31,23 @@ const authSig = {
 const runLitAction = async () => {
   const litNodeClient = new LitJsSdk.LitNodeClient({
     alertWhenUnauthorized: false,
-    litNetwork: "serrano",
     debug: true,
+    litNetwork: "custom",
+    bootstrapUrls: [
+      "http://localhost:7470",
+      "http://localhost:7471",
+      "http://localhost:7472",
+    ],
+    minNodeCount: 2,
   });
   await litNodeClient.connect();
-  const signatures = await litNodeClient.executeJs({
+  const results = await litNodeClient.executeJs({
     code: litActionCode,
     authSig,
     // all jsParams can be used anywhere in your litActionCode
-    jsParams: {
-      // this is the string "Hello World" for testing
-      toSign: [72, 101, 108, 108, 111, 32, 87, 111, 114, 108, 100],
-      publicKey:
-        "0478ff7dd45b318956eb366e29024582b3465f65b052abcab65c1ad18e1da8a25ee711bd5613ea448d9281efa83ef0a152c83ebb7c286991525296f5e4f15bdbe7",
-      sigName: "sig1",
-    },
+    jsParams: {},
   });
-  console.log("signatures: ", signatures);
+  console.log("results: ", results);
 };
 
 runLitAction();

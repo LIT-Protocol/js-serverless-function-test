@@ -1,4 +1,4 @@
-import LitJsSdk from "lit-js-sdk/build/index.node.js";
+import * as LitJsSdk from "@lit-protocol/lit-node-client";
 import fs from "fs";
 import { serialize, recoverAddress } from "@ethersproject/transactions";
 import {
@@ -17,10 +17,10 @@ const litActionCode = fs.readFileSync("./build/signTxnTest.js");
 // normally you would obtain an AuthSig by calling LitJsSdk.checkAndSignAuthMessage({chain})
 // NOTE: to replace with a new one that you get from oauth-pkp-signup-example
 const authSig = {
-  "sig": "0xe5e1d290ed645fd45d558dc8de176fc808dffb4bdc1c1c24e1cdc15f38f30a72251ef9c1e48bfd95568818d97894aff5ae1e2cc9da30c317e54262074f21823b1b",
+  "sig": "0xaa22e352e4f8e8b6b22aff48c64a10c7fc45d523c09407a32fe80009fc7b365d3a1f3c61a80530e244dd08f1566297d6573d1f114e0ec89da3bcecbc519c53c31c",
   "derivedVia": "web3.eth.personal.sign via Lit PKP",
-  "signedMessage": "localhost:3000 wants you to sign in with your Ethereum account:\n0x2a5A2A9558118388e8f4bd1e1c32ac520CA7D0F4\n\nLit Protocol PKP session signature\n\nURI: lit:session:9e0525c8caa0e70f85b829677f5abab27ae70344679ab67d9eda90c10b3160e2\nVersion: 1\nChain ID: 1\nNonce: 9OtojzBuln2qoTiH2\nIssued At: 2022-12-26T00:46:24.514Z\nExpiration Time: 2024-12-25T00:46:23.433Z\nResources:\n- urn:recap:lit:session:eyJkZWYiOlsibGl0RW5jcnlwdGlvbkNvbmRpdGlvbiJdfQ==",
-  "address": "0x2a5A2A9558118388e8f4bd1e1c32ac520CA7D0F4"
+  "signedMessage": "localhost:3000 wants you to sign in with your Ethereum account:\n0x239e847590EB7F553487F2bC45160a73F3532d30\n\nLit Protocol PKP session signature I further authorize the stated URI to perform the following actions on my behalf: (1) '*': '*' for 'lit-accesscontrolcondition://3e40cf872fbf8486085d979ef5cf5021ffa6afa1b380cab32f2050c16fa4cf9a'.\n\nURI: lit:session:c121360f27436ac0b62a51ebb63339b9bd222a5d2a23dc72a0cde5683eb8ad8f\nVersion: 1\nChain ID: 1\nNonce: qlEHZMqnfbFfwoDdt\nIssued At: 2023-05-26T03:38:56.386Z\nExpiration Time: 2023-05-27T03:38:56.233Z\nResources:\n- urn:recap:eyJhdHQiOnsibGl0LWFjY2Vzc2NvbnRyb2xjb25kaXRpb246Ly8zZTQwY2Y4NzJmYmY4NDg2MDg1ZDk3OWVmNWNmNTAyMWZmYTZhZmExYjM4MGNhYjMyZjIwNTBjMTZmYTRjZjlhIjp7IiovKiI6W3t9XX19LCJwcmYiOltdfQ",
+  "address": "0x239e847590EB7F553487F2bC45160a73F3532d30"
 };
 
 const go = async () => {

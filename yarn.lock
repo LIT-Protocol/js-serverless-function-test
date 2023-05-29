@@ -934,7 +934,7 @@
   resolved "https://registry.yarnpkg.com/@lit-labs/ssr-dom-shim/-/ssr-dom-shim-1.1.1.tgz#64df34e2f12e68e78ac57e571d25ec07fa460ca9"
   integrity sha512-kXOeFbfCm4fFf2A3WwVEeQj55tMZa8c8/f9AKHMobQMkzNUfUj+antR3fRPaZJawsa1aZiP/Da3ndpZrwEe4rQ==
 
-"@lit-protocol/access-control-conditions@2.2.11", "@lit-protocol/access-control-conditions@^2.2.11":
+"@lit-protocol/access-control-conditions@2.2.11":
   version "2.2.11"
   resolved "https://registry.yarnpkg.com/@lit-protocol/access-control-conditions/-/access-control-conditions-2.2.11.tgz#9dd92ee26dce3794a27fc41a181e3d42e7082a89"
   integrity sha512-SjufxPI8GxMLdcoIK56VWFTcwRm4vaphZsl9XLVtENXTebIzc8ni5U534+f6V9y6PlWA26A0H9VI4FgPnZWwbg==
@@ -973,7 +973,7 @@
     util "^0.12.4"
     web-vitals "^3.0.4"
 
-"@lit-protocol/auth-helpers@2.2.11", "@lit-protocol/auth-helpers@^2.2.11":
+"@lit-protocol/auth-helpers@2.2.11":
   version "2.2.11"
   resolved "https://registry.yarnpkg.com/@lit-protocol/auth-helpers/-/auth-helpers-2.2.11.tgz#b07d7c22053a72a4173bd834c3e49902f0eebd02"
   integrity sha512-5MosdZfGlZwLgeWaD7EJhFRX7+hcXtONn0eca8DogV54m1Nc2XBlUyAXJLC3paEqX5GfT33IJqftBjpK55BPxA==
@@ -982,7 +982,7 @@
     siwe-recap "0.0.2-alpha.0"
     tslib "^2.3.0"
 
-"@lit-protocol/bls-sdk@2.2.11", "@lit-protocol/bls-sdk@^2.2.11":
+"@lit-protocol/bls-sdk@2.2.11":
   version "2.2.11"
   resolved "https://registry.yarnpkg.com/@lit-protocol/bls-sdk/-/bls-sdk-2.2.11.tgz#ada7df9aadc7e3d0d15c9949c71d084908f69c91"
   integrity sha512-XLZCtGIvhjHPl4CQClu/92vPmWV7n2QN7hGRjgCiOMnhpSFQdrSVn+9al4jI81TdoZCc8hYYm7IyngN+q1I4jA==
@@ -990,7 +990,7 @@
     pako "^2.1.0"
     tslib "^2.3.0"
 
-"@lit-protocol/constants@2.2.11", "@lit-protocol/constants@^2.2.11":
+"@lit-protocol/constants@2.2.11":
   version "2.2.11"
   resolved "https://registry.yarnpkg.com/@lit-protocol/constants/-/constants-2.2.11.tgz#1421a0130fb7f553be68a1109180349cd906837c"
   integrity sha512-hgW9ouxl0pKFMpXHe8hA3NzUaOwQnFMhn0WyjM9r4+mqTzlBEut9sVqRFvJugBFAlLkLoyaNRSdTHpOIfOfuyw==
@@ -1001,7 +1001,7 @@
     siwe-recap "0.0.2-alpha.0"
     tslib "^2.3.0"
 
-"@lit-protocol/crypto@2.2.11", "@lit-protocol/crypto@^2.2.11":
+"@lit-protocol/crypto@2.2.11":
   version "2.2.11"
   resolved "https://registry.yarnpkg.com/@lit-protocol/crypto/-/crypto-2.2.11.tgz#a9b033b9431ebc60ee84e34394665b88866b8798"
   integrity sha512-ealo/kGNUcWKlEbmPMYV2M5tiyqRx2ae35FVBsOCGIUSRBgzbvfLNlRNOZBJ9U2OxlBBqshIt5xSfyVbboVdjA==
@@ -1047,7 +1047,7 @@
     siwe-recap "0.0.2-alpha.0"
     tslib "^2.3.0"
 
-"@lit-protocol/lit-node-client-nodejs@2.2.11", "@lit-protocol/lit-node-client-nodejs@^2.2.11":
+"@lit-protocol/lit-node-client-nodejs@2.2.11":
   version "2.2.11"
   resolved "https://registry.yarnpkg.com/@lit-protocol/lit-node-client-nodejs/-/lit-node-client-nodejs-2.2.11.tgz#c83414bc1dc404b36b60cc850f993a113478c4a5"
   integrity sha512-iplSUng+ZLvdMdfwYXy2w0kb4oUYOjIvlss5o/UHGl0ENVsZR96hZFge5q/hBrlVGdDgKmNBJrA8iC7AhuSdeA==
@@ -1162,7 +1162,7 @@
   dependencies:
     tslib "^2.3.0"
 
-"@lit-protocol/types@2.2.11", "@lit-protocol/types@^2.2.11":
+"@lit-protocol/types@2.2.11":
   version "2.2.11"
   resolved "https://registry.yarnpkg.com/@lit-protocol/types/-/types-2.2.11.tgz#9c0229b7d8a4ec7e1a9ec3b56d939a7cf3a8b572"
   integrity sha512-3qPBU7OZ/WSjIdWlJumLwQiHRYfGyc2ZvdceOppVPJ4ipAPsUF1DSosVyXO/BTi3vd9AGWPwu7r9yTvN9haMVQ==
@@ -1172,7 +1172,7 @@
     siwe-recap "0.0.2-alpha.0"
     tslib "^2.3.0"
 
-"@lit-protocol/uint8arrays@2.2.11", "@lit-protocol/uint8arrays@^2.2.11":
+"@lit-protocol/uint8arrays@2.2.11":
   version "2.2.11"
   resolved "https://registry.yarnpkg.com/@lit-protocol/uint8arrays/-/uint8arrays-2.2.11.tgz#68b99be67d14659e46fd12c7dc81176a39399a83"
   integrity sha512-49IP/ho3/YZOSHuQpKrWwmFjDXLfU/QILHKjGuA/IDvEtV16j3X6iFYS3S65srcJ140AUG+VSkY5so+TKG52zQ==

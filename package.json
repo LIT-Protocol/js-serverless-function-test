@@ -25,7 +25,7 @@
   "type": "module",
   "scripts": {
     "go": "node executeOnNode.js",
-    "sign": "yarn build; node js-sdkTests/signTxn.js",
+    "sign": "node js-sdkTests/signTxn.js",
     "signIpfs": "node js-sdkTests/signTxnFromIPFS.js",
     "build": "node esbuild.js",
     "hello": "node js-sdkTests/helloworld.js",

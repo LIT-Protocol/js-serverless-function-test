@@ -9,6 +9,8 @@ import { recoverPublicKey, computePublicKey } from "@ethersproject/signing-key";
 import { ethers } from "ethers";
 
 // this code will be run on the node
+// cid for the bundled `build/singTxnTest.js`
+// to update run `yarn build`, upload to ipfs, and replace this cid.
 let ipfsCID = "Qmf9kGzSrNSki5DvgWs4G8FFyHMKhK7jJqHRptGosQo9NJ";
 
 const go = async () => {

@@ -7,16 +7,16 @@ console.log("running!");
 // NOTE: to replace with a new one that you get from oauth-pkp-signup-example
 const pkp = {
   "status": "Succeeded",
-  "pkpEthAddress": "0xfD3ed51076CF91570cC345d48FA5C411FCE96B72",
-  "pkpPublicKey": "04944c839a484c29573250cc4e1f8f560938b371d0b47ded359683f5fe2c0de9bbc3c9d812d69317928a2fdd4b125d2436a33dddbe5417ec66c29adb60482a570b"
+  "pkpEthAddress": "0xfF8A9000a9866561dad7596f3342Fec18e8130d1",
+  "pkpPublicKey": "0x04cb229885d49c49559c3a45c91adae12ecf5b578412d666991a6f31b647b96327b82f719aa755e08c0432d25a234774908bb795c06778aa4b5900d21a7f4a7495"
 };
 
 const toAddress = "0x535b0dABaF59c90EeeBEf272b5F778C5369a1445"; // J Labs test account
 const chainId = 80001; // Polygon Mumbai Testnet
-const publicKey = pkp.pkpPublicKey;
+const publicKey = pkp.pkpEthAddress;
 
 const go = async () => {
-  const fromAddress = computeAddress(publicKey);
+  const fromAddress = publicKey;
   // get latest nonce
   const latestNonce = await Lit.Actions.getLatestNonce({
     address: fromAddress,
@@ -31,6 +31,7 @@ const go = async () => {
     value: "0x" + (10000000).toString(16),
     chainId,
   };
+  
   Lit.Actions.setResponse({ response: JSON.stringify({ txParams }) });
 
   const serializedTx = serialize(txParams);
@@ -48,7 +49,7 @@ const go = async () => {
   const toSign = unsignedTxn; //[65, 65, 65]; // this is the string "AAA" for testing
   const sig = await LitActions.signEcdsa({
     toSign,
-    publicKey,
+    publicKey: pkp.pkpPublicKey,
     sigName: "sig1",
   });
   console.log("sig: ", sig);

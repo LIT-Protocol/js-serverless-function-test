@@ -4,7 +4,7 @@ import { keccak256 } from "js-sha3";
 
 console.log("running!");
 
-// NOTE: to replace with a new one that you get from oauth-pkp-signup-example
+// generic auth signature with a permitted address.
 const pkp = {
   "status": "Succeeded",
   "pkpEthAddress": "0xfF8A9000a9866561dad7596f3342Fec18e8130d1",
@@ -13,10 +13,9 @@ const pkp = {
 
 const toAddress = "0x535b0dABaF59c90EeeBEf272b5F778C5369a1445"; // J Labs test account
 const chainId = 80001; // Polygon Mumbai Testnet
-const publicKey = pkp.pkpEthAddress;
 
 const go = async () => {
-  const fromAddress = publicKey;
+  const fromAddress = pkp.pkpEthAddress;
   // get latest nonce
   const latestNonce = await Lit.Actions.getLatestNonce({
     address: fromAddress,

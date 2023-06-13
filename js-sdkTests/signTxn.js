@@ -9,7 +9,7 @@ import * as siwe from "siwe";
 // this code will be run on the node
 // cid for the bundled `build/signTxnTest.js`
 // to update run `yarn build`, upload to ipfs, and replace this cid.
-let ipfsCID = "Qmf9kGzSrNSki5DvgWs4G8FFyHMKhK7jJqHRptGosQo9NJ";
+let ipfsCID = "QmUqvs9fJxAWeH52838bwZe8dWE2J9bsJ3eZFzwy97JsVL";
 
 // this code will be run on the node
 const go = async () => {

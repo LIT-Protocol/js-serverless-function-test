@@ -5,11 +5,11 @@ import { Wallet, verifyMessage } from "@ethersproject/wallet";
 import { recoverPublicKey, computePublicKey } from "@ethersproject/signing-key";
 import { ethers } from "ethers";
 import * as siwe from "siwe";
+import * as fs from 'fs';
 
 // this code will be run on the node
-// cid for the bundled `build/signTxnTest.js`
-// to update run `yarn build`, upload to ipfs, and replace this cid.
-let ipfsCID = "QmUqvs9fJxAWeH52838bwZe8dWE2J9bsJ3eZFzwy97JsVL";
+let litActionCode = fs.readFileSync("./build/signTxnTest.js");
+litActionCode = litActionCode.toString("ascii");
 
 // this code will be run on the node
 const go = async () => {
@@ -31,7 +31,7 @@ const go = async () => {
   );
 
   const results = await litNodeClient.executeJs({
-    ipfsId: ipfsCID,
+    code: litActionCode,
     authSig,
     jsParams: {},
   });

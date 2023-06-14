@@ -20,12 +20,12 @@
     "secp256k1": "^5.0.0",
     "serve-handler": "^6.1.3",
     "siwe": "^1.1.6",
-    "@lit-protocol/lit-node-client": "^2.2.11"
+    "@lit-protocol/lit-node-client": "^2.2.24"
   },
   "type": "module",
   "scripts": {
     "go": "node executeOnNode.js",
-    "sign": "node js-sdkTests/signTxn.js",
+    "sign": "yarn build && node js-sdkTests/signTxn.js",
     "signIpfs": "node js-sdkTests/signTxnFromIPFS.js",
     "build": "node esbuild.js",
     "hello": "node js-sdkTests/helloworld.js",

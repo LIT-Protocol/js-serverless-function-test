@@ -5,7 +5,7 @@ import { mintPKP } from "./utils.js";
 import basicSign from "./tests/basicSign.js";
 import denoPermissions from "./tests/denoPermissions.js";
 
-import LitJsSdk from "lit-js-sdk/build/index.node.js";
+import * as LitJsSdk from "@lit-protocol/lit-node-client";
 
 (async function () {
   const tests = [{ basicSign }, { denoPermissions }];

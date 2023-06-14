@@ -1,5 +1,5 @@
 // this example will generate and sign a session key and use it for a request
-import LitJsSdk from "lit-js-sdk/build/index.node.js";
+import * as LitJsSdk from "@lit-protocol/lit-node-client";
 import { Wallet } from "@ethersproject/wallet";
 import { computeAddress } from "@ethersproject/transactions";
 import { SiweMessage } from "siwe";

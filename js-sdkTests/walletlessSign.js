@@ -1,7 +1,7 @@
 // NOTE: this doesn't work yet.  i only have it working on a private branch of the node.
 // we are working on a better strategy for this and will release it soon.
 
-import LitJsSdk from "lit-js-sdk/build/index.node.js";
+import * as LitJsSdk from "@lit-protocol/lit-node-client";
 
 // this code will be run on the node
 const litActionCode = `

@@ -1,4 +1,4 @@
-import LitJsSdk from "lit-js-sdk/build/index.node.js";
+import * as LitJsSdk from "@lit-protocol/lit-node-client";
 import { pubkeyToAddress } from "@cosmjs/amino";
 import secp256k1 from "secp256k1";
 

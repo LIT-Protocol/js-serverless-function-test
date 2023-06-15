@@ -1,5 +1,4 @@
-import LitJsSdk from "lit-js-sdk/build/index.node.js";
-
+import * as LitJsSdk from "@lit-protocol/lit-node-client";
 // this code will be run on the node
 // The Lit Action Code lives at /ipfsCode/checkWeather.js
 

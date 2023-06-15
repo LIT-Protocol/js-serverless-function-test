@@ -4,19 +4,18 @@ import { keccak256 } from "js-sha3";
 
 console.log("running!");
 
-// NOTE: to replace with a new one that you get from oauth-pkp-signup-example
+// generic auth signature with a permitted address.
 const pkp = {
   "status": "Succeeded",
-  "pkpEthAddress": "0x2a5A2A9558118388e8f4bd1e1c32ac520CA7D0F4",
-  "pkpPublicKey": "0x04437f854b66f369fd70b5ec50fed7e1cf03d7d393c5f491b18dc74996ea646931b9d581c8dba213cfc28e806d83eedad313e364e2c9c760ee1eb9263b00e7b36a"
+  "pkpEthAddress": "0xfF8A9000a9866561dad7596f3342Fec18e8130d1",
+  "pkpPublicKey": "0x04cb229885d49c49559c3a45c91adae12ecf5b578412d666991a6f31b647b96327b82f719aa755e08c0432d25a234774908bb795c06778aa4b5900d21a7f4a7495"
 };
 
 const toAddress = "0x535b0dABaF59c90EeeBEf272b5F778C5369a1445"; // J Labs test account
 const chainId = 80001; // Polygon Mumbai Testnet
-const publicKey = pkp.pkpPublicKey;
 
 const go = async () => {
-  const fromAddress = computeAddress(publicKey);
+  const fromAddress = pkp.pkpEthAddress;
   // get latest nonce
   const latestNonce = await Lit.Actions.getLatestNonce({
     address: fromAddress,
@@ -31,6 +30,7 @@ const go = async () => {
     value: "0x" + (10000000).toString(16),
     chainId,
   };
+  
   Lit.Actions.setResponse({ response: JSON.stringify({ txParams }) });
 
   const serializedTx = serialize(txParams);
@@ -48,7 +48,7 @@ const go = async () => {
   const toSign = unsignedTxn; //[65, 65, 65]; // this is the string "AAA" for testing
   const sig = await LitActions.signEcdsa({
     toSign,
-    publicKey,
+    publicKey: pkp.pkpPublicKey,
     sigName: "sig1",
   });
   console.log("sig: ", sig);

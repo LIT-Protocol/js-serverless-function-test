@@ -1,4 +1,4 @@
-import LitJsSdk from "lit-js-sdk/build/index.node.js";
+import * as LitJsSdk from "@lit-protocol/lit-node-client";
 import fs from "fs";
 import { serialize, recoverAddress } from "@ethersproject/transactions";
 import {
@@ -54,7 +54,7 @@ const go = async () => {
       // this is the string "Hello World" for testing
       toSign: [72, 101, 108, 108, 111, 32, 87, 111, 114, 108, 100],
       publicKey:
-        "0215fac2ee502b4b9354c83f4e57dca7d58acf52dbd1201adb00f464fe613963a2",
+        "0x04833e5256f56291b41a0f51328f6bb3df254103644a8f0264e38d1b40e105b694c597e5f0a215d604cc6f91896c313aca1cea552a1928bfbe79f6ac1e26ab8911",
       sigName: "sig1",
     },
     authSig,

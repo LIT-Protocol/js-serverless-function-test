@@ -1,28 +1,17 @@
-import LitJsSdk from "lit-js-sdk/build/index.node.js";
-import fs from "fs";
+import * as LitJsSdk from "@lit-protocol/lit-node-client";
 import { serialize, recoverAddress } from "@ethersproject/transactions";
-import {
-  hexlify,
-  splitSignature,
-  hexZeroPad,
-  joinSignature,
-} from "@ethersproject/bytes";
+import { splitSignature, joinSignature, arrayify } from "@ethersproject/bytes";
+import { Wallet, verifyMessage } from "@ethersproject/wallet";
 import { recoverPublicKey, computePublicKey } from "@ethersproject/signing-key";
 import { ethers } from "ethers";
+import * as siwe from "siwe";
+import * as fs from 'fs';
 
 // this code will be run on the node
-const litActionCode = fs.readFileSync("./build/signTxnTest.js");
+let litActionCode = fs.readFileSync("./build/signTxnTest.js");
+litActionCode = litActionCode.toString("ascii");
 
-// you need an AuthSig to auth with the nodes
-// normally you would obtain an AuthSig by calling LitJsSdk.checkAndSignAuthMessage({chain})
-// NOTE: to replace with a new one that you get from oauth-pkp-signup-example
-const authSig = {
-  "sig": "0xe5e1d290ed645fd45d558dc8de176fc808dffb4bdc1c1c24e1cdc15f38f30a72251ef9c1e48bfd95568818d97894aff5ae1e2cc9da30c317e54262074f21823b1b",
-  "derivedVia": "web3.eth.personal.sign via Lit PKP",
-  "signedMessage": "localhost:3000 wants you to sign in with your Ethereum account:\n0x2a5A2A9558118388e8f4bd1e1c32ac520CA7D0F4\n\nLit Protocol PKP session signature\n\nURI: lit:session:9e0525c8caa0e70f85b829677f5abab27ae70344679ab67d9eda90c10b3160e2\nVersion: 1\nChain ID: 1\nNonce: 9OtojzBuln2qoTiH2\nIssued At: 2022-12-26T00:46:24.514Z\nExpiration Time: 2024-12-25T00:46:23.433Z\nResources:\n- urn:recap:lit:session:eyJkZWYiOlsibGl0RW5jcnlwdGlvbkNvbmRpdGlvbiJdfQ==",
-  "address": "0x2a5A2A9558118388e8f4bd1e1c32ac520CA7D0F4"
-};
-
+// this code will be run on the node
 const go = async () => {
   const litNodeClient = new LitJsSdk.LitNodeClient({
     alertWhenUnauthorized: false,
@@ -31,11 +20,22 @@ const go = async () => {
     litNetwork: "serrano",
   });
   await litNodeClient.connect();
+
+  // you need an AuthSig to auth with the nodes
+  // normally you would obtain an AuthSig by calling LitJsSdk.checkAndSignAuthMessage({chain})
+  // NOTE: to replace with a new one that you get from oauth-pkp-signup-example
+  const authSig = await generateAuthsig(
+    "localhost",
+    "http://localhost:3000",
+    "175177" // chronicle chain id
+  );
+
   const results = await litNodeClient.executeJs({
     code: litActionCode,
     authSig,
     jsParams: {},
   });
+  
   console.log("results", results);
   const { signatures, response } = results;
   console.log("response", response);
@@ -52,14 +52,16 @@ const go = async () => {
   console.log("encodedSig", encodedSig);
   console.log("sig length in bytes: ", encodedSig.substring(2).length / 2);
   console.log("dataSigned", dataSigned);
+  let dataSginedBytes = arrayify("0x" + dataSigned);
   const splitSig = splitSignature(encodedSig);
   console.log("splitSig", splitSig);
 
-  const recoveredPubkey = recoverPublicKey(dataSigned, encodedSig);
+  const recoveredPubkey = recoverPublicKey(dataSginedBytes, encodedSig);
   console.log("uncompressed recoveredPubkey", recoveredPubkey);
+
   const compressedRecoveredPubkey = computePublicKey(recoveredPubkey, true);
   console.log("compressed recoveredPubkey", compressedRecoveredPubkey);
-  const recoveredAddress = recoverAddress(dataSigned, encodedSig);
+  const recoveredAddress = recoverAddress(dataSginedBytes, encodedSig);
   console.log("recoveredAddress", recoveredAddress);
 
   const txn = serialize(txParams, encodedSig);
@@ -74,5 +76,42 @@ const go = async () => {
   const result = await provider.sendTransaction(txn);
   console.log("broadcast txn result:", JSON.stringify(result, null, 4));
 };
+
+export async function generateAuthsig(domain, origin, chainId) {
+  const privKey =
+    "0xac0974bec39a17e36ba4a6b4d238ff944bacb478cbed5efcae784d7bf4f2ff80";
+
+  const wallet = new Wallet(privKey);
+
+  const statement = "";
+
+  const expiration = new Date(
+    Date.now() + 1000 * 60 * 60 * 24 * 7
+  ).toISOString();
+  const siweMessage = new siwe.SiweMessage({
+    domain,
+    address: wallet.address,
+    statement,
+    uri: origin,
+    version: "1",
+    chainId: chainId,
+    expirationTime: expiration,
+  });
+
+  const messageToSign = siweMessage.prepareMessage();
+
+  const signature = await wallet.signMessage(messageToSign);
+
+  const recoveredAddress = verifyMessage(messageToSign, signature);
+
+  const authSig = {
+    sig: signature,
+    derivedVia: "web3.eth.personal.sign",
+    signedMessage: messageToSign,
+    address: recoveredAddress,
+  };
+
+  return authSig;
+}
 
 go();

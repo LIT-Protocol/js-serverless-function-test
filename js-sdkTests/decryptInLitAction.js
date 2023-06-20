@@ -1,3 +1,4 @@
+import * as LitJsSdk from "@lit-protocol/lit-node-client";
 // Hello!  This demo is a PoC that isn't ready for production yet and will not work if you try to use it
 // this feature is something that we intend to build but the naive implementation
 // that we built for this PoC on the node is terrible and it needs to be revised

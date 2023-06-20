@@ -1,4 +1,4 @@
-import LitJsSdk from "lit-js-sdk/build/index.node.js";
+import * as LitJsSdk from "@lit-protocol/lit-node-client";
 import fs from "fs";
 import jwkToPem from "jwk-to-pem";
 

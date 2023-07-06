@@ -44,7 +44,8 @@ const runLitAction = async () => {
     code: litActionCode,
     authSig,
     jsParams: {
-      publicKey,
+      publicKey:
+        "046b843beba8b6b6b2f9e3673d33e1b1dbd6f9a846e0b4e3c9f0a3f9e315c34b6f6f23650755227bb99aca0468e6bbd1d2e5cd3921f15690f96f5580a38b0847ff",
       conditions: [
         {
           conditionType: "evmBasic",

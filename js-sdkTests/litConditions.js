@@ -3,25 +3,87 @@ import * as LitJsSdk from "@lit-protocol/lit-node-client";
 // this code will be run on the node
 const litActionCode = `
 const go = async () => {
-  // test an access control condition
-  const testResult = await LitActions.checkConditions({conditions, authSig, chain})
-
-  console.log('testResult', testResult)
-
-  // only sign if the access condition is true
-  if (!testResult){
-    return;
+  const conditions = [
+    {
+      contractAddress: "0x639Fe6ab55C921f74e7fac1ee960C0B6293ba612",
+      functionName: "latestAnswer",
+      functionParams: [],
+      functionAbi: {
+        inputs: [],
+        name: 'latestAnswer',
+        outputs: [{ internalType: 'uint256', name: 'price', type: 'uint256' }],
+        stateMutability: 'view',
+        type: 'function',
+      },
+      chain: "arbitrum",
+      returnValueTest: {
+        key: "price",
+        comparator: ">=",
+        value: "180017000000",
+      },
+    },
+    {
+        contractAddress: "0x50834F3163758fcC1Df9973b6e91f0F0F0434aD3",
+        functionName: "latestAnswer",
+        functionParams: [],
+        functionAbi: {
+          inputs: [],
+          name: 'latestAnswer',
+          outputs: [{ internalType: 'uint256', name: 'price', type: 'uint256' }],
+          stateMutability: 'view',
+          type: 'function',
+        },
+        chain: "arbitrum",
+        returnValueTest: {
+          key: "price",
+          comparator: ">=",
+          value: "99000000",
+        },
+      },
+      {
+        contractAddress: "0x50834F3163758fcC1Df9973b6e91f0F0F0434aD3",
+        functionName: "latestAnswer",
+        functionParams: [],
+        functionAbi: {
+          inputs: [],
+          name: 'latestAnswer',
+          outputs: [{ internalType: 'uint256', name: 'price', type: 'uint256' }],
+          stateMutability: 'view',
+          type: 'function',
+        },
+        chain: "arbitrum",
+        returnValueTest: {
+          key: "price",
+          comparator: "<=",
+          value: "101000000",
+        },
+      },
+  ];
+  const testResult = await Lit.Actions.checkConditions({
+    conditions,
+    authSig,
+    chain: 'arbitrum',
+  });
+  console.log('Price Exceeds 1800 and USDC is Stable: ', testResult);
+  if (testResult) {
+    const sigShare = await LitActions.ethPersonalSignMessageEcdsa({
+      message,
+      publicKey,
+      sigName,
+    });
+    LitActions.setResponse({
+      response: JSON.stringify({
+        success: true,
+      }),
+    });
+  } else {
+    LitActions.setResponse({
+      response: JSON.stringify({
+        success: false,
+      }),
+    });
   }
-
-  // this is the string "Hello World" for testing
-  const toSign = [72, 101, 108, 108, 111, 32, 87, 111, 114, 108, 100];
-  // this requests a signature share from the Lit Node
-  // the signature share will be automatically returned in the HTTP response from the node
-  const sigShare = await LitActions.signEcdsa({ toSign, publicKey, sigName: "sig1" });
 };
-
-
-
 go();
 `;
 
@@ -45,7 +107,7 @@ const runLitAction = async () => {
     authSig,
     jsParams: {
       publicKey:
-        "046b843beba8b6b6b2f9e3673d33e1b1dbd6f9a846e0b4e3c9f0a3f9e315c34b6f6f23650755227bb99aca0468e6bbd1d2e5cd3921f15690f96f5580a38b0847ff",
+        "048444afc2a0f32dfa1b62b46a0e75822e5de9663118d96a02aacd82651b9aed3e33c37ac12ab9c0c80d255b3a37bad26440931f59973d34ce918a213495b6ee99",
       conditions: [
         {
           conditionType: "evmBasic",

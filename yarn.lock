@@ -953,7 +953,7 @@
     util "^0.12.4"
     web-vitals "^3.0.4"
 
-"@lit-protocol/auth-helpers@3.1.2":
+"@lit-protocol/auth-helpers@3.1.2", "@lit-protocol/auth-helpers@^3.1.2":
   version "3.1.2"
   resolved "https://registry.yarnpkg.com/@lit-protocol/auth-helpers/-/auth-helpers-3.1.2.tgz#e8bc262aaeec2ff6c4f5e102308a7e4d0b2c95ea"
   integrity sha512-iGg2lbwpK9+3QLfYt01HWAS/atxn0j/00T13rNtJXNyp2y8/6wxZKUzw/bL3rN6kwjjWe/KvcXj91zySpEhMqA==

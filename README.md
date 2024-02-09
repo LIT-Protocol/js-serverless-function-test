@@ -21,15 +21,23 @@ Examples that are confirmed to be working with V3 are listed below:
 * jsonwebtoken.js - Shows how to use the built in JWT library to decode a JWT in a lit action, and verify it.  Note that this example requires a JWT from Sign in with Google to run properly.  If you run it out of the box, you should see a "TokenExpiredError: jwt expired" error because the included JWT is expired.
 * litConditions.js - Shows how to use Lit Access Control Conditions inside your Lit Action.  This can be used to gate signing based on some access control conditions you define.  The example checks a bunch of contracts on Arbitrum to decide whether or not to sign a message.
 * multipleSigs.js - Shows how to sign more than 1 item in a lit action.  Note: the data you're signing MUST be different.  If you try to sign the same data twice in a lit action, it will fail.
-* personalSign.js - Shows how to use the ethPersonalSignMessageEcdsa() function inside a Lit Action to sign a message
-
+* personalSign.js - Shows how to use the ethPersonalSignMessageEcdsa() function inside a Lit Action to sign a message (not a txn)
+* pkpPermissions.js - Shows how to get and return PKP Permissions from inside a lit action
+* sessionKeys.js - Shows how to use session sigs with lit actions
+* signMsgAndCheckRecovery.js - Shows how to sign a message and then recovery the address from the signature on the client side.
 
 
 
 
 Broken examples:
 * decryptInLitAction.js - This is not working yet, don't use this example.  This is for a future feature
-
+* signRawAndCheckRecovery.js
+* signTxn.js
+* signTxnFromIPFS.js
+* simpleConsole.js
+* simpleResponse.js
+* siwe.js
+* walletlessSign.js
 
 
 More docs and info are here: https://getlit.dev

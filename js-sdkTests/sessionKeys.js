@@ -3,6 +3,8 @@ import * as LitJsSdk from "@lit-protocol/lit-node-client";
 import { Wallet } from "@ethersproject/wallet";
 import { computeAddress } from "@ethersproject/transactions";
 import { SiweMessage } from "siwe";
+import { getAuthSig, getPkp } from "../utils.js";
+import { LitActionResource, LitAbility } from '@lit-protocol/auth-helpers';
 
 // this code will be run on the node
 const litActionCode = `
@@ -17,13 +19,16 @@ const go = async () => {
 go();
 `;
 
+
 const runLitAction = async () => {
   // mock a wallet
-  const wallet = new Wallet(process.env.LIT_MUMBAI_DEPLOYER_PRIVATE_KEY);
+  const wallet = new Wallet(process.env.LIT_ROLLUP_MAINNET_DEPLOYER_PRIVATE_KEY);
 
+  const authSig = await getAuthSig();
+  const publicKey = await getPkp();
   const litNodeClient = new LitJsSdk.LitNodeClient({
     alertWhenUnauthorized: false,
-    litNetwork: "localhost",
+    litNetwork: "cayenne",
     debug: true,
   });
   await litNodeClient.connect();
@@ -55,8 +60,17 @@ const runLitAction = async () => {
     return authSig;
   };
 
+  const litResource = new LitActionResource(
+    "*"
+  );
+
   let sessionSigs = await litNodeClient.getSessionSigs({
-    resources: ["litAction://*"],
+    resourceAbilityRequests: [
+      {
+        resource: litResource,
+        ability: LitAbility.LitActionExecution
+      }
+    ],
     chain: "ethereum",
     authNeededCallback,
   });
@@ -68,10 +82,8 @@ const runLitAction = async () => {
     sessionSigs,
     // all jsParams can be used anywhere in your litActionCode
     jsParams: {
-      // this is the string "Hello World" for testing
-      toSign: [72, 101, 108, 108, 111, 32, 87, 111, 114, 108, 100],
-      publicKey:
-        "0x040f6ab2fff4d845e1e4bd4af84cb5fe61266593500058dbd3df3075624e97823ab44e552f82075c583634f1b9d40c91d4eb666cdfca74b1bd7a63b6b26b27be16",
+      toSign: [65, 208, 164, 167, 229, 220, 187, 13, 166, 2, 199, 95, 102, 221, 126, 115, 126, 3, 246, 254, 177, 16, 113, 222, 120, 95, 209, 63, 254, 29, 52, 240],
+      publicKey,
       sigName: "sig1",
     },
   });

@@ -6,6 +6,7 @@ import { recoverPublicKey, computePublicKey } from "@ethersproject/signing-key";
 import { ethers } from "ethers";
 import * as siwe from "siwe";
 import * as fs from 'fs';
+import { getAuthSig, getPkp } from "../utils.js";
 
 // this code will be run on the node
 let litActionCode = fs.readFileSync("./build/signTxnTest.js");
@@ -15,27 +16,22 @@ litActionCode = litActionCode.toString("ascii");
 const go = async () => {
   const litNodeClient = new LitJsSdk.LitNodeClient({
     alertWhenUnauthorized: false,
-    minNodeCount: 6,
     debug: true,
-    litNetwork: "serrano",
+    litNetwork: "cayenne",
   });
   await litNodeClient.connect();
 
   // you need an AuthSig to auth with the nodes
   // normally you would obtain an AuthSig by calling LitJsSdk.checkAndSignAuthMessage({chain})
   // NOTE: to replace with a new one that you get from oauth-pkp-signup-example
-  const authSig = await generateAuthsig(
-    "localhost",
-    "http://localhost:3000",
-    "175177" // chronicle chain id
-  );
+  const authSig = await getAuthSig();
 
   const results = await litNodeClient.executeJs({
     code: litActionCode,
     authSig,
     jsParams: {},
   });
-  
+
   console.log("results", results);
   const { signatures, response } = results;
   console.log("response", response);
@@ -76,42 +72,5 @@ const go = async () => {
   const result = await provider.sendTransaction(txn);
   console.log("broadcast txn result:", JSON.stringify(result, null, 4));
 };
-
-export async function generateAuthsig(domain, origin, chainId) {
-  const privKey =
-    "0xac0974bec39a17e36ba4a6b4d238ff944bacb478cbed5efcae784d7bf4f2ff80";
-
-  const wallet = new Wallet(privKey);
-
-  const statement = "";
-
-  const expiration = new Date(
-    Date.now() + 1000 * 60 * 60 * 24 * 7
-  ).toISOString();
-  const siweMessage = new siwe.SiweMessage({
-    domain,
-    address: wallet.address,
-    statement,
-    uri: origin,
-    version: "1",
-    chainId: chainId,
-    expirationTime: expiration,
-  });
-
-  const messageToSign = siweMessage.prepareMessage();
-
-  const signature = await wallet.signMessage(messageToSign);
-
-  const recoveredAddress = verifyMessage(messageToSign, signature);
-
-  const authSig = {
-    sig: signature,
-    derivedVia: "web3.eth.personal.sign",
-    signedMessage: messageToSign,
-    address: recoveredAddress,
-  };
-
-  return authSig;
-}
 
 go();

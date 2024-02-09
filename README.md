@@ -24,14 +24,14 @@ Examples that are confirmed to be working with V3 are listed below:
 * personalSign.js - Shows how to use the ethPersonalSignMessageEcdsa() function inside a Lit Action to sign a message (not a txn)
 * pkpPermissions.js - Shows how to get and return PKP Permissions from inside a lit action
 * sessionKeys.js - Shows how to use session sigs with lit actions
-* signMsgAndCheckRecovery.js - Shows how to sign a message and then recovery the address from the signature on the client side.
+* signMsgAndCheckRecovery.js - Shows how to sign a message and then recover the address from the signature on the client side.
+* signRawAndCheckRecovery.js - Shows how to sign raw data and then recover the address from the signature on the client side.
 
 
 
 
 Broken examples:
 * decryptInLitAction.js - This is not working yet, don't use this example.  This is for a future feature
-* signRawAndCheckRecovery.js
 * signTxn.js
 * signTxnFromIPFS.js
 * simpleConsole.js

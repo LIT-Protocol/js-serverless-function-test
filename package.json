@@ -25,15 +25,13 @@
   "type": "module",
   "scripts": {
     "go": "node executeOnNode.js",
-    "sign": "yarn build && node js-sdkTests/signTxn.js",
-    "signIpfs": "node js-sdkTests/signTxnFromIPFS.js",
+    "signTxn": "yarn build && node js-sdkTests/signTxn.js",
+    "signTxnIpfs": "node js-sdkTests/signTxnFromIPFS.js",
     "build": "node esbuild.js",
-    "hello": "node js-sdkTests/helloworld.js",
-    "helloBLS": "node js-sdkTests/helloworldBLS.js",
-    "helloIpfs": "node js-sdkTests/helloworldFromIPFS.js",
-    "helloLocalhost": "node js-sdkTests/hellolocalhost.js",
+    "sign": "node js-sdkTests/sign.js",
+    "signFromIpfs": "node js-sdkTests/signFromIPFS.js",
     "encoding": "node js-sdkTests/encodingTest.js",
-    "conditions": "node js-sdkTests/litConditions.js",
+    "litConditions": "node js-sdkTests/litConditions.js",
     "signRawAndCheck": "node js-sdkTests/signRawAndCheckRecovery.js",
     "signMsgAndCheck": "node js-sdkTests/signMsgAndCheckRecovery.js",
     "fetch": "node js-sdkTests/fetch.js",
@@ -55,7 +53,7 @@
     "walletlessSign": "node js-sdkTests/walletlessSign.js",
     "derivedIpfsId": "node js-sdkTests/derivedIpfsId.js",
     "decryptInLitAction": "node js-sdkTests/decryptInLitAction.js",
-    "jwt": "node js-sdkTests/jsonwebtoken.js",
+    "jsonwebtoken": "node js-sdkTests/jsonwebtoken.js",
     "sessionKeys": "node js-sdkTests/sessionKeys.js",
     "fetchContracts": "node ./tools/getDeployedContracts.mjs",
     "mintPKP": "node ./contracts/mintPKP.js",
@@ -63,8 +61,7 @@
     "getLatestNonce": "node js-sdkTests/getLatestNonce.js",
     "helloDevnet": "node js-sdkTests/helloDevnet.js",
     "cosmosDerive": "node js-sdkTests/cosmosDerive.js",
-    "personalSign": "node js-sdkTests/personalSign.js",
-    "justFetchLocalhost": "node js-sdkTests/justFetch.js"
+    "personalSign": "node js-sdkTests/personalSign.js"
   },
   "devDependencies": {
     "esbuild": "^0.14.39"
